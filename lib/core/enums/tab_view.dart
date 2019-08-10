@@ -1,0 +1,1 @@
+enum TabView { Home, Settings }
