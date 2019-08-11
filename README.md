@@ -32,10 +32,11 @@ Filled Stacks Links:
 - [x] api service
 - [x] dynamic theme switcher
 - [x] platform adaptive widgets
+- [x] life cycle manager
 - [ ] local storage service
-- [ ] life cycle manager
 - [ ] network sensitive ui
 - [ ] graphQL api service
+- [ ] app icons
 
 ### Geolocator branch
 
