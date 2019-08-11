@@ -17,6 +17,8 @@ Filled Stacks Links:
 
 ## Features
 
+### Master branch
+
 - [x] custom routing
 - [x] script for autoformatting on commits
 - [x] localization
@@ -28,8 +30,15 @@ Filled Stacks Links:
 - [x] key storage service
 - [x] dialog service
 - [x] api service
-- [ ] location service
-- [ ] location permission service
+- [ ] local storage service
+- [ ] life cycle manager
+- [ ] network sensitive ui
+- [ ] graphQL api service
+
+### Geolocator branch
+
+- [x] location service
+- [x] location permission service
 
 ## Starting pages included
 
