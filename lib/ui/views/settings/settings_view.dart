@@ -5,6 +5,7 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/user_location.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
+import 'package:provider_start/ui/widgets/platform_adaptive.dart';
 
 part 'settings_view.g.dart';
 
@@ -16,31 +17,19 @@ class SettingsView extends StatelessWidget {
     return BaseView<SettingsModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
+        appBar: PlatformAdaptiveAppBar(
           title: Text(AppLocalizations.of(context).settingsViewTitle),
         ),
         body: ListView(
           children: <Widget>[
-            Permissions(model),
             DeleteSomething(model),
             Location(model),
+            EnableDarkTheme(model),
           ],
         ),
       ),
     );
   }
-}
-
-@widget
-Widget permissions(BuildContext context, SettingsModel model) {
-  return ListTile(
-    title: Text(AppLocalizations.of(context).settingsViewPermissions),
-    subtitle: Text(AppLocalizations.of(context).settingsViewPermissionsDesc),
-    trailing: IconButton(
-      icon: Icon(Icons.launch),
-      onPressed: model.launchAppPermissions,
-    ),
-  );
 }
 
 @widget
@@ -51,6 +40,19 @@ Widget deleteSomething(BuildContext context, SettingsModel model) {
     trailing: IconButton(
       icon: Icon(Icons.delete),
       onPressed: () async => await model.deleteSomething(),
+    ),
+  );
+}
+
+@widget
+Widget enableDarkTheme(BuildContext context, SettingsModel model) {
+  return ListTile(
+    title: Text(AppLocalizations.of(context).settingsViewNightMode),
+    trailing: IconButton(
+      icon: model.isNightMode
+          ? Icon(Icons.check_box)
+          : Icon(Icons.check_box_outline_blank),
+      onPressed: model.toggleNightMode,
     ),
   );
 }

@@ -5,6 +5,7 @@ import 'package:provider_start/core/ui_models/views/tab_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
 import 'package:provider_start/ui/views/home/home_view.dart';
 import 'package:provider_start/ui/views/settings/settings_view.dart';
+import 'package:provider_start/ui/widgets/platform_adaptive.dart';
 
 class TabContainer extends StatelessWidget {
   final TabView view;
@@ -36,7 +37,7 @@ class TabContainer extends StatelessWidget {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: PlatformAdaptiveBottomBar(
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

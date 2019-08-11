@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/core/managers/lifecycle_manager.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/location_permission_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
@@ -23,22 +24,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: Consumer<ThemeData>(
+        builder: (context, theme, child) => LifeCycleManager(
+          child: MaterialApp(
+            theme: theme,
+            localizationsDelegates: [
+              const AppLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('en'),
+            ],
+            onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+            navigatorKey: locator<NavigationService>().navigatorKey,
+            onGenerateRoute: Router.generateRoute,
+            home: _getStartupScreen(),
+          ),
         ),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en'),
-        ],
-        onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        onGenerateRoute: Router.generateRoute,
-        home: _getStartupScreen(),
       ),
     );
   }

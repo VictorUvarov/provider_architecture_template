@@ -18,6 +18,7 @@ class AppLocalizations {
       'settings-view-delete': 'Delete Something',
       'settings-view-delete-desc': 'Delete all the things',
       'settings-view-location': 'Location',
+      'settings-view-night-mode': 'Night Mode',
       'login-view-title': 'Login',
       'login-button-text': 'Login',
     },
@@ -38,6 +39,8 @@ class AppLocalizations {
       _localizedValues[locale.languageCode]['settings-view-delete-desc'];
   String get settingsViewLocation =>
       _localizedValues[locale.languageCode]['settings-view-location'];
+  String get settingsViewNightMode =>
+      _localizedValues[locale.languageCode]['settings-view-night-mode'];
   String get loginViewTitle =>
       _localizedValues[locale.languageCode]['login-view-title'];
   String get loginButtonText =>

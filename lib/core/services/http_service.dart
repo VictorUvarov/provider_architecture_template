@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
+import 'package:mime/mime.dart';
+import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HttpService {
   Dio _dio = Dio();
@@ -49,6 +54,55 @@ class HttpService {
     debugPrint('response ${response.data}');
 
     return response;
+  }
+
+  /// Send POST request with [files] to endpoint/[route] and return the `response`
+  Future<Response> postHttpForm(
+    String route,
+    Map<String, dynamic> body,
+    List<File> files,
+  ) async {
+    Response response;
+    int index = 0;
+
+    files.forEach((file) {
+      String fileBaseName = basename(file.path);
+      String mimeType = lookupMimeType(fileBaseName);
+      ContentType contentType = ContentType.parse(mimeType);
+
+      body.addAll({
+        'file$index': UploadFileInfo(
+          file,
+          fileBaseName,
+          contentType: contentType,
+        ),
+      });
+
+      index++;
+    });
+
+    FormData formData = FormData.from(body);
+
+    response = await postHttp(route, formData);
+
+    return response;
+  }
+
+  /// Download file from [fileUrl] and return the File
+  Future<File> downloadFile(String fileUrl) async {
+    final directory = await getApplicationDocumentsDirectory();
+
+    String dir = directory.path;
+
+    File file = File('$dir/${basename(fileUrl)}');
+
+    await _dio.download(
+      fileUrl,
+      file.path,
+      onReceiveProgress: _progress,
+    );
+
+    return file;
   }
 
   void _progress(received, total) {
