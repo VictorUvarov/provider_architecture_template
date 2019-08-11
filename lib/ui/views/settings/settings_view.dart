@@ -3,6 +3,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
+import 'package:provider_start/ui/widgets/platform_adaptive.dart';
 
 part 'settings_view.g.dart';
 
@@ -14,7 +15,7 @@ class SettingsView extends StatelessWidget {
     return BaseView<SettingsModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
+        appBar: PlatformAdaptiveAppBar(
           title: Text(AppLocalizations.of(context).settingsViewTitle),
         ),
         body: ListView(

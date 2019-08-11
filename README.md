@@ -31,6 +31,7 @@ Filled Stacks Links:
 - [x] dialog service
 - [x] api service
 - [x] dynamic theme switcher
+- [x] platform adaptive widgets
 - [ ] local storage service
 - [ ] life cycle manager
 - [ ] network sensitive ui
