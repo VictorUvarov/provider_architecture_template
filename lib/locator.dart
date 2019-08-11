@@ -36,6 +36,6 @@ Future<void> initializeServices() async {
   if (instance.nightMode) {
     locator.registerLazySingleton(() => ThemeService(theme: ThemeType.dark));
   } else {
-    locator.registerLazySingleton(() => ThemeService());
+    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.primary));
   }
 }
