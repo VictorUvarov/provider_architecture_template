@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider_start/core/models/user_location.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
+import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/locator.dart';
 
-class LocationService {
+class LocationService extends StoppableService {
   var geolocator = Geolocator();
 
   final _locationController = StreamController<UserLocation>();
@@ -16,7 +17,9 @@ class LocationService {
     distanceFilter: 10,
   );
 
-  LocationService() {
+  @override
+  void start() {
+    super.start();
     // Request permission to use location
     if (!locator<KeyStorageService>().locationGranted) return;
 
@@ -29,5 +32,16 @@ class LocationService {
         ));
       }
     });
+
+    // Start listeneing
+    print('Location Service Started ${!serviceStopped}');
+  }
+
+  @override
+  void stop() {
+    super.stop();
+
+    // stop listening
+    print('Location Service  Stopped $serviceStopped');
   }
 }
