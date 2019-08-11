@@ -21,22 +21,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+      child: Consumer<ThemeData>(
+        builder: (context, theme, child) => MaterialApp(
+          theme: theme,
+          localizationsDelegates: [
+            const AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: [
+            const Locale('en'),
+          ],
+          onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+          navigatorKey: locator<NavigationService>().navigatorKey,
+          onGenerateRoute: Router.generateRoute,
+          home: _getStartupScreen(),
         ),
-        localizationsDelegates: [
-          const AppLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en'),
-        ],
-        onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-        navigatorKey: locator<NavigationService>().navigatorKey,
-        onGenerateRoute: Router.generateRoute,
-        home: _getStartupScreen(),
       ),
     );
   }

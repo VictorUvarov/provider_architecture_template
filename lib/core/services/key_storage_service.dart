@@ -2,7 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class KeyStorageService {
   static const LoggedInKey = "hasLoggedIn";
-  static const LocationGrantedKey = "locationGranted";
+  static const NightModeKey = "nightMode";
 
   static KeyStorageService _instance;
   static SharedPreferences _preferences;
@@ -22,8 +22,8 @@ class KeyStorageService {
   bool get hasLoggedIn => _getFromDisk(LoggedInKey) ?? false;
   set hasLoggedIn(bool value) => _saveToDisk(LoggedInKey, value);
 
-  bool get locationGranted => _getFromDisk(LocationGrantedKey) ?? false;
-  set locationGranted(bool value) => _saveToDisk(LocationGrantedKey, value);
+  bool get nightMode => _getFromDisk(NightModeKey) ?? false;
+  set nightMode(bool value) => _saveToDisk(NightModeKey, value);
 
   dynamic _getFromDisk(String key) {
     var value = _preferences.get(key);

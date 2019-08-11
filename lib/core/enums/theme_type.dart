@@ -1,0 +1,1 @@
+enum ThemeType { primary, dark }

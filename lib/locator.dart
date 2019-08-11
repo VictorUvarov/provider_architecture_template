@@ -1,10 +1,12 @@
 import 'package:get_it/get_it.dart';
+import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/services/api_service.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_service.dart';
 import 'package:provider_start/core/services/http_service.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
+import 'package:provider_start/core/services/theme_service.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
@@ -22,7 +24,6 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => TabModel());
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => SettingsModel());
-
   locator.registerFactory(() => LoginModel());
 
   await initializeServices();
@@ -31,4 +32,10 @@ Future<void> setupLocator() async {
 Future<void> initializeServices() async {
   var instance = await KeyStorageService.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
+
+  if (instance.nightMode) {
+    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.dark));
+  } else {
+    locator.registerLazySingleton(() => ThemeService());
+  }
 }

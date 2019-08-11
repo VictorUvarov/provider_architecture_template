@@ -19,25 +19,13 @@ class SettingsView extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            Permissions(model),
             DeleteSomething(model),
+            EnableDarkTheme(model),
           ],
         ),
       ),
     );
   }
-}
-
-@widget
-Widget permissions(BuildContext context, SettingsModel model) {
-  return ListTile(
-    title: Text(AppLocalizations.of(context).settingsViewPermissions),
-    subtitle: Text(AppLocalizations.of(context).settingsViewPermissionsDesc),
-    trailing: IconButton(
-      icon: Icon(Icons.launch),
-      onPressed: model.launchAppPermissions,
-    ),
-  );
 }
 
 @widget
@@ -48,6 +36,19 @@ Widget deleteSomething(BuildContext context, SettingsModel model) {
     trailing: IconButton(
       icon: Icon(Icons.delete),
       onPressed: () async => await model.deleteSomething(),
+    ),
+  );
+}
+
+@widget
+Widget enableDarkTheme(BuildContext context, SettingsModel model) {
+  return ListTile(
+    title: Text(AppLocalizations.of(context).settingsViewNightMode),
+    trailing: IconButton(
+      icon: model.isNightMode
+          ? Icon(Icons.check_box)
+          : Icon(Icons.check_box_outline_blank),
+      onPressed: model.toggleNightMode,
     ),
   );
 }
