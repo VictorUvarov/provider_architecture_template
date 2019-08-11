@@ -23,9 +23,11 @@ dependencies:
     sdk: flutter
 
   # Utilities
+  location_permissions: ^2.0.2
   shared_preferences: ^0.5.3+4
   device_info: ^0.4.0+2
   built_value: ^6.7.0
+  geolocator: ^5.1.2
   provider: ^3.0.0+1
   get_it: ^1.0.3+2
   dio: ^2.1.13

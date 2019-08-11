@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
+import 'package:provider_start/core/services/location_permission_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/provider_setup.dart';
@@ -12,6 +13,7 @@ import 'package:provider_start/ui/views/splash/splash_view.dart';
 
 void main() async {
   await setupLocator();
+  await locator<LocationPermissionService>().requestPermission();
 
   runApp(MyApp());
 }

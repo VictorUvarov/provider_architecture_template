@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/core/models/user_location.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
 
@@ -21,6 +23,7 @@ class SettingsView extends StatelessWidget {
           children: <Widget>[
             Permissions(model),
             DeleteSomething(model),
+            Location(model),
           ],
         ),
       ),
@@ -48,6 +51,18 @@ Widget deleteSomething(BuildContext context, SettingsModel model) {
     trailing: IconButton(
       icon: Icon(Icons.delete),
       onPressed: () async => await model.deleteSomething(),
+    ),
+  );
+}
+
+@widget
+Widget location(BuildContext context, SettingsModel model) {
+  var userLocation = Provider.of<UserLocation>(context);
+
+  return ListTile(
+    title: Text(AppLocalizations.of(context).settingsViewLocation),
+    subtitle: Text(
+      'Lat: ${userLocation?.latitude} Long: ${userLocation?.longitude}',
     ),
   );
 }

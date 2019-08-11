@@ -4,6 +4,8 @@ import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_service.dart';
 import 'package:provider_start/core/services/http_service.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
+import 'package:provider_start/core/services/location_permission_service.dart';
+import 'package:provider_start/core/services/location_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
@@ -18,6 +20,8 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => HttpService());
   locator.registerLazySingleton(() => ApiService());
+  locator.registerLazySingleton(() => LocationService());
+  locator.registerLazySingleton(() => LocationPermissionService());
 
   locator.registerFactory(() => TabModel());
   locator.registerFactory(() => HomeModel());

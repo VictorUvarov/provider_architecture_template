@@ -1,10 +1,12 @@
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
+import 'package:provider_start/core/services/location_permission_service.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 import 'package:provider_start/locator.dart';
 
 class SettingsModel extends BaseModel {
   final _dialogService = locator<DialogService>();
+  final _locationPermissionService = locator<LocationPermissionService>();
 
   Future<void> init() async {
     setState(ViewState.Busy);
@@ -12,7 +14,9 @@ class SettingsModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  void launchAppPermissions() {}
+  void launchAppPermissions() {
+    _locationPermissionService.openAppPermissions();
+  }
 
   Future<bool> deleteSomething() async {
     bool success = false;

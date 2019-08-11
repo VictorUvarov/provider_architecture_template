@@ -17,6 +17,7 @@ class AppLocalizations {
       'settings-view-permissions-desc': 'Open App Permissions',
       'settings-view-delete': 'Delete Something',
       'settings-view-delete-desc': 'Delete all the things',
+      'settings-view-location': 'Location',
       'login-view-title': 'Login',
       'login-button-text': 'Login',
     },
@@ -35,6 +36,8 @@ class AppLocalizations {
       _localizedValues[locale.languageCode]['settings-view-delete'];
   String get settingsViewDeleteDesc =>
       _localizedValues[locale.languageCode]['settings-view-delete-desc'];
+  String get settingsViewLocation =>
+      _localizedValues[locale.languageCode]['settings-view-location'];
   String get loginViewTitle =>
       _localizedValues[locale.languageCode]['login-view-title'];
   String get loginButtonText =>

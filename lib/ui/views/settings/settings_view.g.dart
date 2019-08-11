@@ -23,3 +23,12 @@ class DeleteSomething extends StatelessWidget {
   @override
   Widget build(BuildContext _context) => deleteSomething(_context, model);
 }
+
+class Location extends StatelessWidget {
+  const Location(this.model, {Key key}) : super(key: key);
+
+  final SettingsModel model;
+
+  @override
+  Widget build(BuildContext _context) => location(_context, model);
+}
