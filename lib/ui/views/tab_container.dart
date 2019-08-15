@@ -19,22 +19,11 @@ class TabContainer extends StatelessWidget {
     return BaseView<TabModel>(
       onModelReady: (model) => model.init(view),
       builder: (context, model, child) => Scaffold(
-        body: Stack(
+        body: IndexedStack(
+          index: model.currentTab,
           children: [
-            Offstage(
-              offstage: model.currentTab != 0,
-              child: TickerMode(
-                enabled: model.currentTab == 0,
-                child: HomeView(),
-              ),
-            ),
-            Offstage(
-              offstage: model.currentTab != 1,
-              child: TickerMode(
-                enabled: model.currentTab == 1,
-                child: SettingsView(),
-              ),
-            ),
+            HomeView(),
+            SettingsView(),
           ],
         ),
         bottomNavigationBar: PlatformAdaptiveBottomBar(
