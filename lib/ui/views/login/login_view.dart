@@ -18,6 +18,7 @@ class LoginView extends StatelessWidget {
         body: Center(
           child: PlatformAdaptiveButton(
             child: Text(AppLocalizations.of(context).loginButtonText),
+            icon: Icon(Icons.home),
             onPressed: model.login,
           ),
         ),
