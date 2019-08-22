@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
-import 'package:provider_start/ui/widgets/platform_adaptive.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key key}) : super(key: key);
@@ -12,13 +12,12 @@ class LoginView extends StatelessWidget {
     return BaseView<LoginModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: PlatformAdaptiveAppBar(
+        appBar: AppBar(
           title: Text(AppLocalizations.of(context).loginViewTitle),
         ),
         body: Center(
-          child: PlatformAdaptiveButton(
+          child: PlatformButton(
             child: Text(AppLocalizations.of(context).loginButtonText),
-            icon: Icon(Icons.home),
             onPressed: model.login,
           ),
         ),

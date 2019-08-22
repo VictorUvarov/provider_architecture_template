@@ -35,7 +35,7 @@ class SettingsModel extends BaseModel {
     return success;
   }
 
-  Future<void> toggleNightMode() async {
+  Future<void> toggleNightMode(bool value) async {
     bool enabled = _keyStorageService.nightMode;
 
     if (!enabled) {

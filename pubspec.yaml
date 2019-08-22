@@ -34,6 +34,7 @@ dependencies:
 
   # UI Utilites
   functional_widget_annotation: ^0.5.1
+  flutter_platform_widgets: ^0.12.0
 
   # UI Widgets
   flare_splash_screen: ^2.1.3

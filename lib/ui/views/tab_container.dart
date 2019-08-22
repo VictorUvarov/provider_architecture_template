@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/ui_models/views/tab_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
 import 'package:provider_start/ui/views/home/home_view.dart';
 import 'package:provider_start/ui/views/settings/settings_view.dart';
-import 'package:provider_start/ui/widgets/platform_adaptive.dart';
 
 class TabContainer extends StatelessWidget {
   final TabView view;
@@ -26,7 +26,7 @@ class TabContainer extends StatelessWidget {
             SettingsView(),
           ],
         ),
-        bottomNavigationBar: PlatformAdaptiveBottomBar(
+        bottomNavigationBar: PlatformNavBar(
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -38,7 +38,7 @@ class TabContainer extends StatelessWidget {
             ),
           ],
           currentIndex: model.currentTab,
-          onTap: model.changeTab,
+          itemChanged: model.changeTab,
         ),
       ),
     );
