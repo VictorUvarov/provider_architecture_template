@@ -13,6 +13,9 @@ class HomeView extends StatelessWidget {
         appBar: PlatformAppBar(
           title: Text(AppLocalizations.of(context).homeViewTitle),
         ),
+        body: Center(
+          child: Text(AppLocalizations.of(context).homeViewTitle),
+        ),
       ),
     );
   }

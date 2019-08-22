@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/managers/lifecycle_manager.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
@@ -37,6 +38,13 @@ class MyApp extends StatelessWidget {
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
             navigatorKey: locator<NavigationService>().navigatorKey,
             onGenerateRoute: Router.generateRoute,
+            builder: (context, widget) => Navigator(
+              onGenerateRoute: (settings) => MaterialPageRoute(
+                builder: (context) => DialogManager(
+                  child: widget,
+                ),
+              ),
+            ),
             home: _getStartupScreen(),
           ),
         ),
