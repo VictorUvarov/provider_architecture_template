@@ -9,15 +9,17 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
+
     return BaseView<LoginModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context).loginViewTitle),
+          title: Text(local.loginViewTitle),
         ),
         body: Center(
           child: PlatformButton(
-            child: Text(AppLocalizations.of(context).loginButtonText),
+            child: Text(local.loginButtonText),
             onPressed: model.login,
           ),
         ),

@@ -7,14 +7,16 @@ import 'package:provider_start/ui/views/base_view.dart';
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
+
     return BaseView<HomeModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
-          title: Text(AppLocalizations.of(context).homeViewTitle),
+          title: Text(local.homeViewTitle),
         ),
         body: Center(
-          child: Text(AppLocalizations.of(context).homeViewTitle),
+          child: Text(local.homeViewTitle),
         ),
       ),
     );

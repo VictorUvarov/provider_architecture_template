@@ -10,9 +10,10 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _api = locator<ApiService>();
+    final theme = Theme.of(context);
 
     return SplashScreen.navigate(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: theme.primaryColor,
       width: 100.0,
       name: Animations.Loader,
       next: TabContainer(view: TabView.Home),

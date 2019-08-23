@@ -19,13 +19,17 @@ class SettingsModel extends BaseModel {
     setState(ViewState.Idle);
   }
 
-  Future<bool> deleteSomething() async {
+  Future<bool> showAlert({
+    String title,
+    String desc,
+    String buttonCofirmText,
+  }) async {
     bool success = false;
 
     final dialogResult = await _dialogService.showDialog(
-      title: 'Delete Something',
-      description: 'Are you sure you want to delete this',
-      buttonTitle: 'Yes delete this',
+      title: title,
+      description: desc,
+      buttonTitle: buttonCofirmText,
     );
 
     if (dialogResult.confirmed) {

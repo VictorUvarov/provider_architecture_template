@@ -20,7 +20,7 @@ class SettingsView extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            DeleteSomething(model),
+            ShowAlert(model),
             EnableDarkTheme(model),
           ],
         ),
@@ -30,14 +30,20 @@ class SettingsView extends StatelessWidget {
 }
 
 @widget
-Widget deleteSomething(BuildContext context, SettingsModel model) {
+Widget showAlert(BuildContext context, SettingsModel model) {
+  final local = AppLocalizations.of(context);
+
   return ListTile(
-    title: Text(AppLocalizations.of(context).settingsViewDelete),
-    subtitle: Text(AppLocalizations.of(context).settingsViewDeleteDesc),
+    title: Text(local.settingsViewAlert),
+    subtitle: Text(local.settingsViewAlertDesc),
     trailing: IconButton(
       icon: Icon(Icons.delete),
       onPressed: () async {
-        await model.deleteSomething();
+        await model.showAlert(
+          title: local.dialogTitle,
+          desc: local.dialogDesc,
+          buttonCofirmText: local.buttonTextConfirm,
+        );
       },
     ),
   );
@@ -45,8 +51,11 @@ Widget deleteSomething(BuildContext context, SettingsModel model) {
 
 @widget
 Widget enableDarkTheme(BuildContext context, SettingsModel model) {
+  final local = AppLocalizations.of(context);
+
   return ListTile(
-    title: Text(AppLocalizations.of(context).settingsViewNightMode),
+    title: Text(local.settingsViewNightMode),
+    subtitle: Text(local.settingsViewNightModeDesc),
     trailing: PlatformSwitch(
       onChanged: (bool value) async {
         await model.toggleNightMode(value);

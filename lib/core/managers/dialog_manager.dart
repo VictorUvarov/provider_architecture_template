@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/alert_request.dart';
 import 'package:provider_start/core/models/alert_response.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/locator.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 class DialogManager extends StatefulWidget {
   final Widget child;
@@ -27,21 +28,35 @@ class _DialogManagerState extends State<DialogManager> {
   }
 
   void _showDialog(AlertRequest request) {
-    Alert(
+    final local = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    showDialog(
       context: context,
-      title: request.title,
-      desc: request.description,
-      closeFunction: () =>
-          _dialogService.dialogComplete(AlertResponse(confirmed: false)),
-      buttons: [
-        DialogButton(
-          child: Text(request.buttonTitle),
-          onPressed: () {
-            _dialogService.dialogComplete(AlertResponse(confirmed: true));
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    ).show();
+      builder: (context) => PlatformAlertDialog(
+        title: Text(request.title ?? local.dialogTitle),
+        content: Text(request.description ?? local.dialogDesc),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(local.buttonTextCancel),
+            onPressed: () {
+              _dialogService.dialogComplete(AlertResponse(confirmed: false));
+              Navigator.of(context).pop();
+            },
+          ),
+          PlatformButton(
+            child: Text(request.buttonTitle ?? local.buttonTextCancel),
+            onPressed: () {
+              _dialogService.dialogComplete(AlertResponse(confirmed: true));
+              Navigator.of(context).pop();
+            },
+            android: (context) => MaterialRaisedButtonData(
+              textColor: theme.primaryTextTheme.body1.color,
+              color: theme.primaryColor,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

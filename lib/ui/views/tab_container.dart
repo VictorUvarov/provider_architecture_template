@@ -16,6 +16,8 @@ class TabContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
+
     return BaseView<TabModel>(
       onModelReady: (model) => model.init(view),
       builder: (context, model, child) => Scaffold(
@@ -30,11 +32,11 @@ class TabContainer extends StatelessWidget {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text(AppLocalizations.of(context).homeViewTitle),
+              title: Text(local.homeViewTitle),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              title: Text(AppLocalizations.of(context).settingsViewTitle),
+              title: Text(local.settingsViewTitle),
             ),
           ],
           currentIndex: model.currentTab,
