@@ -13,8 +13,8 @@ class LoginView extends StatelessWidget {
 
     return BaseView<LoginModel>(
       onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
+      builder: (context, model, child) => PlatformScaffold(
+        appBar: PlatformAppBar(
           title: Text(local.loginViewTitle),
         ),
         body: Center(
