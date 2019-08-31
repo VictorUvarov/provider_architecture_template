@@ -34,6 +34,7 @@ Filled Stacks Links:
 - [x] platform adaptive widgets
 - [x] life cycle manager
 - [x] app settings
+- [x] custom fonts
 - [ ] local storage service
 - [ ] network sensitive ui
 - [ ] graphQL api service

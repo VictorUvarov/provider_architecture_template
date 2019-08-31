@@ -6,5 +6,5 @@ final themes = {
   ThemeType.dark: dark,
 };
 
-ThemeData primary = ThemeData.light();
-ThemeData dark = ThemeData.dark();
+ThemeData primary = ThemeData.light()..textTheme.apply(fontFamily: 'Open Sans');
+ThemeData dark = ThemeData.dark()..textTheme.apply(fontFamily: 'Open Sans');
