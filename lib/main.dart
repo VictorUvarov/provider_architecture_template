@@ -35,6 +35,16 @@ class MyApp extends StatelessWidget {
             supportedLocales: [
               const Locale('en'),
             ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (Locale supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode ||
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
+              }
+
+              return supportedLocales.first;
+            },
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
             navigatorKey: locator<NavigationService>().navigatorKey,
             onGenerateRoute: Router.generateRoute,

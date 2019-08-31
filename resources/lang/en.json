@@ -1,0 +1,17 @@
+{
+  "app-title": "Title",
+  "home-view-title": "Home",
+  "settings-view-title": "Settings",
+  "settings-view-permissions": "Permissions",
+  "settings-view-permissions-desc": "Open App Permissions",
+  "settings-view-alert": "Show Alert",
+  "settings-view-alert-desc": "This shows a dialog",
+  "settings-view-night-mode": "Night Mode",
+  "settings-view-night-mode-desc": "Change to dark theme",
+  "login-view-title": "Login",
+  "login-button-text": "Login",
+  "button-text-cancel": "Cancel",
+  "button-text-confirm": "Confirm",
+  "dialog-title": "Title",
+  "dialog-desc": "This is the description."
+}
