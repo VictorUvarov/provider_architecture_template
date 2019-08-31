@@ -38,8 +38,8 @@ Future<void> initializeServices() async {
   locator.registerSingleton<KeyStorageService>(instance);
 
   if (instance.nightMode) {
-    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.dark));
+    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.Dark));
   } else {
-    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.primary));
+    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.Primary));
   }
 }

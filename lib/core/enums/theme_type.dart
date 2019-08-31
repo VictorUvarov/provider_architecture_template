@@ -1,1 +1,1 @@
-enum ThemeType { primary, dark }
+enum ThemeType { Primary, Dark }

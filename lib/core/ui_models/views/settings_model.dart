@@ -44,10 +44,10 @@ class SettingsModel extends BaseModel {
     bool enabled = _keyStorageService.nightMode;
 
     if (!enabled) {
-      await _themeService.changeTheme(ThemeType.dark);
+      await _themeService.changeTheme(ThemeType.Dark);
       _keyStorageService.nightMode = true;
     } else {
-      await _themeService.changeTheme(ThemeType.primary);
+      await _themeService.changeTheme(ThemeType.Primary);
       _keyStorageService.nightMode = false;
     }
 
