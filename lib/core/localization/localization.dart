@@ -41,6 +41,10 @@ class AppLocalizations {
   String get settingsViewNightMode => _translate('settings-view-night-mode');
   String get settingsViewNightModeDesc =>
       _translate('settings-view-night-mode-desc');
+  String get settingsViewAppSettings =>
+      _translate('settings-view-app-settings');
+  String get settingsViewAppSettingsDesc =>
+      _translate('settings-view-app-settings-desc');
   String get loginViewTitle => _translate('login-view-title');
   String get loginButtonText => _translate('login-button-text');
   String get buttonTextCancel => _translate('button-text-cancel');

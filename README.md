@@ -33,6 +33,7 @@ Filled Stacks Links:
 - [x] dynamic theme switcher
 - [x] platform adaptive widgets
 - [x] life cycle manager
+- [x] app settings
 - [ ] local storage service
 - [ ] network sensitive ui
 - [ ] graphQL api service

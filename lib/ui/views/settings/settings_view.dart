@@ -12,16 +12,19 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
+
     return BaseView<SettingsModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
-          title: Text(AppLocalizations.of(context).settingsViewTitle),
+          title: Text(local.settingsViewTitle),
         ),
         body: ListView(
           children: <Widget>[
-            ShowAlert(model),
-            EnableDarkTheme(model),
+            AlertListTile(model),
+            DarkThemeListTile(model),
+            AppSettingsListTile(model),
           ],
         ),
       ),
@@ -30,7 +33,7 @@ class SettingsView extends StatelessWidget {
 }
 
 @widget
-Widget showAlert(BuildContext context, SettingsModel model) {
+Widget alertListTile(BuildContext context, SettingsModel model) {
   final local = AppLocalizations.of(context);
 
   return ListTile(
@@ -50,7 +53,7 @@ Widget showAlert(BuildContext context, SettingsModel model) {
 }
 
 @widget
-Widget enableDarkTheme(BuildContext context, SettingsModel model) {
+Widget darkThemeListTile(BuildContext context, SettingsModel model) {
   final local = AppLocalizations.of(context);
 
   return ListTile(
@@ -61,6 +64,20 @@ Widget enableDarkTheme(BuildContext context, SettingsModel model) {
         await model.toggleNightMode(value);
       },
       value: model.isNightMode,
+    ),
+  );
+}
+
+@widget
+Widget appSettingsListTile(BuildContext context, SettingsModel model) {
+  final local = AppLocalizations.of(context);
+
+  return ListTile(
+    title: Text(local.settingsViewAppSettings),
+    subtitle: Text(local.settingsViewAppSettingsDesc),
+    trailing: IconButton(
+      icon: Icon(Icons.launch),
+      onPressed: model.openAppSettings,
     ),
   );
 }

@@ -8,6 +8,8 @@
   "settings-view-alert-desc": "This shows a dialog",
   "settings-view-night-mode": "Night Mode",
   "settings-view-night-mode-desc": "Change to dark theme",
+  "settings-view-app-settings": "App Settings",
+  "settings-view-app-settings-desc": "Open App Settings",
   "login-view-title": "Login",
   "login-button-text": "Login",
   "button-text-cancel": "Cancel",

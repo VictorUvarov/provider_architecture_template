@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
@@ -51,5 +52,9 @@ class SettingsModel extends BaseModel {
     }
 
     setState(ViewState.Success);
+  }
+
+  void openAppSettings() {
+    AppSettings.openAppSettings();
   }
 }

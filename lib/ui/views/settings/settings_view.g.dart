@@ -6,20 +6,29 @@ part of 'settings_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class ShowAlert extends StatelessWidget {
-  const ShowAlert(this.model, {Key key}) : super(key: key);
+class AlertListTile extends StatelessWidget {
+  const AlertListTile(this.model, {Key key}) : super(key: key);
 
   final SettingsModel model;
 
   @override
-  Widget build(BuildContext _context) => showAlert(_context, model);
+  Widget build(BuildContext _context) => alertListTile(_context, model);
 }
 
-class EnableDarkTheme extends StatelessWidget {
-  const EnableDarkTheme(this.model, {Key key}) : super(key: key);
+class DarkThemeListTile extends StatelessWidget {
+  const DarkThemeListTile(this.model, {Key key}) : super(key: key);
 
   final SettingsModel model;
 
   @override
-  Widget build(BuildContext _context) => enableDarkTheme(_context, model);
+  Widget build(BuildContext _context) => darkThemeListTile(_context, model);
+}
+
+class AppSettingsListTile extends StatelessWidget {
+  const AppSettingsListTile(this.model, {Key key}) : super(key: key);
+
+  final SettingsModel model;
+
+  @override
+  Widget build(BuildContext _context) => appSettingsListTile(_context, model);
 }

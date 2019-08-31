@@ -24,6 +24,7 @@ dependencies:
 
   # Utilities
   shared_preferences: ^0.5.3+4
+  app_settings: ^1.0.6+2
   device_info: ^0.4.0+2
   path_provider: ^1.2.0
   built_value: ^6.7.0
@@ -61,7 +62,7 @@ flutter:
   assets:
     - animations/
     - assets/
-    - resources/
+    - resources/lang/en.json
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
