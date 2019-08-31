@@ -7,12 +7,12 @@ import 'package:provider_start/locator.dart';
 
 class ApiService {
   final _hardwareService = locator<HardwareService>();
-  final _httpHelper = locator<HttpService>();
+  final _httpService = locator<HttpService>();
 
   Future<void> init() async {
     await _hardwareService.init();
 
-    _httpHelper.init();
+    _httpService.init();
   }
 
   Future<void> sampleGet() async {
@@ -24,7 +24,7 @@ class ApiService {
       // 'long': locationData.longitude,
     };
 
-    final response = await _httpHelper.getHttp(ApiRoutes.Sample);
+    final response = await _httpService.getHttp(ApiRoutes.Sample);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.data);
@@ -40,7 +40,7 @@ class ApiService {
       // 'long': locationData.longitude,
     };
 
-    final response = await _httpHelper.postHttp(ApiRoutes.Sample, body);
+    final response = await _httpService.postHttp(ApiRoutes.Sample, body);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.data);

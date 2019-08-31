@@ -13,7 +13,7 @@ import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/core/ui_models/views/tab_model.dart';
 
-GetIt locator = GetIt();
+GetIt locator = GetIt.instance;
 
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => NavigationService());
