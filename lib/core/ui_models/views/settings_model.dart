@@ -50,6 +50,6 @@ class SettingsModel extends BaseModel {
       _keyStorageService.nightMode = false;
     }
 
-    notifyListeners();
+    setState(ViewState.Success);
   }
 }

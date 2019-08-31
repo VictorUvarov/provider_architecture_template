@@ -1,4 +1,5 @@
 import 'package:provider_start/core/enums/tab_view.dart';
+import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 
 const HomeID = 0;
@@ -23,6 +24,6 @@ class TabModel extends BaseModel {
 
   void changeTab(int index) {
     _currentTab = index;
-    notifyListeners();
+    setState(ViewState.Success);
   }
 }
