@@ -11,6 +11,8 @@ import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/views/login/login_view.dart';
 import 'package:provider_start/ui/views/splash/splash_view.dart';
+import 'package:provider_start/core/utils/local.dart' as localUtils;
+import 'package:provider_start/local_setup.dart';
 
 void main() async {
   await setupLocator();
@@ -19,6 +21,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final navigationService = locator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -32,35 +36,26 @@ class MyApp extends StatelessWidget {
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
-            supportedLocales: [
-              const Locale('en'),
-            ],
-            localeResolutionCallback: (locale, supportedLocales) {
-              for (Locale supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale.languageCode ||
-                    supportedLocale.countryCode == locale.countryCode) {
-                  return supportedLocale;
-                }
-              }
-
-              return supportedLocales.first;
-            },
+            supportedLocales: supportedLocales,
+            localeResolutionCallback: localUtils.loadSupportedLocals,
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-            navigatorKey: locator<NavigationService>().navigatorKey,
+            navigatorKey: navigationService.navigatorKey,
             onGenerateRoute: Router.generateRoute,
-            builder: (context, widget) => Navigator(
-              onGenerateRoute: (settings) => MaterialPageRoute(
-                builder: (context) => DialogManager(
-                  child: widget,
-                ),
-              ),
-            ),
+            builder: _setupDialogManager,
             home: _getStartupScreen(),
           ),
         ),
       ),
     );
   }
+
+  Widget _setupDialogManager(context, widget) => Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          builder: (context) => DialogManager(
+            child: widget,
+          ),
+        ),
+      );
 
   Widget _getStartupScreen() {
     var localStorageService = locator<KeyStorageService>();
