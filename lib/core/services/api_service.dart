@@ -24,7 +24,7 @@ class ApiService {
       // 'long': locationData.longitude,
     };
 
-    final response = await _httpService.getHttp(ApiRoutes.Sample);
+    final response = await _httpService.getHttp(ApiRoutes.sample);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.data);
@@ -40,7 +40,7 @@ class ApiService {
       // 'long': locationData.longitude,
     };
 
-    final response = await _httpService.postHttp(ApiRoutes.Sample, body);
+    final response = await _httpService.postHttp(ApiRoutes.sample, body);
 
     if (response.statusCode == 200) {
       var parsed = json.decode(response.data);

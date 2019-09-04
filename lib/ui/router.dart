@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider_start/core/constant/route_paths.dart';
+import 'package:provider_start/core/constant/routes.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/ui/views/tab_container.dart';
 
@@ -8,7 +8,7 @@ class Router {
     switch (settings.name) {
 
       // Tab Views
-      case RoutePaths.TabContainer:
+      case Routes.tab_container:
         var view = settings.arguments as TabView;
         return MaterialPageRoute(builder: (_) => TabContainer(view: view));
 

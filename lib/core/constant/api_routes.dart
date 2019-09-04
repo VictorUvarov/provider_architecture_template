@@ -1,6 +1,6 @@
 class ApiRoutes {
   ApiRoutes._();
 
-  static const EndPoint = 'https://google.com';
-  static const Sample = 'sample';
+  static const end_point = 'https://api.mysite.com';
+  static const sample = 'sample';
 }

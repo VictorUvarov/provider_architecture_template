@@ -12,7 +12,7 @@ class HttpService {
 
   /// Set default configs
   void init() {
-    _dio.options.baseUrl = ApiRoutes.EndPoint;
+    _dio.options.baseUrl = ApiRoutes.end_point;
     _dio.options.connectTimeout = 5000; // 5 seconds
     _dio.options.receiveTimeout = 3000; // 3 seconds
   }
@@ -21,7 +21,7 @@ class HttpService {
   Future<Response> getHttp(String route) async {
     Response response;
 
-    debugPrint('Sending GET to ${ApiRoutes.EndPoint}/$route');
+    debugPrint('Sending GET to ${ApiRoutes.end_point}/$route');
 
     final future = _dio.get(route);
     future.then((res) => response = res);
@@ -38,7 +38,7 @@ class HttpService {
   Future<Response> postHttp(String route, dynamic body) async {
     Response response;
 
-    debugPrint('Sending $body to ${ApiRoutes.EndPoint}/$route');
+    debugPrint('Sending $body to ${ApiRoutes.end_point}/$route');
 
     final future = _dio.post(
       route,

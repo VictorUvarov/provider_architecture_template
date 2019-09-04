@@ -1,4 +1,4 @@
-import 'package:provider_start/core/constant/route_paths.dart';
+import 'package:provider_start/core/constant/routes.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
@@ -22,7 +22,7 @@ class LoginModel extends BaseModel {
     _keyStorageService.hasLoggedIn = true;
 
     _navigationService.nPushNamedAndRemoveUntil(
-      RoutePaths.TabContainer,
+      Routes.tab_container,
       arguments: TabView.Home,
     );
 

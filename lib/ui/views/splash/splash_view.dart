@@ -15,12 +15,12 @@ class SplashView extends StatelessWidget {
     return SplashScreen.navigate(
       backgroundColor: theme.primaryColor,
       width: 100.0,
-      name: Animations.Loader,
+      name: Animations.loader,
       next: TabContainer(view: TabView.Home),
       until: () async {
         await _api.init();
       },
-      loopAnimation: Animations.StartName,
+      loopAnimation: Animations.start_name,
     );
   }
 }
