@@ -1,3 +1,5 @@
+/// Class of validation functions that the app will use
+///   - This class should be used as a mixin using the `with` keyword
 class Validators {
   final phoneNumberRegExp = RegExp(
       r'^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$');

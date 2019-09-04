@@ -1,5 +1,6 @@
 import 'package:provider_start/core/services/stoppable_service.dart';
 
+/// An example service that implements [StoppableService]
 class BackgroundFetchService extends StoppableService {
   @override
   void start() {

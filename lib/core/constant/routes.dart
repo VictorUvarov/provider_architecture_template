@@ -1,3 +1,4 @@
+/// Routes for each view in the app
 class Routes {
   Routes._();
 

@@ -7,6 +7,11 @@ import 'package:provider_start/ui/views/base_view.dart';
 
 part 'settings_view.g.dart';
 
+/// An example settings view that uses platform adaptive widgets
+/// and builds widgets using the `functional_widget` package,
+/// which avoids the inefficiencies that comes with writing
+/// functions that return Widgets. e.g. Widget buildWidget();
+///   - To add/change a functional_widget look at README.md - installation section
 class SettingsView extends StatelessWidget {
   const SettingsView({Key key}) : super(key: key);
 

@@ -49,6 +49,9 @@ class MyApp extends StatelessWidget {
     );
   }
 
+  /// Builder function provided by MaterialApp to place it above the
+  /// Navigator of the App. Which means we also give it it's
+  /// own navigator to dismiss and show alerts on.
   Widget _setupDialogManager(context, widget) => Navigator(
         onGenerateRoute: (settings) => MaterialPageRoute(
           builder: (context) => DialogManager(
@@ -57,6 +60,9 @@ class MyApp extends StatelessWidget {
         ),
       );
 
+  /// Gets the current View that should show. This function
+  /// determines which page to show according to whether
+  /// the user has logged in already. Could be used for signup, etc...
   Widget _getStartupScreen() {
     var localStorageService = locator<KeyStorageService>();
 

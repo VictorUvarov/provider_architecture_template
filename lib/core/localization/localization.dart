@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
+/// Custom Localizations that [MaterialApp] accepts in `localizationsDelegates` field
 class AppLocalizations {
   final Locale locale;
   Map<String, String> _sentences;
@@ -30,6 +31,7 @@ class AppLocalizations {
     return this._sentences[key];
   }
 
+  // List of available sentences that correspond to the /resources/lang/... .json files
   String get appTitle => _translate('app-title');
   String get homeViewTitle => _translate('home-view-title');
   String get settingsViewTitle => _translate('settings-view-title');

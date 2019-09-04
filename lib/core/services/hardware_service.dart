@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:device_info/device_info.dart';
 
+/// Service that is responsible for getting hardware device info
 class HardwareService {
   String operatingSystem;
   String device;

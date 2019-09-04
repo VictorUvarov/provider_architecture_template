@@ -6,6 +6,12 @@ import 'package:provider_start/core/services/api_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/ui/views/tab_container.dart';
 
+/// A widget that will be shown as the first page when
+/// the app is loaded for the first time.
+///   - Animations are flare animations https://www.2dimensions.com/about-flare
+///   - SplashView will navigated to the `next` page when `until`
+///     function is finished
+///   - The animation will always finish even if `until` has finished before
 class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

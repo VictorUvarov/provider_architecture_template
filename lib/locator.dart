@@ -15,6 +15,10 @@ import 'package:provider_start/core/ui_models/views/tab_model.dart';
 
 GetIt locator = GetIt.instance;
 
+/// Setup function that is run before the App is run.
+///   - Sets up singletons that can be called from anywhere
+/// in the app by using locator<Service>() call.
+///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => HardwareService());
@@ -33,6 +37,8 @@ Future<void> setupLocator() async {
   await initializeServices();
 }
 
+/// Initialize other services here that require additional code
+/// to run before the services can be registered
 Future<void> initializeServices() async {
   var instance = await KeyStorageService.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);

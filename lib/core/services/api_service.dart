@@ -6,6 +6,7 @@ import 'package:provider_start/core/services/hardware_service.dart';
 import 'package:provider_start/core/services/http_service.dart';
 import 'package:provider_start/locator.dart';
 
+/// Example HTTP api service that uses [HttpService]
 class ApiService {
   final _hardwareService = locator<HardwareService>();
   final _httpService = locator<HttpService>();

@@ -1,3 +1,4 @@
+/// Model that a dialog in the [DialogManager] accepts as input
 class AlertRequest {
   final String title;
   final String description;

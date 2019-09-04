@@ -1,3 +1,4 @@
+/// Model that a dialog in the [DialogManager] returns as output
 class AlertResponse {
   final String fieldOne;
   final String fieldTwo;

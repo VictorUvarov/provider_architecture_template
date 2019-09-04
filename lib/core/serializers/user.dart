@@ -4,6 +4,10 @@ import 'package:built_collection/built_collection.dart';
 
 part 'user.g.dart';
 
+/// An example user model that should be serialized.
+///   - @nullable: means that its ok if the value is null
+///   - @BuiltValueField: is the key that is in the JSON you
+///     recieve from an API
 abstract class User implements Built<User, UserBuilder> {
   static Serializer<User> get serializer => _$userSerializer;
 

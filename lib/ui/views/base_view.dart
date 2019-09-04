@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 import 'package:provider_start/locator.dart';
 
+/// A widget that abstracts away the boiler plate of [ChangeNotifierProvider]
+/// boilerplate
+///   - Provides a convenient method to run code when the view is rendered
 class BaseView<T extends BaseModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T model, Widget child) builder;
   final Function(T) onModelReady;

@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:path_provider/path_provider.dart';
 
+/// Helper class that abstracts away common HTTP Requests
 class HttpService {
   Dio _dio = Dio();
 

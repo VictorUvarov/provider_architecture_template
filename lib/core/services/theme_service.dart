@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/ui/shared/themes.dart';
 
+/// Service that is responsible for changing the theme of the app.
 class ThemeService {
   StreamController<ThemeData> _themeController = StreamController<ThemeData>();
 

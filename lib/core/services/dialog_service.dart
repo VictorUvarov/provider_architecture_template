@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:provider_start/core/models/alert_request.dart';
 import 'package:provider_start/core/models/alert_response.dart';
 
+/// A service that is responsible for returning future dialogs
 class DialogService {
   Function(AlertRequest) _showDialogListener;
   Completer<AlertResponse> _dialogCompleter;

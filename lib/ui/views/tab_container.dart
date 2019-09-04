@@ -7,6 +7,9 @@ import 'package:provider_start/ui/views/base_view.dart';
 import 'package:provider_start/ui/views/home/home_view.dart';
 import 'package:provider_start/ui/views/settings/settings_view.dart';
 
+/// A view that wraps other views and displays whichever
+/// page is currently selected on the [BottomNavigationBar]
+/// or in this case [PlatformNavBar]
 class TabContainer extends StatelessWidget {
   final TabView view;
 
