@@ -55,4 +55,5 @@ Filled Stacks Links:
 ## Installation
 
 - run `./format.sh` to setup git pre commit formatting
-- run `flutter pub pub run builder_runner watch` if you plan to add/change any serializers
+- run `flutter packages pub run build_runner build --delete-conflicting-outputs` if you plan to add/change any serializers once
+- run `flutter packages pub run build_runner watch --delete-conflicting-outputs` if you plan to add/change any serializers multiple times

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:provider_start/core/serializers/serializers.dart';
 
 part 'user.g.dart';
 
@@ -36,6 +39,17 @@ abstract class User implements Built<User, UserBuilder> {
 
   @nullable
   BuiltList<int> get list;
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(User.serializer, this));
+  }
+
+  static User fromJson(String jsonString) {
+    return serializers.deserializeWith(
+      User.serializer,
+      json.decode(jsonString),
+    );
+  }
 
   User._();
   factory User([void Function(UserBuilder) updates]) = _$User;
