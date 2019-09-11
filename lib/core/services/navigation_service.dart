@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class NavigationService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  Future<dynamic> nPushNamed(String routeName, {Object arguments}) {
+  Future<dynamic> pushNamed(String routeName, {Object arguments}) {
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
   }
 
-  Future<dynamic> nPopAndPushNamed(String routeName, {Object arguments}) {
+  Future<dynamic> popAndPushNamed(String routeName, {Object arguments}) {
     return navigatorKey.currentState.popAndPushNamed(
       routeName,
       arguments: arguments,
     );
   }
 
-  Future<dynamic> nPushNamedAndRemoveUntil(
+  Future<dynamic> pushNamedAndRemoveUntil(
     String routeName, {
     Object arguments,
   }) {
@@ -26,7 +26,7 @@ class NavigationService {
     );
   }
 
-  bool nPop({returnValue}) {
+  bool pop({returnValue}) {
     return navigatorKey.currentState.pop(returnValue);
   }
 }
