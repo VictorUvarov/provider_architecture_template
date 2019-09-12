@@ -14,13 +14,13 @@ class ThemeService {
 
   ThemeService({ThemeType theme}) {
     if (theme != null) {
-      var themeToApply = _availableThemes[theme];
+      final themeToApply = _availableThemes[theme];
       _themeController.add(themeToApply);
     }
   }
 
   Future<void> changeTheme(ThemeType theme) async {
-    var themeToApply = _availableThemes[theme];
+    final themeToApply = _availableThemes[theme];
 
     _themeController.add(themeToApply);
   }

@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
   /// determines which page to show according to whether
   /// the user has logged in already. Could be used for signup, etc...
   Widget _getStartupScreen() {
-    var localStorageService = locator<KeyStorageService>();
+    final localStorageService = locator<KeyStorageService>();
 
     if (!localStorageService.hasLoggedIn) {
       return LoginView();

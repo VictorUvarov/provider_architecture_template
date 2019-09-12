@@ -1,6 +1,6 @@
 /// Routes for each view in the app
-class Routes {
-  Routes._();
+class ViewRoutes {
+  ViewRoutes._();
 
   static const splash = 'splash';
   static const tab_container = 'tab_container';

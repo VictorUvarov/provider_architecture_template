@@ -25,7 +25,7 @@ class ApiService {
     final response = await _httpService.getHttp(ApiRoutes.sample);
 
     if (response.statusCode == HttpStatuscodes.success) {
-      var parsed = json.decode(response.data);
+      final parsed = json.decode(response.data);
     }
   }
 
@@ -37,7 +37,7 @@ class ApiService {
     final response = await _httpService.postHttp(ApiRoutes.sample, body);
 
     if (response.statusCode == HttpStatuscodes.success) {
-      var parsed = json.decode(response.data);
+      final parsed = json.decode(response.data);
     }
   }
 }

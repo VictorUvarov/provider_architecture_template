@@ -40,7 +40,7 @@ Future<void> setupLocator() async {
 /// Initialize other services here that require additional code
 /// to run before the services can be registered
 Future<void> initializeServices() async {
-  var instance = await KeyStorageService.getInstance();
+  final instance = await KeyStorageService.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
 
   if (instance.nightMode) {
