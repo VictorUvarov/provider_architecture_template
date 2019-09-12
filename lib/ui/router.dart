@@ -8,21 +8,33 @@ import 'package:provider_start/ui/views/tab_container.dart';
 ///   - Routes can also require paramaters. e.g. `PostDetailView(post: post)`
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    return MaterialPageRoute(
+      settings: RouteSettings(name: settings.name),
+      builder: (context) => _generateView(settings),
+      fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+    );
+  }
+
+  static Widget _generateView(RouteSettings settings) {
     switch (settings.name) {
 
       // Tab Views
       case Routes.tab_container:
         var view = settings.arguments as TabView;
-        return MaterialPageRoute(builder: (_) => TabContainer(view: view));
+        return TabContainer(view: view);
 
       default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            ),
+        return Scaffold(
+          body: Center(
+            child: Text('No route defined for ${settings.name}'),
           ),
         );
     }
   }
+
+  // Add routes that should behave as fullScreenDialogs
+  static final _fullScreenDialogs = [
+    // Routes.route_1,
+    // Routes.route_2,
+  ];
 }
