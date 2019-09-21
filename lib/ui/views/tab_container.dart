@@ -7,6 +7,9 @@ import 'package:provider_start/ui/views/base_view.dart';
 import 'package:provider_start/ui/views/home/home_view.dart';
 import 'package:provider_start/ui/views/settings/settings_view.dart';
 
+final Key _homeViewKey = PageStorageKey('HomeView');
+final Key _settingsViewKey = PageStorageKey('SettingsView');
+
 /// A view that wraps other views and displays whichever
 /// page is currently selected on the [BottomNavigationBar]
 /// or in this case [PlatformNavBar]
@@ -17,32 +20,35 @@ class TabContainer extends StatelessWidget {
       : assert(view != null),
         super(key: key);
 
+  final PageStorageBucket bucket = PageStorageBucket();
+
+  final _views = [
+    HomeView(key: _homeViewKey),
+    SettingsView(key: _settingsViewKey),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    final _items = [
-      BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        title: Text(local.homeViewTitle),
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        title: Text(local.settingsViewTitle),
-      ),
-    ];
-
-    final _views = [
-      HomeView(),
-      SettingsView(),
-    ];
-
     return BaseView<TabModel>(
       onModelReady: (model) => model.init(view),
       builder: (context, model, child) => PlatformScaffold(
-        body: _views[model.currentTab],
+        body: PageStorage(
+          child: _views[model.currentTab],
+          bucket: bucket,
+        ),
         bottomNavBar: PlatformNavBar(
-          items: _items,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text(local.homeViewTitle),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text(local.settingsViewTitle),
+            ),
+          ],
           currentIndex: model.currentTab,
           itemChanged: model.changeTab,
         ),

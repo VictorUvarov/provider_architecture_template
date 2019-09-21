@@ -12,6 +12,7 @@ import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/core/ui_models/views/tab_model.dart';
+import 'package:provider_start/core/ui_models/widgets/animated_list_item_model.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -29,10 +30,14 @@ Future<void> setupLocator() async {
   // Example, replace with something like location service
   locator.registerLazySingleton(() => BackgroundFetchService());
 
+  // View viewmodels
   locator.registerFactory(() => TabModel());
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => SettingsModel());
   locator.registerFactory(() => LoginModel());
+
+  // Widget viewmodels
+  locator.registerFactory(() => AnimatedListItemModel());
 
   await initializeServices();
 }
