@@ -12,10 +12,14 @@ class ThemeService {
 
   Stream<ThemeData> get theme => _themeController.stream;
 
+  ThemeData _currentTheme;
+  ThemeData get currentTheme => _currentTheme;
+
   ThemeService({ThemeType theme}) {
     if (theme != null) {
       final themeToApply = _availableThemes[theme];
       _themeController.add(themeToApply);
+      _currentTheme = themeToApply;
     }
   }
 
@@ -23,5 +27,6 @@ class ThemeService {
     final themeToApply = _availableThemes[theme];
 
     _themeController.add(themeToApply);
+    _currentTheme = themeToApply;
   }
 }
