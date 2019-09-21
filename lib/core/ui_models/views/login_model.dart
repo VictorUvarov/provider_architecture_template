@@ -21,7 +21,7 @@ class LoginModel extends BaseModel {
 
     _keyStorageService.hasLoggedIn = true;
 
-    _navigationService.pushNamedAndRemoveUntil(
+    _navigationService.popAllAndPushNamed(
       ViewRoutes.tab_container,
       arguments: TabView.Home,
     );

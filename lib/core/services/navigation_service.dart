@@ -8,14 +8,14 @@ class NavigationService {
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
   }
 
-  Future<dynamic> popAndPushNamed(String routeName, {Object arguments}) {
-    return navigatorKey.currentState.popAndPushNamed(
+  Future<dynamic> pushReplacementNamed(String routeName, {Object arguments}) {
+    return navigatorKey.currentState.pushReplacementNamed(
       routeName,
       arguments: arguments,
     );
   }
 
-  Future<dynamic> pushNamedAndRemoveUntil(
+  Future<dynamic> popAllAndPushNamed(
     String routeName, {
     Object arguments,
   }) {
