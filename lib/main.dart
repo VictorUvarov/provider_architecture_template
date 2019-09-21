@@ -11,7 +11,6 @@ import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/views/login/login_view.dart';
 import 'package:provider_start/ui/views/splash/splash_view.dart';
-import 'package:provider_start/core/utils/local.dart';
 import 'package:provider_start/local_setup.dart';
 
 void main() async {
