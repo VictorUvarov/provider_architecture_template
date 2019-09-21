@@ -4,6 +4,7 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/managers/core_manager.dart';
 import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/managers/theme_manager.dart';
+import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
 import 'package:provider_start/locator.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
   /// Navigator of the App. Which means we also give it it's
   /// own navigator to dismiss and show alerts on.
   Widget _setupDialogManager(context, widget) => Navigator(
+        key: locator<DialogService>().dialogNavigationKey,
         onGenerateRoute: (settings) => MaterialPageRoute(
           builder: (context) => DialogManager(
             child: widget,

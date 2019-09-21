@@ -43,14 +43,12 @@ class _DialogManagerState extends State<DialogManager> {
             child: Text(local.buttonTextCancel),
             onPressed: () {
               _dialogService.dialogComplete(AlertResponse(confirmed: false));
-              Navigator.of(context).pop();
             },
           ),
           PlatformButton(
             child: Text(request.buttonTitle ?? local.buttonTextCancel),
             onPressed: () {
               _dialogService.dialogComplete(AlertResponse(confirmed: true));
-              Navigator.of(context).pop();
             },
             android: (context) => MaterialRaisedButtonData(
               textColor: theme.primaryTextTheme.body1.color,
