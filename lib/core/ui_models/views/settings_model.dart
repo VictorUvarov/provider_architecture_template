@@ -40,14 +40,14 @@ class SettingsModel extends BaseModel {
     return success;
   }
 
-  Future<void> toggleNightMode(bool value) async {
+  void toggleNightMode(bool value) {
     bool enabled = _keyStorageService.nightMode;
 
     if (!enabled) {
-      await _themeService.changeTheme(ThemeType.Dark);
+      _themeService.changeTheme(ThemeType.Dark);
       _keyStorageService.nightMode = true;
     } else {
-      await _themeService.changeTheme(ThemeType.Primary);
+      _themeService.changeTheme(ThemeType.Primary);
       _keyStorageService.nightMode = false;
     }
 

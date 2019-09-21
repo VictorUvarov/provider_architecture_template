@@ -67,9 +67,7 @@ Widget darkThemeListTile(BuildContext context, SettingsModel model) {
     title: Text(local.settingsViewNightMode),
     subtitle: Text(local.settingsViewNightModeDesc),
     trailing: PlatformSwitch(
-      onChanged: (bool value) async {
-        await model.toggleNightMode(value);
-      },
+      onChanged: (bool value) => model.toggleNightMode(value),
       value: model.isNightMode,
     ),
   );
