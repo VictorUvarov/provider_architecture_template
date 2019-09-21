@@ -6,7 +6,6 @@ import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/managers/theme_manager.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
@@ -30,6 +29,7 @@ class MyApp extends StatelessWidget {
       providers: providers,
       child: Consumer<ThemeData>(
         builder: (context, theme, child) => ThemeManager(
+          data: theme,
           child: CoreManager(
             child: MaterialApp(
               theme: theme,
