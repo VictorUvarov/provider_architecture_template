@@ -6,8 +6,11 @@ import 'package:provider_start/core/models/alert_response.dart';
 
 /// A service that is responsible for returning future dialogs
 class DialogService {
-  GlobalKey<NavigatorState> _dialogNavigationKey = GlobalKey<NavigatorState>();
+  final _dialogNavigationKey = GlobalKey<NavigatorState>();
+  final _cupertinoDialogNavigationKey = GlobalKey<NavigatorState>();
+
   GlobalKey<NavigatorState> get dialogNavigationKey => _dialogNavigationKey;
+
   Function(AlertRequest) _showDialogListener;
   Completer<AlertResponse> _dialogCompleter;
 

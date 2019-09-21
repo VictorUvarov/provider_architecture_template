@@ -23,6 +23,8 @@ class SettingsView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
+          key: Key('Settings'),
+          widgetKey: Key('Settings widget'),
           title: Text(local.settingsViewTitle),
         ),
         body: ListView(

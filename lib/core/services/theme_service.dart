@@ -1,27 +1,51 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
+import 'package:provider_start/core/models/platform_theme.dart';
 import 'package:provider_start/ui/shared/themes.dart';
 
 /// Service that is responsible for changing the theme of the app.
 class ThemeService {
-  StreamController<ThemeData> _themeController = StreamController<ThemeData>();
+  final _themeController = StreamController<PlatformThemeData>();
 
-  Map<ThemeType, ThemeData> _availableThemes = themes;
+  final _availableMaterialThemes = materialThemes;
+  final _availableCuepertinoThemes = cupertinoThemes;
 
-  Stream<ThemeData> get theme => _themeController.stream;
+  Stream<PlatformThemeData> get theme => _themeController.stream;
 
-  ThemeService({ThemeType theme}) {
-    if (theme != null) {
-      final themeToApply = _availableThemes[theme];
-      _themeController.add(themeToApply);
-    }
+  ThemeService(ThemeType theme) {
+    if (theme != null)
+      _emitNewTheme(theme);
+    else
+      _emitDefaultTheme();
   }
 
-  Future<void> changeTheme(ThemeType theme) async {
-    final themeToApply = _availableThemes[theme];
+  void changeTheme(ThemeType theme) {
+    _emitNewTheme(theme);
+  }
 
-    _themeController.add(themeToApply);
+  void _emitNewTheme(ThemeType theme) {
+    final materialThemeToApply = _availableMaterialThemes[theme];
+    final cupertinoThemeToApply = _availableCuepertinoThemes[theme];
+
+    final platformThemeToApply = PlatformThemeData(
+      materialThemeData: materialThemeToApply,
+      cupertinoThemeData: cupertinoThemeToApply,
+    );
+
+    _themeController.add(platformThemeToApply);
+  }
+
+  void _emitDefaultTheme() {
+    final materialThemeToApply = _availableMaterialThemes[primaryMaterialTheme];
+    final cupertinoThemeToApply =
+        _availableCuepertinoThemes[primaryCupertinoTheme];
+
+    final platformThemeToApply = PlatformThemeData(
+      materialThemeData: materialThemeToApply,
+      cupertinoThemeData: cupertinoThemeToApply,
+    );
+
+    _themeController.add(platformThemeToApply);
   }
 }

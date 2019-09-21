@@ -21,27 +21,28 @@ class TabContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
+    final _items = [
+      BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        title: Text(local.homeViewTitle),
+      ),
+      BottomNavigationBarItem(
+        icon: Icon(Icons.settings),
+        title: Text(local.settingsViewTitle),
+      ),
+    ];
+
+    final _views = [
+      HomeView(),
+      SettingsView(),
+    ];
+
     return BaseView<TabModel>(
       onModelReady: (model) => model.init(view),
-      builder: (context, model, child) => Scaffold(
-        body: IndexedStack(
-          index: model.currentTab,
-          children: [
-            HomeView(),
-            SettingsView(),
-          ],
-        ),
-        bottomNavigationBar: PlatformNavBar(
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text(local.homeViewTitle),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              title: Text(local.settingsViewTitle),
-            ),
-          ],
+      builder: (context, model, child) => PlatformScaffold(
+        body: _views[model.currentTab],
+        bottomNavBar: PlatformNavBar(
+          items: _items,
           currentIndex: model.currentTab,
           itemChanged: model.changeTab,
         ),

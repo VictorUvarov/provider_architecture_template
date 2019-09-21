@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/managers/core_manager.dart';
 import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/managers/theme_manager.dart';
+import 'package:provider_start/core/models/platform_theme.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
@@ -25,23 +28,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: providers,
-      child: Consumer<ThemeData>(
-        builder: (context, theme, child) => ThemeManager(
-          data: theme,
-          child: CoreManager(
-            child: MaterialApp(
-              theme: theme,
-              localizationsDelegates: localizationsDelegates,
-              supportedLocales: supportedLocales,
-              localeResolutionCallback: loadSupportedLocals,
-              onGenerateTitle: (context) =>
-                  AppLocalizations.of(context).appTitle,
-              navigatorKey: navigationService.navigatorKey,
-              onGenerateRoute: Router.generateRoute,
-              builder: _setupDialogManager,
-              home: _getStartupScreen(),
+    return PlatformProvider(
+      builder: (context) => MultiProvider(
+        providers: providers,
+        child: Consumer<PlatformThemeData>(
+          builder: (context, theme, child) => ThemeManager(
+            data: theme?.materialThemeData,
+            child: CoreManager(
+              child: PlatformApp(
+                android: (_) => MaterialAppData(
+                  theme: theme?.materialThemeData,
+                ),
+                ios: (_) => CupertinoAppData(
+                  theme: theme?.cupertinoThemeData,
+                ),
+                localizationsDelegates: localizationsDelegates,
+                supportedLocales: supportedLocales,
+                localeResolutionCallback: loadSupportedLocals,
+                onGenerateTitle: (context) =>
+                    AppLocalizations.of(context).appTitle,
+                navigatorKey: navigationService.navigatorKey,
+                onGenerateRoute: (settings) => Router.generateRoute(
+                  settings,
+                  PlatformProvider.of(context).isMaterial,
+                ),
+                builder: _setupDialogManager,
+                home: _getStartupScreen(),
+              ),
             ),
           ),
         ),
@@ -52,7 +65,9 @@ class MyApp extends StatelessWidget {
   /// Builder function provided by MaterialApp to place it above the
   /// Navigator of the App. Which means we also give it it's
   /// own navigator to dismiss and show alerts on.
-  Widget _setupDialogManager(context, widget) => Navigator(
+  Widget _setupDialogManager(context, widget) {
+    if (PlatformProvider.of(context).isMaterial)
+      return Navigator(
         key: locator<DialogService>().dialogNavigationKey,
         onGenerateRoute: (settings) => MaterialPageRoute(
           builder: (context) => DialogManager(
@@ -60,6 +75,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
       );
+    else
+      return Navigator(
+        key: locator<DialogService>().dialogNavigationKey,
+        onGenerateRoute: (settings) => CupertinoPageRoute(
+          builder: (context) => DialogManager(
+            child: widget,
+          ),
+        ),
+      );
+  }
 
   /// Gets the current View that should show. This function
   /// determines which page to show according to whether

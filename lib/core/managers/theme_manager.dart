@@ -14,7 +14,7 @@ class ThemeManager extends StatelessWidget {
       return AnimatedTheme(
         child: child,
         data: data,
-        duration: const Duration(milliseconds: 2000),
+        duration: const Duration(milliseconds: 300),
         curve: ElasticInOutCurve(),
       );
     }
