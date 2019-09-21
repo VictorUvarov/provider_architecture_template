@@ -66,24 +66,16 @@ class MyApp extends StatelessWidget {
   /// Navigator of the App. Which means we also give it it's
   /// own navigator to dismiss and show alerts on.
   Widget _setupDialogManager(context, widget) {
-    if (PlatformProvider.of(context).isMaterial)
-      return Navigator(
-        key: locator<DialogService>().dialogNavigationKey,
-        onGenerateRoute: (settings) => MaterialPageRoute(
-          builder: (context) => DialogManager(
-            child: widget,
-          ),
-        ),
-      );
-    else
-      return Navigator(
-        key: locator<DialogService>().dialogNavigationKey,
-        onGenerateRoute: (settings) => CupertinoPageRoute(
-          builder: (context) => DialogManager(
-            child: widget,
-          ),
-        ),
-      );
+    return Navigator(
+      key: locator<DialogService>().dialogNavigationKey,
+      onGenerateRoute: (settings) => PlatformProvider.of(context).isMaterial
+          ? MaterialPageRoute(
+              builder: (context) => DialogManager(child: widget),
+            )
+          : CupertinoPageRoute(
+              builder: (context) => DialogManager(child: widget),
+            ),
+    );
   }
 
   /// Gets the current View that should show. This function
