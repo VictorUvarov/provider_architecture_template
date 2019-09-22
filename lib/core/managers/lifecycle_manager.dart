@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider_start/core/services/background_fetch_service.dart';
 import 'package:provider_start/core/services/connectivity_service.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/locator.dart';
@@ -15,7 +14,6 @@ class LifeCycleManager extends StatefulWidget {
 class _LifeCycleManagerState extends State<LifeCycleManager>
     with WidgetsBindingObserver {
   List<StoppableService> servicesToManage = [
-    locator<BackgroundFetchService>(),
     locator<ConnectivityService>(),
   ];
 
