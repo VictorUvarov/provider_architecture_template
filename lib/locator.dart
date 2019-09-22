@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/services/api_service.dart';
 import 'package:provider_start/core/services/background_fetch_service.dart';
+import 'package:provider_start/core/services/connectivity_service.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_service.dart';
 import 'package:provider_start/core/services/http_service.dart';
@@ -23,6 +24,7 @@ GetIt locator = GetIt.instance;
 Future<void> setupLocator() async {
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => HardwareService());
+  locator.registerLazySingleton(() => ConnectivityService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => HttpService());
   locator.registerLazySingleton(() => ApiService());

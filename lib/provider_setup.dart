@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_start/core/enums/connectivity_status.dart';
 import 'package:provider_start/core/models/platform_theme.dart';
+import 'package:provider_start/core/services/connectivity_service.dart';
 import 'package:provider_start/core/services/theme_service.dart';
 import 'package:provider_start/locator.dart';
 
@@ -20,5 +22,8 @@ List<SingleChildCloneableWidget> dependentServices = [];
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<PlatformThemeData>(
     builder: (context) => locator<ThemeService>().theme,
+  ),
+  StreamProvider<ConnectivityStatus>(
+    builder: (context) => locator<ConnectivityService>().stream,
   ),
 ];

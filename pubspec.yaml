@@ -27,6 +27,7 @@ dependencies:
   app_settings: ^1.0.6+2
   device_info: ^0.4.0+2
   path_provider: ^1.2.0
+  connectivity: ^0.4.4
   built_value: ^6.7.1
   provider: ^3.1.0
   get_it: ^2.0.3

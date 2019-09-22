@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider_start/core/services/background_fetch_service.dart';
+import 'package:provider_start/core/services/connectivity_service.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/locator.dart';
 
@@ -15,6 +16,7 @@ class _LifeCycleManagerState extends State<LifeCycleManager>
     with WidgetsBindingObserver {
   List<StoppableService> servicesToManage = [
     locator<BackgroundFetchService>(),
+    locator<ConnectivityService>(),
   ];
 
   @override
@@ -37,6 +39,7 @@ class _LifeCycleManagerState extends State<LifeCycleManager>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
+    print('(TRACE) App life cycle change to $state');
     servicesToManage.forEach((service) {
       if (state == AppLifecycleState.resumed) {
         service.start();
