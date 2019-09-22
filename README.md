@@ -30,6 +30,7 @@ Filled Stacks Links:
 - [x] key storage service
 - [x] dialog service
 - [x] api service
+- [x] connectivity service
 - [x] dynamic theme switcher
 - [x] platform adaptive widgets
 - [x] life cycle manager
