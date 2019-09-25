@@ -59,7 +59,7 @@ Filled Stacks Links:
 - run `flutter packages pub run build_runner build --delete-conflicting-outputs` if you plan to add/change any serializers once
 - run `flutter packages pub run build_runner watch --delete-conflicting-outputs` if you plan to add/change any serializers multiple times
 
-## Adding another support for another language
+## Adding support for another language
 
 - Find the language local code for here [codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 - Inside of `lib/local_setup.dart` add the local code to `supportedLocales` and `supportedLocalCodes`
