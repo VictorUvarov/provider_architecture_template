@@ -1,0 +1,19 @@
+{
+  "app-title": "Título",
+  "home-view-title": "Inicio",
+  "settings-view-title": "Configuración",
+  "settings-view-permissions": "Permisos",
+  "settings-view-permissions-desc": "Open App Permissions",
+  "settings-view-alert": "Mostrar Alerta",
+  "settings-view-alert-desc": "Esto muestra un dialogo",
+  "settings-view-night-mode": "Modo Oscuro",
+  "settings-view-night-mode-desc": "Cambiar a modo oscuro",
+  "settings-view-app-settings": "Configuraciones de App",
+  "settings-view-app-settings-desc": "Abrir configuraciones",
+  "login-view-title": "Iniciar Sesión",
+  "login-button-text": "Iniciar",
+  "button-text-cancel": "Cancelar",
+  "button-text-confirm": "Confirmar",
+  "dialog-title": "Título",
+  "dialog-desc": "Esta es la descripción."
+}

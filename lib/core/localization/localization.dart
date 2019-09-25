@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
@@ -15,7 +16,7 @@ class AppLocalizations {
       Localizations.of<AppLocalizations>(context, AppLocalizations);
 
   Future<bool> load() async {
-    final path = 'resources/lang/${this.locale.languageCode}.json';
+    final path = 'assets/lang/${this.locale.languageCode}.json';
     final data = await rootBundle.loadString(path);
     Map<String, dynamic> _result = json.decode(data);
 
@@ -31,7 +32,7 @@ class AppLocalizations {
     return this._sentences[key];
   }
 
-  // List of available sentences that correspond to the /resources/lang/... .json files
+  // List of available sentences that correspond to the /assets/lang/... .json files
   String get appTitle => _translate('app-title');
   String get homeViewTitle => _translate('home-view-title');
   String get settingsViewTitle => _translate('settings-view-title');
@@ -59,18 +60,30 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
     AppLocalizations localizations = new AppLocalizations(locale);
     await localizations.load();
-
-    print("Load ${locale.languageCode}");
-
     return localizations;
   }
 
   @override
   bool shouldReload(AppLocalizationsDelegate old) => false;
+}
+
+class FallbackCupertinoLocalisationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalisationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      DefaultCupertinoLocalizations.load(locale);
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalisationsDelegate old) => false;
 }
