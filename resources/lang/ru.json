@@ -1,0 +1,19 @@
+{
+  "app-title": "заглавие",
+  "home-view-title": "Главная",
+  "settings-view-title": "настройки",
+  "settings-view-permissions": "права доступа",
+  "settings-view-permissions-desc": "Разрешения на открытие приложения",
+  "settings-view-alert": "Показать оповещение",
+  "settings-view-alert-desc": "Это показывает диалог",
+  "settings-view-night-mode": "Night Mode",
+  "settings-view-night-mode-desc": "Ночной режим",
+  "settings-view-app-settings": "Настройки приложения",
+  "settings-view-app-settings-desc": "Открыть настройки приложения",
+  "login-view-title": "Авторизоваться",
+  "login-button-text": "Авторизоваться",
+  "button-text-cancel": "Отмена",
+  "button-text-confirm": "подтвердить",
+  "dialog-title": "заглавие",
+  "dialog-desc": "Это описание"
+}

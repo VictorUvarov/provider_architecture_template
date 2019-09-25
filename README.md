@@ -58,3 +58,11 @@ Filled Stacks Links:
 - run `./format.sh` to setup git pre commit formatting
 - run `flutter packages pub run build_runner build --delete-conflicting-outputs` if you plan to add/change any serializers once
 - run `flutter packages pub run build_runner watch --delete-conflicting-outputs` if you plan to add/change any serializers multiple times
+
+## Adding another support for another language
+
+- Find the language local code for here [codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+- Inside of `lib/local_setup.dart` add the local code to `supportedLocales` and `supportedLocalCodes`
+- Create a `<local>.json` file under lib/resources/lang/ and fill out every value for your language
+- Run `flutter clean` inside you lib apps directory if flutter complains
+- There is also a different way to implement locals using the [intl](https://pub.dev/packages/intl) package. An example on how to do so can be found [here](https://github.com/flutter/website/tree/master/examples/internationalization/intl_example)

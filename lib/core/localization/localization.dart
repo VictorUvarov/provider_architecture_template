@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:provider_start/local_setup.dart';
 
 /// Custom Localizations that [MaterialApp] accepts in `localizationsDelegates` field
 class AppLocalizations {
@@ -31,7 +32,7 @@ class AppLocalizations {
     return this._sentences[key];
   }
 
-  // List of available sentences that correspond to the /resources/lang/... .json files
+  // List of available sentences that correspond to the /resources/lang/<local>.json files
   String get appTitle => _translate('app-title');
   String get homeViewTitle => _translate('home-view-title');
   String get settingsViewTitle => _translate('settings-view-title');
@@ -59,7 +60,8 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      supportedLocalCodes.contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
