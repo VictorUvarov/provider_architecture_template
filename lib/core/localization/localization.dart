@@ -33,7 +33,7 @@ class AppLocalizations {
     return this._sentences[key];
   }
 
-  // List of available sentences that correspond to the /assets/lang/... .json files
+  // List of available sentences that correspond to the /assets/lang/<local>.json files
   String get appTitle => _translate('app-title');
   String get homeViewTitle => _translate('home-view-title');
   String get settingsViewTitle => _translate('settings-view-title');
