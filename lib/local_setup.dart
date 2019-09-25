@@ -7,7 +7,10 @@ import 'package:provider_start/core/localization/localization.dart';
 const supportedLocales = [
   const Locale('en'),
   const Locale('es'),
+  const Locale('ru'),
 ];
+
+const supportedLocalCodes = ['en', 'es', 'ru'];
 
 /// A callback provided by [MaterialApp] that lets you
 /// specify which locales you plan to support by returning them.
@@ -32,5 +35,6 @@ List<LocalizationsDelegate> get localizationsDelegates {
     const FallbackCupertinoLocalisationsDelegate(),
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
   ];
 }

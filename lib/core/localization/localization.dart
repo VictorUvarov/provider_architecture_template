@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:provider_start/local_setup.dart';
 
 /// Custom Localizations that [MaterialApp] accepts in `localizationsDelegates` field
 class AppLocalizations {
@@ -60,7 +61,8 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'es'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      supportedLocalCodes.contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
