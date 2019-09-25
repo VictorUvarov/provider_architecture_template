@@ -64,8 +64,9 @@ flutter:
     - assets/animations/
     - assets/fonts/
     - assets/images/
-    - resources/lang/en.json
-    - resources/lang/ru.json
+    - assets/lang/en.json
+    - assets/lang/es.json
+    - assets/lang/ru.json
 
   fonts:
     - family: Open Sans

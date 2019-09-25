@@ -6,10 +6,11 @@ import 'package:provider_start/core/localization/localization.dart';
 /// https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const supportedLocales = [
   const Locale('en'),
+  const Locale('es'),
   const Locale('ru'),
 ];
 
-const supportedLocalCodes = ['en', 'ru'];
+const supportedLocalCodes = ['en', 'es', 'ru'];
 
 /// A callback provided by [MaterialApp] that lets you
 /// specify which locales you plan to support by returning them.
@@ -31,6 +32,7 @@ Locale loadSupportedLocals(locale, supportedLocales) {
 List<LocalizationsDelegate> get localizationsDelegates {
   return [
     const AppLocalizationsDelegate(),
+    const FallbackCupertinoLocalisationsDelegate(),
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
