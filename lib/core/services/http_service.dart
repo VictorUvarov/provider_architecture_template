@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mime/mime.dart';
 import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:provider_start/core/constant/http_exception_messages.dart';
+import 'package:provider_start/core/utils/file_utils.dart' as fileUtils;
+import 'package:provider_start/core/utils/http_utils.dart' as httpUtils;
 
-/// Helper class that abstracts away common HTTP Requests
+/// Helper service that abstracts away common HTTP Requests
 class HttpService {
   Dio _dio = Dio();
 
@@ -24,13 +25,13 @@ class HttpService {
 
     debugPrint('Sending GET to ${ApiRoutes.end_point}/$route');
 
-    final future = _dio.get(route);
-    future.then((res) => response = res);
-    future.catchError((err) => print(err));
+    try {
+      response = await _dio.get(route);
+    } catch (e) {
+      throw HttpException(HttpExceptionMessages.general);
+    }
 
-    await future;
-
-    debugPrint('response ${response.data}');
+    httpUtils.checkForHttpExceptions(response);
 
     return response;
   }
@@ -41,18 +42,18 @@ class HttpService {
 
     debugPrint('Sending $body to ${ApiRoutes.end_point}/$route');
 
-    final future = _dio.post(
-      route,
-      data: body,
-      onSendProgress: _progress,
-      onReceiveProgress: _progress,
-    );
-    future.then((res) => response = res);
-    future.catchError((err) => print(err));
+    try {
+      response = await _dio.post(
+        route,
+        data: body,
+        onSendProgress: httpUtils.showLoadingProgress,
+        onReceiveProgress: httpUtils.showLoadingProgress,
+      );
+    } catch (e) {
+      throw HttpException(HttpExceptionMessages.general);
+    }
 
-    await future;
-
-    debugPrint('response ${response.data}');
+    httpUtils.checkForHttpExceptions(response);
 
     return response;
   }
@@ -67,17 +68,9 @@ class HttpService {
     int index = 0;
 
     files.forEach((file) {
-      String fileBaseName = basename(file.path);
-      String mimeType = lookupMimeType(fileBaseName);
-      ContentType contentType = ContentType.parse(mimeType);
+      final uploadInfo = fileUtils.convertFileToUploadInfo(file);
 
-      body.addAll({
-        'file$index': UploadFileInfo(
-          file,
-          fileBaseName,
-          contentType: contentType,
-        ),
-      });
+      body.addAll({'file$index': uploadInfo});
 
       index++;
     });
@@ -91,24 +84,24 @@ class HttpService {
 
   /// Download file from [fileUrl] and return the File
   Future<File> downloadFile(String fileUrl) async {
-    final directory = await getApplicationDocumentsDirectory();
+    Response response;
 
-    String dir = directory.path;
+    final dir = await fileUtils.getApplicationDocumentsDirectoryPath();
 
     File file = File('$dir/${basename(fileUrl)}');
 
-    await _dio.download(
-      fileUrl,
-      file.path,
-      onReceiveProgress: _progress,
-    );
+    try {
+      response = await _dio.download(
+        fileUrl,
+        file.path,
+        onReceiveProgress: httpUtils.showLoadingProgress,
+      );
+    } catch (e) {
+      throw HttpException(HttpExceptionMessages.general);
+    }
+
+    httpUtils.checkForHttpExceptions(response);
 
     return file;
-  }
-
-  void _progress(received, total) {
-    if (total != -1) {
-      print((received / total * 100).toStringAsFixed(0) + '%');
-    }
   }
 }
