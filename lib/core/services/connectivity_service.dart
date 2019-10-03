@@ -5,14 +5,14 @@ import 'package:provider_start/core/enums/connectivity_status.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
 
 class ConnectivityService extends StoppableService {
-  final _connectivityResultController =
-      StreamController<ConnectivityStatus>.broadcast();
+  final _connectivityResultController = StreamController<ConnectivityStatus>();
   final _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _subscription;
 
+  StreamSubscription<ConnectivityResult> _subscription;
   ConnectivityResult _lastResult;
 
-  Stream<ConnectivityStatus> get stream => _connectivityResultController.stream;
+  Stream<ConnectivityStatus> get connectivity$ =>
+      _connectivityResultController.stream;
 
   ConnectivityService() {
     print('(TRACE) ConnectivityService started');

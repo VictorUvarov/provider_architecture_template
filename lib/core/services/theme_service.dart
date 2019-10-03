@@ -11,7 +11,7 @@ class ThemeService {
   final _availableMaterialThemes = materialThemes;
   final _availableCuepertinoThemes = cupertinoThemes;
 
-  Stream<PlatformThemeData> get theme => _themeController.stream;
+  Stream<PlatformThemeData> get theme$ => _themeController.stream;
 
   ThemeService(ThemeType theme) {
     if (theme != null)

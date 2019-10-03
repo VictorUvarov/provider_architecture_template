@@ -21,9 +21,9 @@ List<SingleChildCloneableWidget> dependentServices = [];
 
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<PlatformThemeData>(
-    builder: (context) => locator<ThemeService>().theme,
+    builder: (context) => locator<ThemeService>().theme$,
   ),
   StreamProvider<ConnectivityStatus>(
-    builder: (context) => locator<ConnectivityService>().stream,
+    builder: (context) => locator<ConnectivityService>().connectivity$,
   ),
 ];
