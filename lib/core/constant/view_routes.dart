@@ -6,4 +6,5 @@ class ViewRoutes {
   static const tab_container = 'tab_container';
   static const home = 'home';
   static const settings = 'settings';
+  static const login = 'login';
 }

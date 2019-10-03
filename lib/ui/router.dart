@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
+import 'package:provider_start/ui/views/login/login_view.dart';
 import 'package:provider_start/ui/views/tab_container.dart';
 
 /// Class that generates routes for the application
@@ -30,6 +31,8 @@ class Router {
       case ViewRoutes.tab_container:
         final view = settings.arguments as TabView;
         return TabContainer(view: view);
+      case ViewRoutes.login:
+        return LoginView();
 
       default:
         return Scaffold(

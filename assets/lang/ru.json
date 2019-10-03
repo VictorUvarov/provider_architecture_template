@@ -10,10 +10,10 @@
   "settings-view-night-mode-desc": "Ночной режим",
   "settings-view-app-settings": "Настройки приложения",
   "settings-view-app-settings-desc": "Открыть настройки приложения",
+  "settings-view-sign-out": "выход",
+  "settings-view-sign-out-desc": "Выйти из приложения",
   "login-view-title": "Авторизоваться",
   "login-button-text": "Авторизоваться",
   "button-text-cancel": "Отмена",
-  "button-text-confirm": "подтвердить",
-  "dialog-title": "заглавие",
-  "dialog-desc": "Это описание"
+  "button-text-confirm": "подтвердить"
 }

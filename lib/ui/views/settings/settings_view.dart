@@ -23,40 +23,18 @@ class SettingsView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
-          key: Key('Settings'),
-          widgetKey: Key('Settings widget'),
           title: Text(local.settingsViewTitle),
         ),
         body: ListView(
           children: <Widget>[
-            AlertListTile(model),
             DarkThemeListTile(model),
             AppSettingsListTile(model),
+            SignOutListTile(model),
           ],
         ),
       ),
     );
   }
-}
-
-@widget
-Widget alertListTile(BuildContext context, SettingsModel model) {
-  final local = AppLocalizations.of(context);
-
-  return ListTile(
-    title: Text(local.settingsViewAlert),
-    subtitle: Text(local.settingsViewAlertDesc),
-    trailing: IconButton(
-      icon: Icon(Icons.delete),
-      onPressed: () async {
-        await model.showAlert(
-          title: local.dialogTitle,
-          desc: local.dialogDesc,
-          buttonCofirmText: local.buttonTextConfirm,
-        );
-      },
-    ),
-  );
 }
 
 @widget
@@ -80,9 +58,23 @@ Widget appSettingsListTile(BuildContext context, SettingsModel model) {
   return ListTile(
     title: Text(local.settingsViewAppSettings),
     subtitle: Text(local.settingsViewAppSettingsDesc),
-    trailing: IconButton(
-      icon: Icon(Icons.launch),
-      onPressed: model.openAppSettings,
+    trailing: Icon(Icons.launch),
+    onTap: model.openAppSettings,
+  );
+}
+
+@widget
+Widget signOutListTile(BuildContext context, SettingsModel model) {
+  final local = AppLocalizations.of(context);
+
+  return ListTile(
+    title: Text(local.settingsViewSignOut),
+    subtitle: Text(local.settingsViewSignOutDesc),
+    trailing: Icon(Icons.exit_to_app),
+    onTap: () => model.signOut(
+      title: local.settingsViewSignOut,
+      desc: local.settingsViewSignOutDesc,
+      buttonCofirmText: local.buttonTextConfirm,
     ),
   );
 }

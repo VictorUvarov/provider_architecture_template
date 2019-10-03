@@ -49,12 +49,13 @@ class AppLocalizations {
       _translate('settings-view-app-settings');
   String get settingsViewAppSettingsDesc =>
       _translate('settings-view-app-settings-desc');
+  String get settingsViewSignOut => _translate('settings-view-sign-out');
+  String get settingsViewSignOutDesc =>
+      _translate('settings-view-sign-out-desc');
   String get loginViewTitle => _translate('login-view-title');
   String get loginButtonText => _translate('login-button-text');
   String get buttonTextCancel => _translate('button-text-cancel');
   String get buttonTextConfirm => _translate('button-text-confirm');
-  String get dialogTitle => _translate('dialog-title');
-  String get dialogDesc => _translate('dialog-desc');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

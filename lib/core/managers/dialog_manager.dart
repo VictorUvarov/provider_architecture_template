@@ -36,8 +36,8 @@ class _DialogManagerState extends State<DialogManager> {
     showDialog(
       context: context,
       builder: (context) => PlatformAlertDialog(
-        title: Text(request.title ?? local.dialogTitle),
-        content: Text(request.description ?? local.dialogDesc),
+        title: Text(request.title),
+        content: Text(request.description),
         actions: <Widget>[
           FlatButton(
             child: Text(local.buttonTextCancel),

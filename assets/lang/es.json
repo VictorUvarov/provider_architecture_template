@@ -10,10 +10,10 @@
   "settings-view-night-mode-desc": "Cambiar a modo oscuro",
   "settings-view-app-settings": "Configuraciones de App",
   "settings-view-app-settings-desc": "Abrir configuraciones",
+  "settings-view-sign-out": "Desconectar",
+  "settings-view-sign-out-desc": "Salir de la aplicación",
   "login-view-title": "Iniciar Sesión",
   "login-button-text": "Iniciar",
   "button-text-cancel": "Cancelar",
-  "button-text-confirm": "Confirmar",
-  "dialog-title": "Título",
-  "dialog-desc": "Esta es la descripción."
+  "button-text-confirm": "Confirmar"
 }
