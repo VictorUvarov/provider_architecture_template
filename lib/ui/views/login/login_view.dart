@@ -16,6 +16,9 @@ class LoginView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.loginViewTitle),
+          ios: (_) => CupertinoNavigationBarData(
+            previousPageTitle: local.loginViewTitle,
+          ),
         ),
         body: Center(
           child: PlatformButton(
