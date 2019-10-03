@@ -27,9 +27,9 @@ class SettingsView extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            DarkThemeListTile(model),
-            AppSettingsListTile(model),
-            SignOutListTile(model),
+            _DarkThemeListTile(model),
+            _AppSettingsListTile(model),
+            _SignOutListTile(model),
           ],
         ),
       ),
@@ -38,7 +38,7 @@ class SettingsView extends StatelessWidget {
 }
 
 @widget
-Widget darkThemeListTile(BuildContext context, SettingsModel model) {
+Widget _darkThemeListTile(BuildContext context, SettingsModel model) {
   final local = AppLocalizations.of(context);
 
   return ListTile(
@@ -52,7 +52,7 @@ Widget darkThemeListTile(BuildContext context, SettingsModel model) {
 }
 
 @widget
-Widget appSettingsListTile(BuildContext context, SettingsModel model) {
+Widget _appSettingsListTile(BuildContext context, SettingsModel model) {
   final local = AppLocalizations.of(context);
 
   return ListTile(
@@ -64,7 +64,7 @@ Widget appSettingsListTile(BuildContext context, SettingsModel model) {
 }
 
 @widget
-Widget signOutListTile(BuildContext context, SettingsModel model) {
+Widget _signOutListTile(BuildContext context, SettingsModel model) {
   final local = AppLocalizations.of(context);
 
   return ListTile(
