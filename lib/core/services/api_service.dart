@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:provider_start/core/constant/api_routes.dart';
-import 'package:provider_start/core/constant/http_status_codes.dart';
 import 'package:provider_start/core/services/hardware_service.dart';
 import 'package:provider_start/core/services/http_service.dart';
 import 'package:provider_start/locator.dart';
@@ -12,9 +9,9 @@ class ApiService {
   final _httpService = locator<HttpService>();
 
   Future<void> init() async {
-    await _hardwareService.init();
-
     _httpService.init();
+
+    await _hardwareService.init();
   }
 
   Future<void> sampleGet() async {
@@ -22,11 +19,7 @@ class ApiService {
       'udid': _hardwareService.udid,
     };
 
-    final response = await _httpService.getHttp(ApiRoutes.sample);
-
-    if (response.statusCode == HttpStatuscodes.success) {
-      final parsed = json.decode(response.data);
-    }
+    final jsonData = await _httpService.getHttp(ApiRoutes.sample);
   }
 
   Future<void> samplePost() async {
@@ -34,10 +27,6 @@ class ApiService {
       'udid': _hardwareService.udid,
     };
 
-    final response = await _httpService.postHttp(ApiRoutes.sample, body);
-
-    if (response.statusCode == HttpStatuscodes.success) {
-      final parsed = json.decode(response.data);
-    }
+    final jsonData = await _httpService.postHttp(ApiRoutes.sample, body);
   }
 }

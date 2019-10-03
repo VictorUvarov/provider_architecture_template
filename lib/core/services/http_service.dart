@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/http_exception_messages.dart';
@@ -20,10 +20,13 @@ class HttpService {
   }
 
   /// Send GET request to endpoint/[route] and return the `response`
-  Future<Response> getHttp(String route) async {
+  /// - if successful: returns decoded json data
+  ///
+  /// - throws `HttpException` if GET fails
+  Future<dynamic> getHttp(String route) async {
     Response response;
 
-    debugPrint('Sending GET to ${ApiRoutes.end_point}/$route');
+    print('(TRACE) Sending GET to ${_dio.options.baseUrl}/$route');
 
     try {
       response = await _dio.get(route);
@@ -33,14 +36,19 @@ class HttpService {
 
     httpUtils.checkForHttpExceptions(response);
 
-    return response;
+    final data = json.decode(response.data);
+
+    return data;
   }
 
   /// Send POST request with [body] to endpoint/[route] and return the `response`
-  Future<Response> postHttp(String route, dynamic body) async {
+  /// - if successful: returns decoded json data
+  ///
+  /// - throws `HttpException` if POST request fails
+  Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    debugPrint('Sending $body to ${ApiRoutes.end_point}/$route');
+    print('(TRACE) Sending $body to ${_dio.options.baseUrl}/$route');
 
     try {
       response = await _dio.post(
@@ -55,11 +63,16 @@ class HttpService {
 
     httpUtils.checkForHttpExceptions(response);
 
-    return response;
+    final data = json.decode(response.data);
+
+    return data;
   }
 
   /// Send POST request with [files] to endpoint/[route] and return the `response`
-  Future<Response> postHttpForm(
+  /// - if successful: returns decoded json data
+  ///
+  /// - throws `HttpException` if posting form fails
+  Future<dynamic> postHttpForm(
     String route,
     Map<String, dynamic> body,
     List<File> files,
@@ -79,10 +92,14 @@ class HttpService {
 
     response = await postHttp(route, formData);
 
-    return response;
+    final data = json.decode(response.data);
+
+    return data;
   }
 
   /// Download file from [fileUrl] and return the File
+  ///
+  /// - throws `HttpException` if file download fails
   Future<File> downloadFile(String fileUrl) async {
     Response response;
 
