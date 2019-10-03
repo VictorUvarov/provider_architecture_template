@@ -24,6 +24,7 @@ dependencies:
   flutter_cupertino_localizations: ^1.0.1
 
   # Utilities
+  flutter_launcher_icons: ^0.7.3
   shared_preferences: ^0.5.3+4
   app_settings: ^1.0.6+2
   device_info: ^0.4.0+2
@@ -50,6 +51,11 @@ dev_dependencies:
   built_value_generator: ^6.7.1
   functional_widget: ^0.7.1
   build_runner: ^1.6.7
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

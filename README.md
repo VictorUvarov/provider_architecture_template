@@ -36,10 +36,10 @@ Filled Stacks Links:
 - [x] life cycle manager
 - [x] app settings
 - [x] custom fonts
+- [x] app icons
 - [ ] local storage service
 - [ ] network sensitive ui
 - [ ] graphQL api service
-- [ ] app icons
 
 ### Geolocator branch
 
@@ -66,3 +66,9 @@ Filled Stacks Links:
 - Create a `<local>.json` file under assets/lang/ and fill out every value for your language
 - Run `flutter clean` inside you lib apps directory if flutter complains
 - There is also a different way to implement locals using the [intl](https://pub.dev/packages/intl) package. An example on how to do so can be found [here](https://github.com/flutter/website/tree/master/examples/internationalization/intl_example)
+
+## Adding app icon
+
+- Change icon `assets/images/logo.png` another image
+- If new icon has a different path update `flutter_icons:` in the `pubspec.yaml` file
+- Run flutter `flutter pub get` and then `flutter pub run flutter_launcher_icons:main`
