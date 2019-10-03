@@ -14,7 +14,8 @@ class AnimatedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<PlatformThemeData>(context);
-    final color = Platform.isAndroid
+    final targetPlatform = Theme.of(context).platform;
+    final color = targetPlatform == TargetPlatform.android
         ? theme.materialThemeData.primaryColor
         : theme.cupertinoThemeData.primaryColor;
 

@@ -22,7 +22,8 @@ class SplashView extends StatelessWidget {
     final _api = locator<ApiService>();
 
     final theme = Provider.of<PlatformThemeData>(context);
-    final backgroundColor = Platform.isAndroid
+    final targetPlatform = Theme.of(context).platform;
+    final backgroundColor = targetPlatform == TargetPlatform.android
         ? theme.materialThemeData.primaryColor
         : theme.cupertinoThemeData.primaryColor;
 
