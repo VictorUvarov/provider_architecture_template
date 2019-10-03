@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:mime/mime.dart';
 import 'package:path/path.dart';
 
 Future<String> getApplicationDocumentsDirectoryPath() async {
@@ -23,14 +22,12 @@ Future<String> getExternalStorageDirectoryPath() async {
   return directory.path;
 }
 
-UploadFileInfo convertFileToUploadInfo(File file) {
+Future<MultipartFile> convertFileToMultipartFile(File file) async {
   String fileBaseName = basename(file.path);
-  String mimeType = lookupMimeType(fileBaseName);
-  ContentType contentType = ContentType.parse(mimeType);
+  String fileType = extension(file.path);
 
-  return UploadFileInfo(
-    file,
-    fileBaseName,
-    contentType: contentType,
+  return await MultipartFile.fromFile(
+    file.path,
+    filename: '$fileBaseName.$fileType',
   );
 }

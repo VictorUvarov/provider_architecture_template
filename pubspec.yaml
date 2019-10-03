@@ -27,18 +27,18 @@ dependencies:
   flutter_launcher_icons: ^0.7.3
   shared_preferences: ^0.5.3+4
   app_settings: ^1.0.6+2
-  device_info: ^0.4.0+2
+  device_info: ^0.4.0+3
   path_provider: ^1.2.0
   connectivity: ^0.4.4
   built_value: ^6.7.1
   provider: ^3.1.0
-  get_it: ^2.0.3
+  get_it: ^3.0.1
   mime: ^0.9.6+3
-  dio: ^2.1.16
+  dio: ^3.0.3
 
   # UI Utilities
   functional_widget_annotation: ^0.5.1
-  flutter_platform_widgets: ^0.12.0
+  flutter_platform_widgets: ^0.20.1
 
   # UI Widgets
   flare_splash_screen: ^2.1.3
@@ -50,7 +50,7 @@ dev_dependencies:
 
   built_value_generator: ^6.7.1
   functional_widget: ^0.7.1
-  build_runner: ^1.6.7
+  build_runner: ^1.7.1
 
 flutter_icons:
   android: "launcher_icon"

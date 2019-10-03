@@ -28,33 +28,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformProvider(
-      builder: (context) => MultiProvider(
-        providers: providers,
-        child: Consumer<PlatformThemeData>(
-          builder: (context, theme, child) => ThemeManager(
-            data: theme?.materialThemeData,
-            child: CoreManager(
-              child: PlatformApp(
-                android: (_) => MaterialAppData(
-                  theme: theme?.materialThemeData,
-                ),
-                ios: (_) => CupertinoAppData(
-                  theme: theme?.cupertinoThemeData,
-                ),
-                localizationsDelegates: localizationsDelegates,
-                supportedLocales: supportedLocales,
-                localeResolutionCallback: loadSupportedLocals,
-                onGenerateTitle: (context) =>
-                    AppLocalizations.of(context).appTitle,
-                navigatorKey: navigationService.navigatorKey,
-                onGenerateRoute: (settings) => Router.generateRoute(
-                  settings,
-                  PlatformProvider.of(context).isMaterial,
-                ),
-                builder: _setupDialogManager,
-                home: _getStartupScreen(),
+    return MultiProvider(
+      providers: providers,
+      child: Consumer<PlatformThemeData>(
+        builder: (context, theme, child) => ThemeManager(
+          data: theme?.materialThemeData,
+          child: CoreManager(
+            child: PlatformApp(
+              android: (_) => MaterialAppData(
+                theme: theme?.materialThemeData,
               ),
+              ios: (_) => CupertinoAppData(
+                theme: theme?.cupertinoThemeData,
+              ),
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              localeResolutionCallback: loadSupportedLocals,
+              onGenerateTitle: (context) =>
+                  AppLocalizations.of(context).appTitle,
+              navigatorKey: navigationService.navigatorKey,
+              onGenerateRoute: (settings) =>
+                  Router.generateRoute(context, settings),
+              builder: _setupDialogManager,
+              home: _getStartupScreen(),
             ),
           ),
         ),
@@ -68,13 +64,10 @@ class MyApp extends StatelessWidget {
   Widget _setupDialogManager(context, widget) {
     return Navigator(
       key: locator<DialogService>().dialogNavigationKey,
-      onGenerateRoute: (settings) => PlatformProvider.of(context).isMaterial
-          ? MaterialPageRoute(
-              builder: (context) => DialogManager(child: widget),
-            )
-          : CupertinoPageRoute(
-              builder: (context) => DialogManager(child: widget),
-            ),
+      onGenerateRoute: (settings) => platformPageRoute(
+        context: context,
+        builder: (context) => DialogManager(child: widget),
+      ),
     );
   }
 

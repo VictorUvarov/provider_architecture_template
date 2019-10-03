@@ -80,15 +80,15 @@ class HttpService {
     Response response;
     int index = 0;
 
-    files.forEach((file) {
-      final uploadInfo = fileUtils.convertFileToUploadInfo(file);
+    files.forEach((file) async {
+      final uploadInfo = await fileUtils.convertFileToMultipartFile(file);
 
       body.addAll({'file$index': uploadInfo});
 
       index++;
     });
 
-    FormData formData = FormData.from(body);
+    FormData formData = FormData.fromMap(body);
 
     response = await postHttp(route, formData);
 

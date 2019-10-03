@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/models/platform_theme.dart';
 import 'package:provider_start/core/ui_models/widgets/animated_list_item_model.dart';
@@ -13,7 +14,7 @@ class AnimatedListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<PlatformThemeData>(context);
-    final color = PlatformProvider.of(context).isMaterial
+    final color = Platform.isAndroid
         ? theme.materialThemeData.primaryColor
         : theme.cupertinoThemeData.primaryColor;
 
