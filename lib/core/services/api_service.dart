@@ -9,8 +9,6 @@ class ApiService {
   final _httpService = locator<HttpService>();
 
   Future<void> init() async {
-    _httpService.init();
-
     await _hardwareService.init();
   }
 

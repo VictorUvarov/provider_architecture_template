@@ -4,25 +4,25 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
-import 'package:provider_start/core/constant/http_exception_messages.dart';
+import 'package:provider_start/core/constant/network_exception_messages.dart';
+import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as fileUtils;
-import 'package:provider_start/core/utils/http_utils.dart' as httpUtils;
+import 'package:provider_start/core/utils/network_utils.dart' as networkUtils;
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpService {
-  Dio _dio = Dio();
-
-  /// Set default configs
-  void init() {
-    _dio.options.baseUrl = ApiRoutes.end_point;
-    _dio.options.connectTimeout = 5000; // 5 seconds
-    _dio.options.receiveTimeout = 3000; // 3 seconds
-  }
+  Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: ApiRoutes.end_point,
+      connectTimeout: 5000, // 5 seconds
+      receiveTimeout: 3000, // 3 seconds
+    ),
+  );
 
   /// Send GET request to endpoint/[route] and return the `response`
   /// - if successful: returns decoded json data
   ///
-  /// - throws `HttpException` if GET fails
+  /// - throws `NetworkException` if GET fails
   Future<dynamic> getHttp(String route) async {
     Response response;
 
@@ -31,10 +31,10 @@ class HttpService {
     try {
       response = await _dio.get(route);
     } catch (e) {
-      throw HttpException(HttpExceptionMessages.general);
+      throw NetworkException(NetworkExceptionMessages.general);
     }
 
-    httpUtils.checkForHttpExceptions(response);
+    networkUtils.checkForNetworkExceptions(response);
 
     final data = json.decode(response.data);
 
@@ -44,7 +44,7 @@ class HttpService {
   /// Send POST request with [body] to endpoint/[route] and return the `response`
   /// - if successful: returns decoded json data
   ///
-  /// - throws `HttpException` if POST request fails
+  /// - throws `NetworkException` if POST request fails
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
@@ -54,14 +54,14 @@ class HttpService {
       response = await _dio.post(
         route,
         data: body,
-        onSendProgress: httpUtils.showLoadingProgress,
-        onReceiveProgress: httpUtils.showLoadingProgress,
+        onSendProgress: networkUtils.showLoadingProgress,
+        onReceiveProgress: networkUtils.showLoadingProgress,
       );
     } catch (e) {
-      throw HttpException(HttpExceptionMessages.general);
+      throw NetworkException(NetworkExceptionMessages.general);
     }
 
-    httpUtils.checkForHttpExceptions(response);
+    networkUtils.checkForNetworkExceptions(response);
 
     final data = json.decode(response.data);
 
@@ -71,7 +71,7 @@ class HttpService {
   /// Send POST request with [files] to endpoint/[route] and return the `response`
   /// - if successful: returns decoded json data
   ///
-  /// - throws `HttpException` if posting form fails
+  /// - throws `NetworkException` if posting form fails
   Future<dynamic> postHttpForm(
     String route,
     Map<String, dynamic> body,
@@ -99,7 +99,7 @@ class HttpService {
 
   /// Download file from [fileUrl] and return the File
   ///
-  /// - throws `HttpException` if file download fails
+  /// - throws `NetworkException` if file download fails
   Future<File> downloadFile(String fileUrl) async {
     Response response;
 
@@ -111,13 +111,13 @@ class HttpService {
       response = await _dio.download(
         fileUrl,
         file.path,
-        onReceiveProgress: httpUtils.showLoadingProgress,
+        onReceiveProgress: networkUtils.showLoadingProgress,
       );
     } catch (e) {
-      throw HttpException(HttpExceptionMessages.general);
+      throw NetworkException(NetworkExceptionMessages.general);
     }
 
-    httpUtils.checkForHttpExceptions(response);
+    networkUtils.checkForNetworkExceptions(response);
 
     return file;
   }
