@@ -35,27 +35,33 @@ class _DialogManagerState extends State<DialogManager> {
 
     showDialog(
       context: context,
-      builder: (context) => PlatformAlertDialog(
-        title: Text(request.title),
-        content: Text(request.description),
-        actions: <Widget>[
-          FlatButton(
-            child: Text(local.buttonTextCancel),
-            onPressed: () {
-              _dialogService.dialogComplete(AlertResponse(confirmed: false));
-            },
-          ),
-          PlatformButton(
-            child: Text(request.buttonTitle ?? local.buttonTextCancel),
-            onPressed: () {
-              _dialogService.dialogComplete(AlertResponse(confirmed: true));
-            },
-            android: (context) => MaterialRaisedButtonData(
-              textColor: theme.primaryTextTheme.body1.color,
-              color: theme.primaryColor,
+      builder: (context) => WillPopScope(
+        onWillPop: () async {
+          _dialogService.dialogComplete(AlertResponse(confirmed: false));
+          return false;
+        },
+        child: PlatformAlertDialog(
+          title: Text(request.title),
+          content: Text(request.description),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(local.buttonTextCancel),
+              onPressed: () {
+                _dialogService.dialogComplete(AlertResponse(confirmed: false));
+              },
             ),
-          ),
-        ],
+            PlatformButton(
+              child: Text(request.buttonTitle ?? local.buttonTextCancel),
+              onPressed: () {
+                _dialogService.dialogComplete(AlertResponse(confirmed: true));
+              },
+              android: (context) => MaterialRaisedButtonData(
+                textColor: theme.primaryTextTheme.body1.color,
+                color: theme.primaryColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
