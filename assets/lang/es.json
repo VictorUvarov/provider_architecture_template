@@ -15,5 +15,7 @@
   "login-view-title": "Iniciar Sesión",
   "login-button-text": "Iniciar",
   "button-text-cancel": "Cancelar",
-  "button-text-confirm": "Confirmar"
+  "button-text-confirm": "Confirmar",
+  "email-hint-text": "correo electrónico",
+  "password-hint-text": "contraseña"
 }

@@ -56,6 +56,9 @@ class AppLocalizations {
   String get loginButtonText => _translate('login-button-text');
   String get buttonTextCancel => _translate('button-text-cancel');
   String get buttonTextConfirm => _translate('button-text-confirm');
+
+  String get emailHintText => _translate('email-hint-text');
+  String get passwordHintText => _translate('password-hint-text');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

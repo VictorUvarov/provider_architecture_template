@@ -15,5 +15,7 @@
   "login-view-title": "Авторизоваться",
   "login-button-text": "Авторизоваться",
   "button-text-cancel": "Отмена",
-  "button-text-confirm": "подтвердить"
+  "button-text-confirm": "подтвердить",
+  "email-hint-text": "электронное письмо",
+  "password-hint-text": "пароль"
 }

@@ -15,5 +15,7 @@
   "login-view-title": "Login",
   "login-button-text": "Login",
   "button-text-cancel": "Cancel",
-  "button-text-confirm": "Confirm"
+  "button-text-confirm": "Confirm",
+  "email-hint-text": "Email",
+  "password-hint-text": "Password"
 }

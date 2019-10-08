@@ -28,4 +28,13 @@ class Validators {
     }
     return null;
   }
+
+  String validatePassword(String value) {
+    if (value.trim().isEmpty) {
+      return 'Password is required';
+    } else if (value.length <= 6) {
+      return 'Password should be more than 6 characters';
+    }
+    return null;
+  }
 }
