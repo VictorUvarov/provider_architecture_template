@@ -1,5 +1,7 @@
+import 'dart:convert' as convert;
+
 import 'package:dio/dio.dart';
-import 'package:provider_start/core/constant/Network_exception_messages.dart';
+import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 
 void checkForNetworkExceptions(Response response) {
@@ -20,5 +22,14 @@ void checkForNetworkExceptions(Response response) {
 void showLoadingProgress(received, total) {
   if (total != -1) {
     print((received / total * 100).toStringAsFixed(0) + '%');
+  }
+}
+
+dynamic decodeResponseBodyToJson(String body) {
+  try {
+    final data = convert.jsonDecode(body);
+    return data;
+  } catch (e) {
+    throw NetworkException(NetworkExceptionMessages.jsonFormat);
   }
 }

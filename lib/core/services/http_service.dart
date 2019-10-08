@@ -30,13 +30,13 @@ class HttpService {
 
     try {
       response = await _dio.get(route);
-    } catch (e) {
+    } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
     networkUtils.checkForNetworkExceptions(response);
 
-    final data = json.decode(response.data);
+    final data = networkUtils.decodeResponseBodyToJson(response.data);
 
     return data;
   }
@@ -57,13 +57,13 @@ class HttpService {
         onSendProgress: networkUtils.showLoadingProgress,
         onReceiveProgress: networkUtils.showLoadingProgress,
       );
-    } catch (e) {
+    } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
     networkUtils.checkForNetworkExceptions(response);
 
-    final data = json.decode(response.data);
+    final data = networkUtils.decodeResponseBodyToJson(response.data);
 
     return data;
   }
@@ -77,7 +77,6 @@ class HttpService {
     Map<String, dynamic> body,
     List<File> files,
   ) async {
-    Response response;
     int index = 0;
 
     files.forEach((file) async {
@@ -90,9 +89,7 @@ class HttpService {
 
     FormData formData = FormData.fromMap(body);
 
-    response = await postHttp(route, formData);
-
-    final data = json.decode(response.data);
+    final data = await postHttp(route, formData);
 
     return data;
   }
@@ -113,7 +110,7 @@ class HttpService {
         file.path,
         onReceiveProgress: networkUtils.showLoadingProgress,
       );
-    } catch (e) {
+    } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
