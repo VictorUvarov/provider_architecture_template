@@ -17,7 +17,6 @@ class LoginView extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return BaseView<LoginModel>(
-      onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.loginViewTitle),
@@ -55,7 +54,6 @@ Widget _emailTextField(BuildContext context, LoginModel model) {
     controller: model.emailController,
     validator: model.validateEmail,
     decoration: InputDecoration(
-      icon: Icon(Icons.email),
       hintText: local.emailHintText,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
@@ -75,7 +73,6 @@ Widget _passwordTextField(BuildContext context, LoginModel model) {
     controller: model.passwordController,
     validator: model.validatePassword,
     decoration: InputDecoration(
-      icon: Icon(Icons.lock),
       hintText: local.passwordHintText,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/services/api_service.dart';
+import 'package:provider_start/core/services/auth_service.dart';
 import 'package:provider_start/core/services/connectivity_service.dart';
 import 'package:provider_start/core/services/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_service.dart';
@@ -27,6 +28,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => HttpService());
   locator.registerLazySingleton(() => ApiService());
+  locator.registerLazySingleton(() => AuthService());
 
   // View viewmodels
   locator.registerFactory(() => TabModel());

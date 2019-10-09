@@ -5,14 +5,9 @@ import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/ui/views/base_view.dart';
 import 'package:provider_start/ui/widgets/animated_list_item.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({Key key}) : super(key: key);
 
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);

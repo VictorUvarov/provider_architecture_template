@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/mixins/validators.dart';
-import 'package:provider_start/core/services/key_storage_service.dart';
+import 'package:provider_start/core/services/auth_service.dart';
 import 'package:provider_start/core/services/navigation_service.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 import 'package:provider_start/locator.dart';
 
 class LoginModel extends BaseModel with Validators {
-  final _keyStorageService = locator<KeyStorageService>();
   final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -21,26 +22,25 @@ class LoginModel extends BaseModel with Validators {
   TextEditingController get passwordController => _passwordController;
   GlobalKey<FormState> get formKey => _formKey;
 
-  Future<void> init() async {
-    setState(ViewState.Busy);
-
-    setState(ViewState.Idle);
-  }
-
   Future<void> login() async {
     if (!_formKey.currentState.validate()) return;
 
     setState(ViewState.Busy);
 
-    await Future.delayed(Duration(milliseconds: 250));
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
 
-    _keyStorageService.hasLoggedIn = true;
+    try {
+      await _authService.signInWithEmailAndPassword(email, password);
 
-    _navigationService.popAllAndPushNamed(
-      ViewRoutes.tab_container,
-      arguments: TabView.Home,
-    );
-
-    setState(ViewState.Idle);
+      _navigationService.popAllAndPushNamed(
+        ViewRoutes.tab_container,
+        arguments: TabView.Home,
+      );
+      setState(ViewState.Idle);
+    } on AuthException catch (error) {
+      print('(ERROR) ${error.message}');
+      setState(ViewState.Error);
+    }
   }
 }
