@@ -79,9 +79,9 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   bool shouldReload(AppLocalizationsDelegate old) => false;
 }
 
-class FallbackCupertinoLocalisationsDelegate
+class FallbackCupertinoLocalizationsDelegate
     extends LocalizationsDelegate<CupertinoLocalizations> {
-  const FallbackCupertinoLocalisationsDelegate();
+  const FallbackCupertinoLocalizationsDelegate();
 
   @override
   bool isSupported(Locale locale) => true;
@@ -91,5 +91,5 @@ class FallbackCupertinoLocalisationsDelegate
       DefaultCupertinoLocalizations.load(locale);
 
   @override
-  bool shouldReload(FallbackCupertinoLocalisationsDelegate old) => false;
+  bool shouldReload(FallbackCupertinoLocalizationsDelegate old) => false;
 }
