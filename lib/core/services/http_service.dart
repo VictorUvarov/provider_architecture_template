@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
@@ -10,13 +9,7 @@ import 'package:provider_start/core/utils/network_utils.dart' as networkUtils;
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpService {
-  Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: ApiRoutes.end_point,
-      connectTimeout: 5000, // 5 seconds
-      receiveTimeout: 3000, // 3 seconds
-    ),
-  );
+  Dio _dio = Dio();
 
   /// Send GET request to endpoint/[route] and return the `response`
   /// - if successful: returns decoded json data
@@ -25,10 +18,11 @@ class HttpService {
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    print('(TRACE) Sending GET to ${_dio.options.baseUrl}/$route');
+    print('(TRACE) Sending GET to ${ApiRoutes.end_point}/$route');
 
     try {
-      response = await _dio.get(route);
+      final fullRoute = '${ApiRoutes.end_point}/$route';
+      response = await _dio.get(fullRoute);
     } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
     }
@@ -47,11 +41,12 @@ class HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    print('(TRACE) Sending $body to ${_dio.options.baseUrl}/$route');
+    print('(TRACE) Sending $body to ${ApiRoutes.end_point}/$route');
 
     try {
+      final fullRoute = '${ApiRoutes.end_point}/$route';
       response = await _dio.post(
-        route,
+        fullRoute,
         data: body,
         onSendProgress: networkUtils.showLoadingProgress,
         onReceiveProgress: networkUtils.showLoadingProgress,
@@ -78,15 +73,12 @@ class HttpService {
   ) async {
     int index = 0;
 
-    files.forEach((file) async {
-      final uploadInfo = await fileUtils.convertFileToMultipartFile(file);
-
-      body.addAll({'file$index': uploadInfo});
-
+    final formData = FormData.fromMap(body);
+    files?.forEach((file) async {
+      final mFile = await fileUtils.convertFileToMultipartFile(file);
+      formData.files.add(MapEntry("file$index", mFile));
       index++;
     });
-
-    FormData formData = FormData.fromMap(body);
 
     final data = await postHttp(route, formData);
 
@@ -99,9 +91,7 @@ class HttpService {
   Future<File> downloadFile(String fileUrl) async {
     Response response;
 
-    final dir = await fileUtils.getApplicationDocumentsDirectoryPath();
-
-    File file = File('$dir/${basename(fileUrl)}');
+    final file = await fileUtils.getFileFromUrl(fileUrl);
 
     try {
       response = await _dio.download(
