@@ -32,7 +32,7 @@ Locale loadSupportedLocals(locale, supportedLocales) {
 List<LocalizationsDelegate> get localizationsDelegates {
   return [
     const AppLocalizationsDelegate(),
-    const FallbackCupertinoLocalisationsDelegate(),
+    const FallbackCupertinoLocalizationsDelegate(),
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,

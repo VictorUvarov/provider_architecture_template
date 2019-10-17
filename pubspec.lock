@@ -332,7 +332,7 @@ packages:
     source: hosted
     version: "2.1.0"
   http_parser:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
