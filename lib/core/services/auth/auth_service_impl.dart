@@ -1,9 +1,13 @@
 import 'package:provider_start/core/constant/auth_exception_messages.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
-import 'package:provider_start/core/services/key_storage_service.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/locator.dart';
 
-class AuthService {
+class AuthServiceImpl implements AuthService {
+  final _keyStorageService = locator<KeyStorageService>();
+
+  @override
   Future<void> signUpWithEmailPassword(
     String email,
     String password,
@@ -11,19 +15,20 @@ class AuthService {
   ) async {
     try {
       await Future.delayed(Duration(milliseconds: 250));
-      locator<KeyStorageService>().hasLoggedIn = true;
+      _keyStorageService.hasLoggedIn = true;
     } on Exception catch (_) {
       throw AuthException(AuthExceptionMessages.general);
     }
   }
 
+  @override
   Future<void> signInWithEmailAndPassword(
     String email,
     String password,
   ) async {
     try {
       await Future.delayed(Duration(milliseconds: 250));
-      locator<KeyStorageService>().hasLoggedIn = true;
+      _keyStorageService.hasLoggedIn = true;
     } on Exception catch (_) {
       throw AuthException(AuthExceptionMessages.general);
     }

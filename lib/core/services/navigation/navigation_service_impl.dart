@@ -1,13 +1,17 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
 
-/// Service that is responsible for navigating around the app
-class NavigationService {
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+class NavigationServiceImpl implements NavigationService {
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
+  @override
+  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+  @override
   Future<dynamic> pushNamed(String routeName, {Object arguments}) {
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
   }
 
+  @override
   Future<dynamic> pushReplacementNamed(String routeName, {Object arguments}) {
     return navigatorKey.currentState.pushReplacementNamed(
       routeName,
@@ -15,6 +19,7 @@ class NavigationService {
     );
   }
 
+  @override
   Future<dynamic> popAllAndPushNamed(
     String routeName, {
     Object arguments,
@@ -26,6 +31,7 @@ class NavigationService {
     );
   }
 
+  @override
   bool pop({returnValue}) {
     return navigatorKey.currentState.pop(returnValue);
   }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/enums/connectivity_status.dart';
 import 'package:provider_start/core/models/platform_theme.dart';
-import 'package:provider_start/core/services/connectivity_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
+import 'package:provider_start/core/services/theme/theme_service.dart';
 import 'package:provider_start/locator.dart';
 
 /// List of providers that provider transforms into a widget tree

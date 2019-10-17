@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider_start/core/services/connectivity_service.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/locator.dart';
 

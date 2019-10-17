@@ -5,11 +5,12 @@ import 'package:path/path.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
+import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as fileUtils;
 import 'package:provider_start/core/utils/network_utils.dart' as networkUtils;
 
 /// Helper service that abstracts away common HTTP Requests
-class HttpService {
+class HttpServiceImpl implements HttpService {
   Dio _dio = Dio(
     BaseOptions(
       baseUrl: ApiRoutes.end_point,
@@ -22,6 +23,7 @@ class HttpService {
   /// - if successful: returns decoded json data
   ///
   /// - throws `NetworkException` if GET fails
+  @override
   Future<dynamic> getHttp(String route) async {
     Response response;
 
@@ -44,6 +46,7 @@ class HttpService {
   /// - if successful: returns decoded json data
   ///
   /// - throws `NetworkException` if POST request fails
+  @override
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
@@ -71,6 +74,7 @@ class HttpService {
   /// - if successful: returns decoded json data
   ///
   /// - throws `NetworkException` if posting form fails
+  @override
   Future<dynamic> postHttpForm(
     String route,
     Map<String, dynamic> body,
@@ -96,6 +100,7 @@ class HttpService {
   /// Download file from [fileUrl] and return the File
   ///
   /// - throws `NetworkException` if file download fails
+  @override
   Future<File> downloadFile(String fileUrl) async {
     Response response;
 

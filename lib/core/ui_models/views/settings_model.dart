@@ -2,10 +2,10 @@ import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/enums/view_state.dart';
-import 'package:provider_start/core/services/dialog_service.dart';
-import 'package:provider_start/core/services/key_storage_service.dart';
-import 'package:provider_start/core/services/navigation_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
+import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/services/theme/theme_service.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 import 'package:provider_start/locator.dart';
 

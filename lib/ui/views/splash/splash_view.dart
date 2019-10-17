@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_start/core/constant/animations.dart';
 import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/core/models/platform_theme.dart';
-import 'package:provider_start/core/services/api_service.dart';
+import 'package:provider_start/core/services/api/api_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/ui/views/tab_container.dart';
 

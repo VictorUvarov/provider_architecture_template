@@ -1,17 +1,18 @@
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service that is responsible for storing/retrieving data in/from
 /// local storage using the [SharedPreferences] package.
-class KeyStorageService {
-  static const loggedin_key = "hasLoggedIn";
-  static const night_mode_key = "nightMode";
+class KeyStorageServiceImpl implements KeyStorageService {
+  static const loggedin_key = 'hasLoggedIn';
+  static const night_mode_key = 'nightMode';
 
-  static KeyStorageService _instance;
+  static KeyStorageServiceImpl _instance;
   static SharedPreferences _preferences;
 
-  static Future<KeyStorageService> getInstance() async {
+  static Future<KeyStorageServiceImpl> getInstance() async {
     if (_instance == null) {
-      _instance = KeyStorageService();
+      _instance = KeyStorageServiceImpl();
     }
 
     if (_preferences == null) {
@@ -21,9 +22,11 @@ class KeyStorageService {
     return _instance;
   }
 
+  @override
   bool get hasLoggedIn => _getFromDisk(loggedin_key) ?? false;
   set hasLoggedIn(bool value) => _saveToDisk(loggedin_key, value);
 
+  @override
   bool get nightMode => _getFromDisk(night_mode_key) ?? false;
   set nightMode(bool value) => _saveToDisk(night_mode_key, value);
 

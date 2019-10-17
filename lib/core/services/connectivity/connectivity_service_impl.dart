@@ -2,19 +2,23 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:provider_start/core/enums/connectivity_status.dart';
-import 'package:provider_start/core/services/stoppable_service.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 
-class ConnectivityService extends StoppableService {
+class ConnectivityServiceImpl implements ConnectivityService {
   final _connectivityResultController = StreamController<ConnectivityStatus>();
   final _connectivity = Connectivity();
 
   StreamSubscription<ConnectivityResult> _subscription;
   ConnectivityResult _lastResult;
+  bool _serviceStoped = false;
 
+  @override
   Stream<ConnectivityStatus> get connectivity$ =>
       _connectivityResultController.stream;
 
-  ConnectivityService() {
+  bool get serviceStopped => _serviceStoped;
+
+  ConnectivityServiceImpl() {
     print('(TRACE) ConnectivityService started');
     _subscription =
         _connectivity.onConnectivityChanged.listen(_emitConnectivity);
@@ -23,7 +27,8 @@ class ConnectivityService extends StoppableService {
   @override
   void start() async {
     print('(TRACE) ConnectivityService resumed');
-    super.start();
+    _serviceStoped = false;
+
     await _resumeSignal();
     _subscription.resume();
   }
@@ -31,7 +36,8 @@ class ConnectivityService extends StoppableService {
   @override
   void stop() {
     print('(TRACE) ConnectivityService paused');
-    super.stop();
+    _serviceStoped = true;
+
     _subscription.pause(_resumeSignal());
   }
 

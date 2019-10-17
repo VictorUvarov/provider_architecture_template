@@ -1,14 +1,23 @@
 import 'package:get_it/get_it.dart';
 import 'package:provider_start/core/enums/theme_type.dart';
-import 'package:provider_start/core/services/api_service.dart';
-import 'package:provider_start/core/services/auth_service.dart';
-import 'package:provider_start/core/services/connectivity_service.dart';
-import 'package:provider_start/core/services/dialog_service.dart';
-import 'package:provider_start/core/services/hardware_service.dart';
-import 'package:provider_start/core/services/http_service.dart';
-import 'package:provider_start/core/services/key_storage_service.dart';
-import 'package:provider_start/core/services/navigation_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
+import 'package:provider_start/core/services/api/api_service.dart';
+import 'package:provider_start/core/services/api/api_service_impl.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/auth/auth_service_impl.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service_impl.dart';
+import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/dialog/dialog_service_impl.dart';
+import 'package:provider_start/core/services/hardware/hardware_service.dart';
+import 'package:provider_start/core/services/hardware/hardware_service_impl.dart';
+import 'package:provider_start/core/services/http/http_service.dart';
+import 'package:provider_start/core/services/http/http_service_impl.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
+import 'package:provider_start/core/services/theme/theme_service.dart';
+import 'package:provider_start/core/services/theme/theme_service_impl.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
@@ -22,13 +31,17 @@ GetIt locator = GetIt.instance;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => HardwareService());
-  locator.registerLazySingleton(() => ConnectivityService());
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => HttpService());
-  locator.registerLazySingleton(() => ApiService());
-  locator.registerLazySingleton(() => AuthService());
+  locator.registerLazySingleton<NavigationService>(
+    () => NavigationServiceImpl(),
+  );
+  locator.registerLazySingleton<HardwareService>(() => HardwareServiceImpl());
+  locator.registerLazySingleton<ConnectivityService>(
+    () => ConnectivityServiceImpl(),
+  );
+  locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
+  locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
+  locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
+  locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
 
   // View viewmodels
   locator.registerFactory(() => TabModel());
@@ -45,12 +58,16 @@ Future<void> setupLocator() async {
 /// Initialize other services here that require additional code
 /// to run before the services can be registered
 Future<void> initializeServices() async {
-  final instance = await KeyStorageService.getInstance();
+  final instance = await KeyStorageServiceImpl.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
 
   if (instance.nightMode) {
-    locator.registerLazySingleton(() => ThemeService(ThemeType.Dark));
+    locator.registerLazySingleton<ThemeService>(
+      () => ThemeServiceImpl(ThemeType.Dark),
+    );
   } else {
-    locator.registerLazySingleton(() => ThemeService(ThemeType.Primary));
+    locator.registerLazySingleton<ThemeService>(
+      () => ThemeServiceImpl(ThemeType.Primary),
+    );
   }
 }

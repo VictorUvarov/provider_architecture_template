@@ -4,8 +4,8 @@ import 'package:provider_start/core/enums/tab_view.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/mixins/validators.dart';
-import 'package:provider_start/core/services/auth_service.dart';
-import 'package:provider_start/core/services/navigation_service.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
 import 'package:provider_start/locator.dart';
 
