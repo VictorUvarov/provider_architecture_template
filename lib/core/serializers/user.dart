@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:provider_start/core/serializers/serializers.dart';
 
 part 'user.g.dart';
@@ -14,31 +13,17 @@ part 'user.g.dart';
 abstract class User implements Built<User, UserBuilder> {
   static Serializer<User> get serializer => _$userSerializer;
 
-  @nullable
   int get id;
 
-  @nullable
-  @BuiltValueField(wireName: 'first_name')
-  String get firstName;
+  String get name;
 
-  @nullable
-  @BuiltValueField(wireName: 'last_name')
-  String get lastName;
+  String get username;
 
-  @nullable
   String get phone;
 
-  @nullable
   String get email;
 
-  @nullable
-  String get location;
-
-  @nullable
-  DateTime get created;
-
-  @nullable
-  BuiltList<int> get list;
+  String get website;
 
   String toJson() {
     return json.encode(serializers.serializeWith(User.serializer, this));
@@ -48,6 +33,13 @@ abstract class User implements Built<User, UserBuilder> {
     return serializers.deserializeWith(
       User.serializer,
       json.decode(jsonString),
+    );
+  }
+
+  static User fromMap(Map<String, dynamic> map) {
+    return serializers.deserializeWith(
+      User.serializer,
+      map,
     );
   }
 

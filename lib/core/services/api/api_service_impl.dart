@@ -1,4 +1,6 @@
 import 'package:provider_start/core/constant/api_routes.dart';
+import 'package:provider_start/core/serializers/post.dart';
+import 'package:provider_start/core/serializers/user.dart';
 import 'package:provider_start/core/services/api/api_service.dart';
 import 'package:provider_start/core/services/hardware/hardware_service.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
@@ -15,12 +17,26 @@ class ApiServiceImpl implements ApiService {
   }
 
   @override
-  Future<void> sampleGet() async {
-    final body = {
-      'udid': _hardwareService.udid,
-    };
+  Future<List<Post>> fetchPosts() async {
+    final postsJsonData =
+        await _httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
 
-    final jsonData = await _httpService.getHttp(ApiRoutes.sample);
+    final futurePosts = postsJsonData.map((postJsonData) async {
+      final userRoute = '${ApiRoutes.users}/${postJsonData['userId']}';
+
+      final userJsonData = await _httpService.getHttp(userRoute);
+
+      postJsonData.addAll({'user': userJsonData});
+
+      return Post.fromMap(postJsonData);
+    }).toList();
+
+    // Fetch all posts in parrallel
+    final futures = <Future<Post>>[];
+    futurePosts.forEach((futurePost) => futures.add(futurePost));
+    final posts = await Future.wait(futures);
+
+    return posts;
   }
 
   @override
@@ -29,6 +45,6 @@ class ApiServiceImpl implements ApiService {
       'udid': _hardwareService.udid,
     };
 
-    final jsonData = await _httpService.postHttp(ApiRoutes.sample, body);
+    await _httpService.postHttp(ApiRoutes.photos, body);
   }
 }

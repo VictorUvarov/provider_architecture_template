@@ -1,9 +1,9 @@
 library serializers;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
+import 'package:provider_start/core/serializers/post.dart';
 import 'package:provider_start/core/serializers/user.dart';
 
 part 'serializers.g.dart';
@@ -11,6 +11,7 @@ part 'serializers.g.dart';
 /// List of Serializable models that will built using `build_value` package
 @SerializersFor(const [
   User,
+  Post,
 ])
 
 /// Can add additional plugins that will serialize types like [DateTime]

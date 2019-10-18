@@ -20,20 +20,24 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    print('(TRACE) Sending GET to ${ApiRoutes.end_point}/$route');
+    print('(TRACE) Sending GET to ${ApiRoutes.base_url}/$route');
 
     try {
-      final fullRoute = '${ApiRoutes.end_point}/$route';
-      response = await _dio.get(fullRoute);
+      final fullRoute = '${ApiRoutes.base_url}/$route';
+      response = await _dio.get(
+        fullRoute,
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+        ),
+      );
     } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
     networkUtils.checkForNetworkExceptions(response);
 
-    final data = networkUtils.decodeResponseBodyToJson(response.data);
-
-    return data;
+    // For this specific API its decodes json for us
+    return response.data;
   }
 
   /// Send POST request with [body] to endpoint/[route] and return the `response`
@@ -44,15 +48,18 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    print('(TRACE) Sending $body to ${ApiRoutes.end_point}/$route');
+    print('(TRACE) Sending $body to ${ApiRoutes.base_url}/$route');
 
     try {
-      final fullRoute = '${ApiRoutes.end_point}/$route';
+      final fullRoute = '${ApiRoutes.base_url}/$route';
       response = await _dio.post(
         fullRoute,
         data: body,
         onSendProgress: networkUtils.showLoadingProgress,
         onReceiveProgress: networkUtils.showLoadingProgress,
+        options: Options(
+          headers: {'Content-Type': 'application/json'},
+        ),
       );
     } catch (_) {
       throw NetworkException(NetworkExceptionMessages.general);
@@ -60,9 +67,8 @@ class HttpServiceImpl implements HttpService {
 
     networkUtils.checkForNetworkExceptions(response);
 
-    final data = networkUtils.decodeResponseBodyToJson(response.data);
-
-    return data;
+    // For this specific API its decodes json for us
+    return response.data;
   }
 
   /// Send POST request with [files] to endpoint/[route] and return the `response`
