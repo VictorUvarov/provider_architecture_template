@@ -56,7 +56,7 @@ class _DialogManagerState extends State<DialogManager> {
                 _dialogService.dialogComplete(AlertResponse(confirmed: true));
               },
               android: (context) => MaterialRaisedButtonData(
-                textColor: theme.primaryTextTheme.body1.color,
+                textTheme: ButtonTextTheme.primary,
                 color: theme.primaryColor,
               ),
             ),

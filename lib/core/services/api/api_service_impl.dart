@@ -1,6 +1,5 @@
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/serializers/post.dart';
-import 'package:provider_start/core/serializers/user.dart';
 import 'package:provider_start/core/services/api/api_service.dart';
 import 'package:provider_start/core/services/hardware/hardware_service.dart';
 import 'package:provider_start/core/services/http/http_service.dart';

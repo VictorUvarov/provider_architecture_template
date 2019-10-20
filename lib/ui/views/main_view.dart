@@ -11,9 +11,10 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin {
+class _MainViewState extends State<MainView>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
-  
+
   @override
   initState() {
     super.initState();
@@ -54,7 +55,6 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
             text: local.settingsViewTitle,
           ),
         ],
-
       ),
     );
   }

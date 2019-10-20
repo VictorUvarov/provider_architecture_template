@@ -6,6 +6,20 @@ part of 'login_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+class _FormContainer extends StatelessWidget {
+  const _FormContainer(
+      {Key key, @required this.formKey, @required this.children})
+      : super(key: key);
+
+  final Key formKey;
+
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext _context) =>
+      _formContainer(key, formKey: formKey, children: children);
+}
+
 class _EmailTextField extends StatelessWidget {
   const _EmailTextField(this.model, {Key key}) : super(key: key);
 

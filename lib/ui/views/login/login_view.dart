@@ -24,26 +24,38 @@ class LoginView extends StatelessWidget {
             previousPageTitle: local.loginViewTitle,
           ),
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(12),
-            child: Form(
-              key: model.formKey,
-              child: Column(
-                children: <Widget>[
-                  _EmailTextField(model),
-                  UIHelper.verticalSpaceMedium(),
-                  _PasswordTextField(model),
-                  UIHelper.verticalSpaceMedium(),
-                  _SignInButton(model),
-                ],
-              ),
-            ),
-          ),
+        body: _FormContainer(
+          formKey: model.formKey,
+          children: <Widget>[
+            _EmailTextField(model),
+            UIHelper.verticalSpaceMedium(),
+            _PasswordTextField(model),
+            UIHelper.verticalSpaceMedium(),
+            _SignInButton(model),
+          ],
         ),
       ),
     );
   }
+}
+
+@widget
+Widget _formContainer(
+  Key key, {
+  @required Key formKey,
+  @required List<Widget> children,
+}) {
+  return Center(
+    child: SingleChildScrollView(
+      padding: const EdgeInsets.all(12),
+      child: Form(
+        key: formKey,
+        child: Column(
+          children: children,
+        ),
+      ),
+    ),
+  );
 }
 
 @widget
@@ -87,11 +99,16 @@ Widget _passwordTextField(BuildContext context, LoginModel model) {
 @widget
 Widget _signInButton(BuildContext context, LoginModel model) {
   final local = AppLocalizations.of(context);
+  final theme = Theme.of(context);
 
   return model.state == ViewState.Busy
       ? PlatformCircularProgressIndicator()
       : PlatformButton(
           child: Text(local.loginButtonText),
           onPressed: model.login,
+          android: (context) => MaterialRaisedButtonData(
+            textTheme: ButtonTextTheme.primary,
+            color: theme.primaryColor,
+          ),
         );
 }
