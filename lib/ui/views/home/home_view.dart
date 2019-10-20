@@ -20,9 +20,9 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
     final local = AppLocalizations.of(context);
 
     return BaseView<HomeModel>(
-      onModelReady: (vm) => vm.init(),
-      builder: (context, vm, child) {
-        if (vm.state == ViewState.Busy)
+      onModelReady: (model) => model.init(),
+      builder: (context, model, child) {
+        if (model.state == ViewState.Busy)
           return Center(
             child: PlatformCircularProgressIndicator(),
           );
@@ -32,10 +32,10 @@ class _HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin 
             title: Text(local.homeViewTitle),
           ),
           body: ListView.builder(
-            itemCount: vm.posts.length,
+            itemCount: model.posts.length,
             itemBuilder: (context, index) => PostTile(
-              key: Key('${vm.posts[index].id}'),
-              post: vm.posts[index],
+              key: Key('${model.posts[index].id}'),
+              post: model.posts[index],
             ),
           ),
         );

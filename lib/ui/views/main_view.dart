@@ -29,6 +29,7 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       body: TabBarView(
@@ -40,9 +41,9 @@ class _MainViewState extends State<MainView> with SingleTickerProviderStateMixin
       ),
       bottomNavigationBar: TabBar(
         controller: _tabController,
-        indicatorColor: Theme.of(context).indicatorColor,
-        labelColor: Theme.of(context).primaryColor,
-        unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
+        indicatorColor: theme.indicatorColor,
+        labelColor: theme.primaryColor,
+        unselectedLabelColor: theme.unselectedWidgetColor,
         tabs: <Widget>[
           Tab(
             icon: Icon(Icons.home),
