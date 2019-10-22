@@ -11,51 +11,43 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView>
-    with SingleTickerProviderStateMixin {
-  TabController _tabController;
-
-  @override
-  initState() {
-    super.initState();
-    _tabController = TabController(vsync: this, length: 2);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+class _MainViewState extends State<MainView> {
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
-    final theme = Theme.of(context);
 
     return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: [
+      body: IndexedStack(
+        index: _currentIndex,
+        children: <Widget>[
           HomeView(),
           SettingsView(),
         ],
       ),
-      bottomNavigationBar: TabBar(
-        controller: _tabController,
-        indicatorColor: theme.indicatorColor,
-        labelColor: theme.primaryColor,
-        unselectedLabelColor: theme.unselectedWidgetColor,
-        tabs: <Widget>[
-          Tab(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            text: local.homeViewTitle,
+            title: Text(local.homeViewTitle)
           ),
-          Tab(
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            text: local.settingsViewTitle,
+            title: Text(local.settingsViewTitle)
           ),
         ],
+        onTap: (index) {
+          _changeTab(index);
+        },
       ),
     );
+  }
+
+  void _changeTab(index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }

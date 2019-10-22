@@ -9,19 +9,9 @@ import 'package:provider_start/ui/widgets/post_tile.dart';
 
 part 'home_view.g.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key key}) : super(key: key);
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView>
-    with AutomaticKeepAliveClientMixin {
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     final local = AppLocalizations.of(context);
 
     return BaseView<HomeModel>(
@@ -34,9 +24,6 @@ class _HomeViewState extends State<HomeView>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 @widget
