@@ -30,7 +30,6 @@ class SettingsView extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            _DarkThemeListTile(model),
             _AppSettingsListTile(model),
             _SignOutListTile(model),
           ],
@@ -38,20 +37,6 @@ class SettingsView extends StatelessWidget {
       ),
     );
   }
-}
-
-@widget
-Widget _darkThemeListTile(BuildContext context, SettingsModel model) {
-  final local = AppLocalizations.of(context);
-
-  return ListTile(
-    title: Text(local.settingsViewNightMode),
-    subtitle: Text(local.settingsViewNightModeDesc),
-    trailing: PlatformSwitch(
-      onChanged: (bool value) => model.toggleNightMode(value),
-      value: model.isNightMode,
-    ),
-  );
 }
 
 @widget

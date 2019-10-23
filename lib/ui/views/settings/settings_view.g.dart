@@ -6,15 +6,6 @@ part of 'settings_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class _DarkThemeListTile extends StatelessWidget {
-  const _DarkThemeListTile(this.model, {Key key}) : super(key: key);
-
-  final SettingsModel model;
-
-  @override
-  Widget build(BuildContext _context) => _darkThemeListTile(_context, model);
-}
-
 class _AppSettingsListTile extends StatelessWidget {
   const _AppSettingsListTile(this.model, {Key key}) : super(key: key);
 

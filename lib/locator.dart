@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:provider_start/core/enums/theme_type.dart';
 import 'package:provider_start/core/services/api/api_service.dart';
 import 'package:provider_start/core/services/api/api_service_impl.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
@@ -16,8 +15,6 @@ import 'package:provider_start/core/services/key_storage/key_storage_service.dar
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
-import 'package:provider_start/core/services/theme/theme_service.dart';
-import 'package:provider_start/core/services/theme/theme_service_impl.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/main_model.dart';
@@ -43,13 +40,13 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
 
-  // View viewmodels
+  // View view models
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => SettingsModel());
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => MainModel());
 
-  // Widget viewmodels
+  // Widget view models
   locator.registerFactory(() => AnimatedListItemModel());
 
   await initializeServices();
@@ -60,14 +57,4 @@ Future<void> setupLocator() async {
 Future<void> initializeServices() async {
   final instance = await KeyStorageServiceImpl.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
-
-  if (instance.nightMode) {
-    locator.registerLazySingleton<ThemeService>(
-      () => ThemeServiceImpl(ThemeType.Dark),
-    );
-  } else {
-    locator.registerLazySingleton<ThemeService>(
-      () => ThemeServiceImpl(ThemeType.Primary),
-    );
-  }
 }
