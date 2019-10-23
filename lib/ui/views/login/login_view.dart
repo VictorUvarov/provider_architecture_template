@@ -22,6 +22,7 @@ class LoginView extends StatelessWidget {
           title: Text(local.loginViewTitle),
           ios: (_) => CupertinoNavigationBarData(
             previousPageTitle: local.loginViewTitle,
+            transitionBetweenRoutes: false,
           ),
         ),
         body: _FormContainer(

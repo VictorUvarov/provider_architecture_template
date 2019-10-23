@@ -27,7 +27,7 @@ class HttpServiceImpl implements HttpService {
       response = await _dio.get(
         fullRoute,
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          contentType: 'application/json',
         ),
       );
     } catch (_) {
@@ -58,7 +58,7 @@ class HttpServiceImpl implements HttpService {
         onSendProgress: networkUtils.showLoadingProgress,
         onReceiveProgress: networkUtils.showLoadingProgress,
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          contentType: 'application/json',
         ),
       );
     } catch (_) {

@@ -24,6 +24,9 @@ class SettingsView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.settingsViewTitle),
+          ios: (_) => CupertinoNavigationBarData(
+            transitionBetweenRoutes: false,
+          ),
         ),
         body: ListView(
           children: <Widget>[
@@ -74,7 +77,7 @@ Widget _signOutListTile(BuildContext context, SettingsModel model) {
     onTap: () => model.signOut(
       title: local.settingsViewSignOut,
       desc: local.settingsViewSignOutDesc,
-      buttonCofirmText: local.buttonTextConfirm,
+      buttonConfirmText: local.buttonTextConfirm,
     ),
   );
 }

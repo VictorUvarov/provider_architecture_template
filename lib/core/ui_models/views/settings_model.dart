@@ -26,12 +26,12 @@ class SettingsModel extends BaseModel {
   Future<void> showAlert({
     String title,
     String desc,
-    String buttonCofirmText,
+    String buttonConfirmText,
   }) async {
     final dialogResult = await _dialogService.showDialog(
       title: title,
       description: desc,
-      buttonTitle: buttonCofirmText,
+      buttonTitle: buttonConfirmText,
     );
 
     if (dialogResult.confirmed) {}
@@ -58,12 +58,12 @@ class SettingsModel extends BaseModel {
   void signOut({
     String title,
     String desc,
-    String buttonCofirmText,
+    String buttonConfirmText,
   }) async {
     final dialogResult = await _dialogService.showDialog(
       title: title,
       description: desc,
-      buttonTitle: buttonCofirmText,
+      buttonTitle: buttonConfirmText,
     );
 
     if (dialogResult.confirmed) {
