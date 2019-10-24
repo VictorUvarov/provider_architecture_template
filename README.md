@@ -31,7 +31,7 @@ Filled Stacks Links:
 - [x] dialog service
 - [x] api service
 - [x] connectivity service
-- [x] dynamic theme switcher
+- [x] system light/dark theme support
 - [x] platform adaptive widgets
 - [x] life cycle manager
 - [x] app settings
