@@ -71,7 +71,7 @@ Widget _emailTextField(BuildContext context, LoginModel model) {
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
-          const Radius.circular(12),
+          Radius.circular(12),
         ),
       ),
     ),
@@ -90,7 +90,7 @@ Widget _passwordTextField(BuildContext context, LoginModel model) {
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
-          const Radius.circular(12),
+          Radius.circular(12),
         ),
       ),
     ),

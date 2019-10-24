@@ -51,7 +51,7 @@ class SettingsModel extends BaseModel {
 
     if (dialogResult.confirmed) {
       _keyStorageService.hasLoggedIn = false;
-      _navigationService.popAllAndPushNamed(ViewRoutes.login);
+      await _navigationService.popAllAndPushNamed(ViewRoutes.login);
     }
   }
 }

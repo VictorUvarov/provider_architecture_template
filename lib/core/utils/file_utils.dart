@@ -20,9 +20,9 @@ Future<File> getFileFromUrl(String url) async {
 }
 
 Future<MultipartFile> convertFileToMultipartFile(File file) async {
-  String fileBaseName = basename(file.path);
-  String mimeType = lookupMimeType(fileBaseName);
-  MediaType contentType = MediaType.parse(mimeType);
+  final fileBaseName = basename(file.path);
+  final mimeType = lookupMimeType(fileBaseName);
+  final contentType = MediaType.parse(mimeType);
 
   return MultipartFile.fromFileSync(
     file.path,

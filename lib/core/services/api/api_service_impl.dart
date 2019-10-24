@@ -30,9 +30,9 @@ class ApiServiceImpl implements ApiService {
       return Post.fromMap(postJsonData);
     }).toList();
 
-    // Fetch all posts in parrallel
+    // Fetch all posts in parallel
     final futures = <Future<Post>>[];
-    futurePosts.forEach((futurePost) => futures.add(futurePost));
+    futurePosts.forEach(futures.add);
     final posts = await Future.wait(futures);
 
     return posts;

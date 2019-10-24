@@ -5,9 +5,9 @@ import 'package:provider_start/core/localization/localization.dart';
 /// List of languages codes that the app will support
 /// https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 const supportedLocales = [
-  const Locale('en'),
-  const Locale('es'),
-  const Locale('ru'),
+  Locale('en'),
+  Locale('es'),
+  Locale('ru'),
 ];
 
 const supportedLocalCodes = ['en', 'es', 'ru'];
@@ -15,7 +15,7 @@ const supportedLocalCodes = ['en', 'es', 'ru'];
 /// A callback provided by [MaterialApp] that lets you
 /// specify which locales you plan to support by returning them.
 Locale loadSupportedLocals(locale, supportedLocales) {
-  for (Locale supportedLocale in supportedLocales) {
+  for (final supportedLocale in supportedLocales) {
     if (supportedLocale.languageCode == locale.languageCode ||
         supportedLocale.countryCode == locale.countryCode) {
       return supportedLocale;
