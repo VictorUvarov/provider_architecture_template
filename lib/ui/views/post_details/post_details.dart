@@ -17,7 +17,11 @@ class PostDetailsView extends StatelessWidget {
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
-          title: Text(post.title),
+          title: Text(
+            post.title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         body: model.state == ViewState.Busy
             ? Center(child: PlatformCircularProgressIndicator())

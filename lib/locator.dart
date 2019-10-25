@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:provider_start/core/services/api/api_service.dart';
-import 'package:provider_start/core/services/api/api_service_impl.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository_impl.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/auth/auth_service_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
@@ -29,6 +31,11 @@ GetIt locator = GetIt.instance;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
+  // Repositories
+  locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
+  locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
+
+  // Services
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
@@ -38,7 +45,6 @@ Future<void> setupLocator() async {
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
-  locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
 
   // View view models
