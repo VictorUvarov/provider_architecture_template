@@ -18,6 +18,7 @@ import 'package:provider_start/core/services/navigation/navigation_service_impl.
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
 import 'package:provider_start/core/ui_models/views/main_model.dart';
+import 'package:provider_start/core/ui_models/views/post_details_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/core/ui_models/widgets/animated_list_item_model.dart';
 
@@ -45,6 +46,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => SettingsModel());
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => MainModel());
+  locator.registerFactory(() => PostDetailsModel());
 
   // Widget view models
   locator.registerFactory(() => AnimatedListItemModel());

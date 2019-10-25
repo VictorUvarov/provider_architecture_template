@@ -7,4 +7,5 @@ class ViewRoutes {
   static const home = 'home';
   static const settings = 'settings';
   static const login = 'login';
+  static const post_details = 'post_details';
 }

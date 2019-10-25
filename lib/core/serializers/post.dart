@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:provider_start/core/serializers/serializers.dart';
-import 'package:provider_start/core/serializers/user.dart';
 
 part 'post.g.dart';
 
@@ -14,7 +13,6 @@ part 'post.g.dart';
 abstract class Post implements Built<Post, PostBuilder> {
   static Serializer<Post> get serializer => _$postSerializer;
 
-  @BuiltValueField(wireName: 'userId')
   int get id;
 
   String get title;
@@ -22,7 +20,7 @@ abstract class Post implements Built<Post, PostBuilder> {
   @BuiltValueField(wireName: 'body')
   String get description;
 
-  User get user;
+  int get userId;
 
   String toJson() {
     return json.encode(serializers.serializeWith(Post.serializer, this));

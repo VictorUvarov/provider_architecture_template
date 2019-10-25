@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart' show compute;
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/serializers/post.dart';
+import 'package:provider_start/core/serializers/user.dart';
 import 'package:provider_start/core/services/api/api_service.dart';
 import 'package:provider_start/core/services/hardware/hardware_service.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
@@ -17,25 +21,16 @@ class ApiServiceImpl implements ApiService {
 
   @override
   Future<List<Post>> fetchPosts() async {
-    final postsJsonData =
-        await _httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
+    // TODO: Replace compute with work service
+    return compute(_fetchPosts, _httpService);
+  }
 
-    final futurePosts = postsJsonData.map((postJsonData) async {
-      final userRoute = '${ApiRoutes.users}/${postJsonData['userId']}';
+  @override
+  Future<User> fetchUser(int userId) async {
+    final postsJsonData = await _httpService
+        .getHttp('${ApiRoutes.users}/$userId') as Map<String, dynamic>;
 
-      final userJsonData = await _httpService.getHttp(userRoute);
-
-      postJsonData.addAll({'user': userJsonData});
-
-      return Post.fromMap(postJsonData);
-    }).toList();
-
-    // Fetch all posts in parallel
-    final futures = <Future<Post>>[];
-    futurePosts.forEach(futures.add);
-    final posts = await Future.wait(futures);
-
-    return posts;
+    return User.fromMap(postsJsonData);
   }
 
   @override
@@ -45,5 +40,17 @@ class ApiServiceImpl implements ApiService {
     };
 
     await _httpService.postHttp(ApiRoutes.photos, body);
+  }
+
+  static Future<List<Post>> _fetchPosts(HttpService httpService) async {
+    final postsJsonData =
+        await httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
+
+    final posts = postsJsonData
+        .map((data) => data as Map<String, dynamic>)
+        .map(Post.fromMap)
+        .toList();
+
+    return posts;
   }
 }
