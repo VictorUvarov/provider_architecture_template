@@ -39,18 +39,22 @@ Filled Stacks Links:
 - [x] app icons
 - [x] local storage service (NoSQL)
 - [ ] graphQL api service
+- [ ] responsive views
+- [ ] continuous scrolling
+- [ ] unit tests
 
 ### Geolocator branch
 
 - [x] location service
 - [x] location permission service
 
-## Starting pages included
+## Example pages included
 
-- Tab Container
+- Login View
+- Splash View
+- Post Details
 - Home View
 - Settings View
-- Login View
 
 ## Installation
 
