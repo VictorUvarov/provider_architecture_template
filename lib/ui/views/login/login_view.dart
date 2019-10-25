@@ -85,6 +85,7 @@ Widget _passwordTextField(BuildContext context, LoginModel model) {
   return TextFormField(
     controller: model.passwordController,
     validator: model.validatePassword,
+    obscureText: true,
     decoration: InputDecoration(
       hintText: local.passwordHintText,
       contentPadding: const EdgeInsets.all(8),
