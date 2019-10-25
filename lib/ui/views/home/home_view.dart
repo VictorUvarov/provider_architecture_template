@@ -30,6 +30,13 @@ class HomeView extends StatelessWidget {
 }
 
 @widget
+Widget _noPosts() {
+  return Center(
+    child: Text('No Posts Found'),
+  );
+}
+
+@widget
 Widget _loadingAnimation() {
   return Center(
     child: PlatformCircularProgressIndicator(),
@@ -40,6 +47,10 @@ Widget _loadingAnimation() {
 Widget _posts(HomeModel model) {
   if (model.state == ViewState.Busy) {
     return const _LoadingAnimation();
+  }
+
+  if (model.posts.isEmpty) {
+    return _NoPosts();
   }
 
   return ListView.builder(

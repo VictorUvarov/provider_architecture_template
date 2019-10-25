@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/serializers/post.dart';
 import 'package:provider_start/core/ui_models/views/post_details_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
 import 'package:provider_start/ui/views/base_view.dart';
+
+part 'post_details.g.dart';
 
 class PostDetailsView extends StatelessWidget {
   final Post post;
@@ -32,15 +35,29 @@ class PostDetailsView extends StatelessWidget {
                   children: <Widget>[
                     Text(post.description),
                     UIHelper.verticalSpaceLarge(),
-                    Text(model.user.username),
-                    UIHelper.verticalSpaceMedium(),
-                    Text(model.user.name),
-                    UIHelper.verticalSpaceMedium(),
-                    Text(model.user.website),
+                    _UserDetails(model),
                   ],
                 ),
               ),
       ),
     );
   }
+}
+
+@widget
+Widget _userDetails(PostDetailsModel model) {
+  if (model.state == ViewState.Error) {
+    return Icon(Icons.error_outline);
+  }
+
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Text(model.user.username),
+      UIHelper.verticalSpaceMedium(),
+      Text(model.user.name),
+      UIHelper.verticalSpaceMedium(),
+      Text(model.user.website),
+    ],
+  );
 }

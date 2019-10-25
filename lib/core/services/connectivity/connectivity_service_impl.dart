@@ -25,6 +25,19 @@ class ConnectivityServiceImpl implements ConnectivityService {
         _connectivity.onConnectivityChanged.listen(_emitConnectivity);
   }
 
+  Future<bool> isConnected() async {
+    final result = await _connectivity.checkConnectivity();
+
+    switch (result) {
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.wifi:
+        return true;
+      case ConnectivityResult.none:
+      default:
+        return false;
+    }
+  }
+
   @override
   void start() async {
     debugPrint('(TRACE) ConnectivityService resumed');

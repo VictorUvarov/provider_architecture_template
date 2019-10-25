@@ -9,7 +9,7 @@ part 'post.g.dart';
 /// An example post model that should be serialized.
 ///   - @nullable: means that its ok if the value is null
 ///   - @BuiltValueField: is the key that is in the JSON you
-///     recieve from an API
+///     receive from an API
 abstract class Post implements Built<Post, PostBuilder> {
   static Serializer<Post> get serializer => _$postSerializer;
 

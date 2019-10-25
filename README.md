@@ -20,7 +20,7 @@ Filled Stacks Links:
 ### Master branch
 
 - [x] custom routing
-- [x] script for autoformatting on commits
+- [x] script for auto formatting on commits
 - [x] localization
 - [x] validation mixin
 - [x] json serialization
@@ -37,8 +37,7 @@ Filled Stacks Links:
 - [x] app settings
 - [x] custom fonts
 - [x] app icons
-- [ ] local storage service
-- [ ] network sensitive ui
+- [x] local storage service (NoSQL)
 - [ ] graphQL api service
 
 ### Geolocator branch

@@ -15,6 +15,8 @@ import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
@@ -46,6 +48,9 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  locator.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageServiceImpl(),
+  );
 
   // View view models
   locator.registerFactory(() => HomeModel());
