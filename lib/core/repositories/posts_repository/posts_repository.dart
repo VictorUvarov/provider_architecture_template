@@ -1,9 +1,5 @@
 import 'package:provider_start/core/serializers/post.dart';
 
-abstract class ApiService {
-  Future<void> init();
-
+abstract class PostsRepository {
   Future<List<Post>> fetchPosts();
-
-  Future<void> samplePost();
 }

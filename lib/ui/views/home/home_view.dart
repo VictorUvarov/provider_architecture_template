@@ -9,19 +9,9 @@ import 'package:provider_start/ui/widgets/post_tile.dart';
 
 part 'home_view.g.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key key}) : super(key: key);
-
-  @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView>
-    with AutomaticKeepAliveClientMixin {
+class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     final local = AppLocalizations.of(context);
 
     return BaseView<HomeModel>(
@@ -29,14 +19,21 @@ class _HomeViewState extends State<HomeView>
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.homeViewTitle),
+          ios: (_) => CupertinoNavigationBarData(
+            transitionBetweenRoutes: false,
+          ),
         ),
         body: _Posts(model),
       ),
     );
   }
+}
 
-  @override
-  bool get wantKeepAlive => true;
+@widget
+Widget _noPosts() {
+  return Center(
+    child: Text('No Posts Found'),
+  );
 }
 
 @widget
@@ -50,6 +47,10 @@ Widget _loadingAnimation() {
 Widget _posts(HomeModel model) {
   if (model.state == ViewState.Busy) {
     return const _LoadingAnimation();
+  }
+
+  if (model.posts.isEmpty) {
+    return _NoPosts();
   }
 
   return ListView.builder(

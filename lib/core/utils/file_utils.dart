@@ -6,23 +6,23 @@ import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-Future<String> _getApplicationDocumentsDirectoryPath() async {
+Future<String> getApplicationDocumentsDirectoryPath() async {
   final directory = await getApplicationDocumentsDirectory();
 
   return directory.path;
 }
 
 Future<File> getFileFromUrl(String url) async {
-  final dir = await _getApplicationDocumentsDirectoryPath();
+  final dir = await getApplicationDocumentsDirectoryPath();
   final file = File('$dir/${basename(url)}');
 
   return file;
 }
 
 Future<MultipartFile> convertFileToMultipartFile(File file) async {
-  String fileBaseName = basename(file.path);
-  String mimeType = lookupMimeType(fileBaseName);
-  MediaType contentType = MediaType.parse(mimeType);
+  final fileBaseName = basename(file.path);
+  final mimeType = lookupMimeType(fileBaseName);
+  final contentType = MediaType.parse(mimeType);
 
   return MultipartFile.fromFileSync(
     file.path,

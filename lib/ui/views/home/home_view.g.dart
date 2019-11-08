@@ -6,6 +6,13 @@ part of 'home_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
+class _NoPosts extends StatelessWidget {
+  const _NoPosts({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext _context) => _noPosts();
+}
+
 class _LoadingAnimation extends StatelessWidget {
   const _LoadingAnimation({Key key}) : super(key: key);
 

@@ -24,10 +24,12 @@ class SettingsView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.settingsViewTitle),
+          ios: (_) => CupertinoNavigationBarData(
+            transitionBetweenRoutes: false,
+          ),
         ),
         body: ListView(
           children: <Widget>[
-            _DarkThemeListTile(model),
             _AppSettingsListTile(model),
             _SignOutListTile(model),
           ],
@@ -35,20 +37,6 @@ class SettingsView extends StatelessWidget {
       ),
     );
   }
-}
-
-@widget
-Widget _darkThemeListTile(BuildContext context, SettingsModel model) {
-  final local = AppLocalizations.of(context);
-
-  return ListTile(
-    title: Text(local.settingsViewNightMode),
-    subtitle: Text(local.settingsViewNightModeDesc),
-    trailing: PlatformSwitch(
-      onChanged: (bool value) => model.toggleNightMode(value),
-      value: model.isNightMode,
-    ),
-  );
 }
 
 @widget
@@ -74,7 +62,7 @@ Widget _signOutListTile(BuildContext context, SettingsModel model) {
     onTap: () => model.signOut(
       title: local.settingsViewSignOut,
       desc: local.settingsViewSignOutDesc,
-      buttonCofirmText: local.buttonTextConfirm,
+      buttonConfirmText: local.buttonTextConfirm,
     ),
   );
 }

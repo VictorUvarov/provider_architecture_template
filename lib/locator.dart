@@ -1,7 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:provider_start/core/enums/theme_type.dart';
-import 'package:provider_start/core/services/api/api_service.dart';
-import 'package:provider_start/core/services/api/api_service_impl.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository_impl.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/auth/auth_service_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
@@ -14,12 +15,14 @@ import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
-import 'package:provider_start/core/services/theme/theme_service.dart';
-import 'package:provider_start/core/services/theme/theme_service_impl.dart';
 import 'package:provider_start/core/ui_models/views/home_model.dart';
 import 'package:provider_start/core/ui_models/views/login_model.dart';
+import 'package:provider_start/core/ui_models/views/main_model.dart';
+import 'package:provider_start/core/ui_models/views/post_details_model.dart';
 import 'package:provider_start/core/ui_models/views/settings_model.dart';
 import 'package:provider_start/core/ui_models/widgets/animated_list_item_model.dart';
 
@@ -30,6 +33,11 @@ GetIt locator = GetIt.instance;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
+  // Repositories
+  locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
+  locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
+
+  // Services
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
@@ -39,15 +47,19 @@ Future<void> setupLocator() async {
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
-  locator.registerLazySingleton<ApiService>(() => ApiServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  locator.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageServiceImpl(),
+  );
 
-  // View viewmodels
+  // View view models
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => SettingsModel());
   locator.registerFactory(() => LoginModel());
+  locator.registerFactory(() => MainModel());
+  locator.registerFactory(() => PostDetailsModel());
 
-  // Widget viewmodels
+  // Widget view models
   locator.registerFactory(() => AnimatedListItemModel());
 
   await initializeServices();
@@ -58,14 +70,4 @@ Future<void> setupLocator() async {
 Future<void> initializeServices() async {
   final instance = await KeyStorageServiceImpl.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
-
-  if (instance.nightMode) {
-    locator.registerLazySingleton<ThemeService>(
-      () => ThemeServiceImpl(ThemeType.Dark),
-    );
-  } else {
-    locator.registerLazySingleton<ThemeService>(
-      () => ThemeServiceImpl(ThemeType.Primary),
-    );
-  }
 }

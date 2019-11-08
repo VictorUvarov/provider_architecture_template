@@ -6,17 +6,18 @@ import 'package:provider_start/core/models/alert_response.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/locator.dart';
 
-/// Manager that is responsbile for showing dialogs that
+/// Manager that is responsible for showing dialogs that
 /// the [DialogService] requests.
 class DialogManager extends StatefulWidget {
   final Widget child;
-  DialogManager({Key key, this.child}) : super(key: key);
+
+  const DialogManager({Key key, this.child}) : super(key: key);
 
   _DialogManagerState createState() => _DialogManagerState();
 }
 
 class _DialogManagerState extends State<DialogManager> {
-  DialogService _dialogService = locator<DialogService>();
+  final _dialogService = locator<DialogService>();
 
   @override
   void initState() {

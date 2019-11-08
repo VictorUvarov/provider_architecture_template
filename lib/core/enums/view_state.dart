@@ -1,10 +1,24 @@
 /// A value mapping the View UI to the state in the Model.
 enum ViewState {
-  Idle, // When nothing is happening or just initialized
-  Busy, // Typically shows a loading indicator of some sorts
-  DataFetched, // Indicates that there's data available on the view
-  NoDataAvailable, // Indicates that data was fetched successfully but nothing is available
-  Error, // Indicates there's an error on the view
-  Success, // Successful action occurred
-  WaitingForInput // The starting state that a form view is in
+  /// When nothing is happening or just initialized
+
+  Idle,
+
+  /// Typically shows a loading indicator of some sorts
+  Busy,
+
+  /// Indicates that there's data available on the view
+  DataFetched,
+
+  /// Indicates that data was fetched successfully but nothing is available
+  NoDataAvailable,
+
+  /// Indicates there's an error on the view
+  Error,
+
+  /// Successful action occurred
+  Success,
+
+  /// The starting state that a form view is in
+  WaitingForInput
 }

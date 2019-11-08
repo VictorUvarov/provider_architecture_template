@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
@@ -10,7 +11,7 @@ import 'package:provider_start/core/utils/network_utils.dart' as networkUtils;
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpServiceImpl implements HttpService {
-  Dio _dio = Dio();
+  final _dio = Dio();
 
   /// Send GET request to endpoint/[route] and return the `response`
   /// - if successful: returns decoded json data
@@ -20,14 +21,14 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    print('(TRACE) Sending GET to ${ApiRoutes.base_url}/$route');
+    debugPrint('(TRACE) Sending GET to ${ApiRoutes.base_url}/$route');
 
     try {
       final fullRoute = '${ApiRoutes.base_url}/$route';
       response = await _dio.get(
         fullRoute,
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          contentType: 'application/json',
         ),
       );
     } catch (_) {
@@ -48,7 +49,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    print('(TRACE) Sending $body to ${ApiRoutes.base_url}/$route');
+    debugPrint('(TRACE) Sending $body to ${ApiRoutes.base_url}/$route');
 
     try {
       final fullRoute = '${ApiRoutes.base_url}/$route';
@@ -58,7 +59,7 @@ class HttpServiceImpl implements HttpService {
         onSendProgress: networkUtils.showLoadingProgress,
         onReceiveProgress: networkUtils.showLoadingProgress,
         options: Options(
-          headers: {'Content-Type': 'application/json'},
+          contentType: 'application/json',
         ),
       );
     } catch (_) {
@@ -86,7 +87,7 @@ class HttpServiceImpl implements HttpService {
     final formData = FormData.fromMap(body);
     files?.forEach((file) async {
       final mFile = await fileUtils.convertFileToMultipartFile(file);
-      formData.files.add(MapEntry("file$index", mFile));
+      formData.files.add(MapEntry('file$index', mFile));
       index++;
     });
 

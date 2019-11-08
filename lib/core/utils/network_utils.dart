@@ -1,6 +1,7 @@
 import 'dart:convert' as convert;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 
@@ -21,7 +22,7 @@ void checkForNetworkExceptions(Response response) {
 
 void showLoadingProgress(received, total) {
   if (total != -1) {
-    print((received / total * 100).toStringAsFixed(0) + '%');
+    debugPrint('${(received / total * 100).toStringAsFixed(0)}%');
   }
 }
 

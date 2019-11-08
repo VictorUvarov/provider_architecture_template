@@ -6,7 +6,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:provider_start/local_setup.dart';
 
-/// Custom Localizations that [MaterialApp] accepts in `localizationsDelegates` field
 class AppLocalizations {
   final Locale locale;
   Map<String, String> _sentences;
@@ -17,20 +16,20 @@ class AppLocalizations {
       Localizations.of<AppLocalizations>(context, AppLocalizations);
 
   Future<bool> load() async {
-    final path = 'assets/lang/${this.locale.languageCode}.json';
+    final path = 'assets/lang/${locale.languageCode}.json';
     final data = await rootBundle.loadString(path);
-    Map<String, dynamic> _result = json.decode(data);
+    final Map<String, dynamic> _result = json.decode(data);
 
-    this._sentences = Map();
+    _sentences = <String, String>{};
     _result.forEach((String key, dynamic value) {
-      this._sentences[key] = value.toString();
+      _sentences[key] = value.toString();
     });
 
     return true;
   }
 
   String _translate(String key) {
-    return this._sentences[key];
+    return _sentences[key];
   }
 
   // List of available sentences that correspond to the /assets/lang/<local>.json files
@@ -70,7 +69,7 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = new AppLocalizations(locale);
+    final localizations = AppLocalizations(locale);
     await localizations.load();
     return localizations;
   }

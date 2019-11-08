@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
@@ -32,12 +32,10 @@ class LoginModel extends BaseModel with Validators {
     try {
       await _authService.signInWithEmailAndPassword(email, password);
 
-      _navigationService.popAllAndPushNamed(
-        ViewRoutes.main,
-      );
+      await _navigationService.popAllAndPushNamed(ViewRoutes.splash);
       setState(ViewState.Idle);
     } on AuthException catch (error) {
-      print('(ERROR) ${error.message}');
+      debugPrint('(ERROR) ${error.message}');
       setState(ViewState.Error);
     }
   }

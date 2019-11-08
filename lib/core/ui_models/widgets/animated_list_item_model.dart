@@ -6,7 +6,7 @@ class AnimatedListItemModel extends BaseModel {
   Color _color;
   Color get color => _color;
 
-  init(Color color) {
+  void init(Color color) {
     _color = color;
     setState(ViewState.DataFetched);
   }

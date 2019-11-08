@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/serializers/post.dart';
-import 'package:provider_start/ui/shared/ui_helper.dart';
 
 class PostTile extends StatelessWidget {
   final Post post;
@@ -20,25 +20,19 @@ class PostTile extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              post.description,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            UIHelper.verticalSpaceMedium(),
-            Text(
-              post.user.name,
-              style: textTheme.caption.copyWith(
-                color: Colors.grey[500],
-              ),
-            )
-          ],
+        subtitle: Text(
+          post.description,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         isThreeLine: true,
         trailing: Icon(Icons.arrow_forward),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            ViewRoutes.post_details,
+            arguments: post,
+          );
+        },
       ),
     );
   }

@@ -22,6 +22,7 @@ class LoginView extends StatelessWidget {
           title: Text(local.loginViewTitle),
           ios: (_) => CupertinoNavigationBarData(
             previousPageTitle: local.loginViewTitle,
+            transitionBetweenRoutes: false,
           ),
         ),
         body: _FormContainer(
@@ -70,7 +71,7 @@ Widget _emailTextField(BuildContext context, LoginModel model) {
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
-          const Radius.circular(12),
+          Radius.circular(12),
         ),
       ),
     ),
@@ -84,12 +85,15 @@ Widget _passwordTextField(BuildContext context, LoginModel model) {
   return TextFormField(
     controller: model.passwordController,
     validator: model.validatePassword,
+    obscureText: true,
+    textInputAction: TextInputAction.send,
+    onFieldSubmitted: (_) => model.login(),
     decoration: InputDecoration(
       hintText: local.passwordHintText,
       contentPadding: const EdgeInsets.all(8),
       border: OutlineInputBorder(
         borderRadius: const BorderRadius.all(
-          const Radius.circular(12),
+          Radius.circular(12),
         ),
       ),
     ),

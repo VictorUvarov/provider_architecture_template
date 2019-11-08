@@ -20,7 +20,7 @@ Filled Stacks Links:
 ### Master branch
 
 - [x] custom routing
-- [x] script for autoformatting on commits
+- [x] script for auto formatting on commits
 - [x] localization
 - [x] validation mixin
 - [x] json serialization
@@ -31,27 +31,30 @@ Filled Stacks Links:
 - [x] dialog service
 - [x] api service
 - [x] connectivity service
-- [x] dynamic theme switcher
+- [x] system light/dark theme support
 - [x] platform adaptive widgets
 - [x] life cycle manager
 - [x] app settings
 - [x] custom fonts
 - [x] app icons
-- [ ] local storage service
-- [ ] network sensitive ui
+- [x] local storage service (NoSQL)
 - [ ] graphQL api service
+- [ ] responsive views
+- [ ] continuous scrolling
+- [ ] unit tests
 
 ### Geolocator branch
 
 - [x] location service
 - [x] location permission service
 
-## Starting pages included
+## Example pages included
 
-- Tab Container
+- Login View
+- Splash View
+- Post Details
 - Home View
 - Settings View
-- Login View
 
 ## Installation
 

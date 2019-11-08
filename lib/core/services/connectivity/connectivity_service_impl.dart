@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/enums/connectivity_status.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 
@@ -19,14 +20,27 @@ class ConnectivityServiceImpl implements ConnectivityService {
   bool get serviceStopped => _serviceStoped;
 
   ConnectivityServiceImpl() {
-    print('(TRACE) ConnectivityService started');
+    debugPrint('(TRACE) ConnectivityService started');
     _subscription =
         _connectivity.onConnectivityChanged.listen(_emitConnectivity);
   }
 
+  Future<bool> isConnected() async {
+    final result = await _connectivity.checkConnectivity();
+
+    switch (result) {
+      case ConnectivityResult.mobile:
+      case ConnectivityResult.wifi:
+        return true;
+      case ConnectivityResult.none:
+      default:
+        return false;
+    }
+  }
+
   @override
   void start() async {
-    print('(TRACE) ConnectivityService resumed');
+    debugPrint('(TRACE) ConnectivityService resumed');
     _serviceStoped = false;
 
     await _resumeSignal();
@@ -35,7 +49,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
   @override
   void stop() {
-    print('(TRACE) ConnectivityService paused');
+    debugPrint('(TRACE) ConnectivityService paused');
     _serviceStoped = true;
 
     _subscription.pause(_resumeSignal());
@@ -44,7 +58,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
   void _emitConnectivity(ConnectivityResult event) {
     if (event == _lastResult) return;
 
-    print('(TRACE) Connectivity status changed to $event');
+    debugPrint('(TRACE) Connectivity status changed to $event');
     _connectivityResultController.add(_convertResult(event));
     _lastResult = event;
   }
