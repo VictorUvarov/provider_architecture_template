@@ -8,7 +8,7 @@ class Validators {
   final zipCodeRegExp = RegExp(r'^[0-9]{5}(?:-[0-9]{4})?$');
 
   String validateEmail(String value) {
-    if (!emailRegExp.hasMatch(value)) {
+    if (!emailRegExp.hasMatch(value.trim())) {
       return 'Invalid email';
     }
     return null;
@@ -16,14 +16,14 @@ class Validators {
 
   /// Phone numbers are expected to be in the form xxx-xxx-xxxx
   String validatePhoneNumber(String value) {
-    if (!phoneNumberRegExp.hasMatch(value)) {
+    if (!phoneNumberRegExp.hasMatch(value.trim())) {
       return 'Invalid phone number';
     }
     return null;
   }
 
   String validateZip(String value) {
-    if (!zipCodeRegExp.hasMatch(value)) {
+    if (!zipCodeRegExp.hasMatch(value.trim())) {
       return 'Invalid zip code';
     }
     return null;

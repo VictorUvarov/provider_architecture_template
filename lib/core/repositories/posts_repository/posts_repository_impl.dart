@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/repository_exception_messages.dart';
@@ -21,7 +23,7 @@ class PostsRepositoryImpl implements PostsRepository {
     try {
       if (await _connectionService.isConnected()) {
         final posts = await compute(_fetchPosts, _httpService);
-        await _storePostsLocally(posts);
+        scheduleMicrotask(() => _storePostsLocally(posts));
         return posts;
       } else {
         final posts = _fetchPostsLocally();

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/repository_exception_messages.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
@@ -19,8 +21,7 @@ class UsersRepositoryImpl implements UsersRepository {
     try {
       if (await _connectionService.isConnected()) {
         final user = await _fetchUserRemotely(userId);
-        await _storeUserLocally(user);
-
+        scheduleMicrotask(() => _storeUserLocally(user));
         return user;
       } else {
         return _fetchUserLocally(userId);
