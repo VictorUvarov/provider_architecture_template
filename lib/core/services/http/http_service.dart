@@ -12,4 +12,6 @@ abstract class HttpService {
   );
 
   Future<File> downloadFile(String fileUrl);
+
+  void dispose();
 }

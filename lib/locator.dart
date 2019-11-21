@@ -11,8 +11,6 @@ import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service_impl.dart';
 import 'package:provider_start/core/services/hardware/hardware_service.dart';
 import 'package:provider_start/core/services/hardware/hardware_service_impl.dart';
-import 'package:provider_start/core/services/http/http_service.dart';
-import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
@@ -46,7 +44,6 @@ Future<void> setupLocator() async {
     () => ConnectivityServiceImpl(),
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
-  locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),

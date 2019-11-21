@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/repository_exception_messages.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
@@ -7,12 +9,11 @@ import 'package:provider_start/core/hive_models/user_h.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
 import 'package:provider_start/core/serializers/user.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
-import 'package:provider_start/core/services/http/http_service.dart';
+import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/locator.dart';
 
 class UsersRepositoryImpl implements UsersRepository {
-  final _httpService = locator<HttpService>();
   final _localStorageService = locator<LocalStorageService>();
   final _connectionService = locator<ConnectivityService>();
 
@@ -20,8 +21,8 @@ class UsersRepositoryImpl implements UsersRepository {
   Future<User> fetchUser(int userId) async {
     try {
       if (await _connectionService.isConnected()) {
-        final user = await _fetchUserRemotely(userId);
-        scheduleMicrotask(() => _storeUserLocally(user));
+        final user = await compute(_fetchUserRemotely, userId);
+        unawaited(_storeUserLocally(user));
         return user;
       } else {
         return _fetchUserLocally(userId);
@@ -31,12 +32,18 @@ class UsersRepositoryImpl implements UsersRepository {
     }
   }
 
-  Future<User> _fetchUserRemotely(int userId) async {
-    final postsMap = await _httpService.getHttp('${ApiRoutes.users}/$userId')
-        as Map<String, dynamic>;
+  static Future<User> _fetchUserRemotely(int userId) async {
+    final httpService = HttpServiceImpl();
 
-    final user = User.fromMap(postsMap);
-    return user;
+    try {
+      final postsMap = await httpService.getHttp('${ApiRoutes.users}/$userId')
+          as Map<String, dynamic>;
+
+      final user = User.fromMap(postsMap);
+      return user;
+    } finally {
+      httpService.dispose();
+    }
   }
 
   Future<void> _storeUserLocally(User user) async {

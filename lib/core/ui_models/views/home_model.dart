@@ -1,4 +1,5 @@
 import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/serializers/post.dart';
 import 'package:provider_start/core/ui_models/base_model.dart';
@@ -12,8 +13,12 @@ class HomeModel extends BaseModel {
 
   Future<void> init() async {
     setState(ViewState.Busy);
-    final fetchedPosts = await _postsRepository.fetchPosts();
-    _posts = fetchedPosts.take(20).toList();
+    try {
+      final fetchedPosts = await _postsRepository.fetchPosts();
+      _posts = fetchedPosts.take(20).toList();
+    } on RepositoryException {
+      setState(ViewState.Error);
+    }
     setState(ViewState.Idle);
   }
 }

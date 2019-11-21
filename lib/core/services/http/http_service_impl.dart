@@ -119,4 +119,10 @@ class HttpServiceImpl implements HttpService {
 
     return file;
   }
+
+  @override
+  void dispose() {
+    _dio.clear();
+    _dio.close(force: true);
+  }
 }

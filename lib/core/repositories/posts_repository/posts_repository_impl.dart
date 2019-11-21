@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/repository_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
@@ -9,12 +10,11 @@ import 'package:provider_start/core/hive_models/post_h.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/serializers/post.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
-import 'package:provider_start/core/services/http/http_service.dart';
+import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/locator.dart';
 
 class PostsRepositoryImpl implements PostsRepository {
-  final _httpService = locator<HttpService>();
   final _localStorageService = locator<LocalStorageService>();
   final _connectionService = locator<ConnectivityService>();
 
@@ -22,8 +22,8 @@ class PostsRepositoryImpl implements PostsRepository {
   Future<List<Post>> fetchPosts() async {
     try {
       if (await _connectionService.isConnected()) {
-        final posts = await compute(_fetchPosts, _httpService);
-        scheduleMicrotask(() => _storePostsLocally(posts));
+        final posts = await compute(_fetchPostsRemotely, null);
+        unawaited(_storePostsLocally(posts));
         return posts;
       } else {
         final posts = _fetchPostsLocally();
@@ -34,16 +34,22 @@ class PostsRepositoryImpl implements PostsRepository {
     }
   }
 
-  static Future<List<Post>> _fetchPosts(HttpService httpService) async {
-    final postsJsonData =
-        await httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
+  static Future<List<Post>> _fetchPostsRemotely(_) async {
+    final HttpServiceImpl httpService = HttpServiceImpl();
 
-    final posts = postsJsonData
-        .map((data) => data as Map<String, dynamic>)
-        .map(Post.fromMap)
-        .toList();
+    try {
+      final postsJsonData =
+          await httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
 
-    return posts;
+      final posts = postsJsonData
+          .map((data) => data as Map<String, dynamic>)
+          .map(Post.fromMap)
+          .toList();
+
+      return posts;
+    } finally {
+      httpService.dispose();
+    }
   }
 
   List<Post> _fetchPostsLocally() {
