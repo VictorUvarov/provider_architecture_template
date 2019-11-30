@@ -32,9 +32,11 @@ class AppLocalizations {
     return _sentences[key];
   }
 
-  // List of available sentences that correspond to the /assets/lang/<local>.json files
+  // List of available local strings that the app can use
+  //  - translated from the corresponding /assets/lang/<local>.json files
   String get appTitle => _translate('app-title');
   String get homeViewTitle => _translate('home-view-title');
+  String get homeViewNoPosts => _translate('home-view-no-posts');
   String get settingsViewTitle => _translate('settings-view-title');
   String get settingsViewPermissions => _translate('settings-view-permissions');
   String get settingsViewPermissionsDesc =>
@@ -55,7 +57,6 @@ class AppLocalizations {
   String get loginButtonText => _translate('login-button-text');
   String get buttonTextCancel => _translate('button-text-cancel');
   String get buttonTextConfirm => _translate('button-text-confirm');
-
   String get emailHintText => _translate('email-hint-text');
   String get passwordHintText => _translate('password-hint-text');
 }

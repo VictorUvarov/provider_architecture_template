@@ -1,12 +1,12 @@
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
+import 'package:provider_start/core/models/post/post.dart';
+import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
-import 'package:provider_start/core/serializers/post.dart';
-import 'package:provider_start/core/serializers/user.dart';
-import 'package:provider_start/core/ui_models/base_model.dart';
+import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
 
-class PostDetailsModel extends BaseModel {
+class PostDetailsViewModel extends BaseViewModel {
   final _usersRepository = locator<UsersRepository>();
 
   User _user;

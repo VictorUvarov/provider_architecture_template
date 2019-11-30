@@ -14,7 +14,6 @@ class Validators {
     return null;
   }
 
-  /// Phone numbers are expected to be in the form xxx-xxx-xxxx
   String validatePhoneNumber(String value) {
     if (!phoneNumberRegExp.hasMatch(value.trim())) {
       return 'Invalid phone number';

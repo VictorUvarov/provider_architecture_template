@@ -3,7 +3,7 @@ import 'package:provider_start/core/services/connectivity/connectivity_service.d
 import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/locator.dart';
 
-/// Stop and start long running services
+/// A manager to start/stop [StoppableService]s when the app goes/returns into/from the background
 class LifeCycleManager extends StatefulWidget {
   final Widget child;
 

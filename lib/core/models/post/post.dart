@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:provider_start/core/serializers/serializers.dart';
+import 'package:provider_start/core/models/serializers.dart';
 
 part 'post.g.dart';
 

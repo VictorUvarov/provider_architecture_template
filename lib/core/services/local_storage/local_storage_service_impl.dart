@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/constant/local_storage_keys.dart';
-import 'package:provider_start/core/hive_models/post_h.dart';
-import 'package:provider_start/core/hive_models/user_h.dart';
 import 'package:hive/hive.dart';
+import 'package:provider_start/core/models/post/post_h.dart';
+import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as fileUtils;
 

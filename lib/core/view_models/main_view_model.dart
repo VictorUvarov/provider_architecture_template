@@ -1,6 +1,6 @@
-import 'package:provider_start/core/ui_models/base_model.dart';
+import 'package:provider_start/core/view_models/base_view_model.dart';
 
-class MainModel extends BaseModel {
+class MainViewModel extends BaseViewModel {
   int _index = 0;
   int get index => _index;
 

@@ -4,10 +4,10 @@ import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/ui_models/base_model.dart';
+import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
 
-class SettingsModel extends BaseModel {
+class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _keyStorageService = locator<KeyStorageService>();
   final _navigationService = locator<NavigationService>();

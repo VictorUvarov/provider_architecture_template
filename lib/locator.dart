@@ -17,12 +17,12 @@ import 'package:provider_start/core/services/local_storage/local_storage_service
 import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
-import 'package:provider_start/core/ui_models/views/home_model.dart';
-import 'package:provider_start/core/ui_models/views/login_model.dart';
-import 'package:provider_start/core/ui_models/views/main_model.dart';
-import 'package:provider_start/core/ui_models/views/post_details_model.dart';
-import 'package:provider_start/core/ui_models/views/settings_model.dart';
-import 'package:provider_start/core/ui_models/widgets/animated_list_item_model.dart';
+import 'package:provider_start/core/view_models/home_view_model.dart';
+import 'package:provider_start/core/view_models/login_view_model.dart';
+import 'package:provider_start/core/view_models/main_view_model.dart';
+import 'package:provider_start/core/view_models/post_details_view_model.dart';
+import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/core/view_models/widgets/animated_list_item_model.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -50,14 +50,14 @@ Future<void> setupLocator() async {
   );
 
   // View view models
-  locator.registerFactory(() => HomeModel());
-  locator.registerFactory(() => SettingsModel());
-  locator.registerFactory(() => LoginModel());
-  locator.registerFactory(() => MainModel());
-  locator.registerFactory(() => PostDetailsModel());
+  locator.registerFactory(() => HomeViewModel());
+  locator.registerFactory(() => SettingsViewModel());
+  locator.registerFactory(() => LoginViewModel());
+  locator.registerFactory(() => MainViewModel());
+  locator.registerFactory(() => PostDetailsViewModel());
 
   // Widget view models
-  locator.registerFactory(() => AnimatedListItemModel());
+  locator.registerFactory(() => AnimatedListItemViewModel());
 
   await initializeServices();
 }

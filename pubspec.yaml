@@ -25,6 +25,7 @@ dependencies:
 
   # Utilities
   flutter_launcher_icons: ^0.7.3
+  provider_architecture: ^1.0.1
   shared_preferences: ^0.5.3+4
   app_settings: ^1.0.6+2
   device_info: ^0.4.0+3
@@ -40,7 +41,6 @@ dependencies:
   dio: ^3.0.3
 
   # UI Utilities
-  functional_widget_annotation: ^0.5.1
   flutter_platform_widgets: ^0.20.1
 
   # UI Widgets
@@ -52,7 +52,6 @@ dev_dependencies:
     sdk: flutter
 
   built_value_generator: ^6.7.1
-  functional_widget: ^0.7.1
   hive_generator: ^0.5.2
   build_runner: ^1.7.1
 

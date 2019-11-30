@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:provider_start/core/hive_models/post_h.dart';
-import 'package:provider_start/core/hive_models/user_h.dart';
+import 'package:provider_start/core/models/post/post_h.dart';
+import 'package:provider_start/core/models/user/user_h.dart';
 
 abstract class LocalStorageService {
   Future<void> init();

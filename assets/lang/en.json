@@ -1,6 +1,7 @@
 {
   "app-title": "Title",
   "home-view-title": "Home",
+  "home-view-no-posts": "No posts available",
   "settings-view-title": "Settings",
   "settings-view-permissions": "Permissions",
   "settings-view-permissions-desc": "Open App Permissions",

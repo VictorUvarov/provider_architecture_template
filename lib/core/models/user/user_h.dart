@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
-import 'package:provider_start/core/serializers/user.dart';
+import 'package:provider_start/core/models/user/user.dart';
 
 part 'user_h.g.dart';
 
+/// A Hive Database compatible UserH Model
+///   - @HiveField(unique) is necessary if you need the object to persist
 @HiveType()
 class UserH extends HiveObject {
   @HiveField(0)

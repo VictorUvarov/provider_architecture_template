@@ -12,9 +12,9 @@ import 'package:provider_start/locator.dart';
 import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/shared/themes.dart' as themes;
-import 'package:provider_start/ui/views/login/login_view.dart';
-import 'package:provider_start/ui/views/splash/splash_view.dart';
 import 'package:provider_start/local_setup.dart';
+import 'package:provider_start/ui/views/login_view.dart';
+import 'package:provider_start/ui/views/splash_view.dart';
 
 void main() async {
   await setupLocator();
@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
           ),
           ios: (_) => CupertinoAppData(
             theme: themes.primaryCupertinoTheme,
-            // TODO: When flutter adds dark cupertino support
+            // TODO: Uncomment when flutter adds dark cupertino support
+            // https://github.com/flutter/flutter/projects/40
             // darkTheme: darkCupertinoTheme,
           ),
           localizationsDelegates: localizationsDelegates,

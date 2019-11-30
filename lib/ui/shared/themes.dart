@@ -23,7 +23,7 @@ final primaryCupertinoTheme = CupertinoThemeData(
   primaryColor: Colors.purple,
   brightness: Brightness.light,
   textTheme: CupertinoTextThemeData(
-    primaryColor: Colors.white,
+    primaryColor: Colors.purple,
     navTitleTextStyle: TextStyle(
       color: Colors.purple,
     ),

@@ -1,6 +1,7 @@
 {
   "app-title": "заглавие",
   "home-view-title": "Главная",
+  "home-view-no-posts": "Нет доступных сообщений",
   "settings-view-title": "настройки",
   "settings-view-permissions": "права доступа",
   "settings-view-permissions-desc": "Разрешения на открытие приложения",

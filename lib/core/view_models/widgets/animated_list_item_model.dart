@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider_start/core/enums/view_state.dart';
-import 'package:provider_start/core/ui_models/base_model.dart';
+import 'package:provider_start/core/view_models/base_view_model.dart';
 
-class AnimatedListItemModel extends BaseModel {
+class AnimatedListItemViewModel extends BaseViewModel {
   Color _color;
   Color get color => _color;
 

@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
-import 'package:provider_start/core/serializers/post.dart';
+import 'package:provider_start/core/models/post/post.dart';
 
 part 'post_h.g.dart';
 
+/// A Hive Database compatible Post Model
+///   - @HiveField(unique) is necessary if you need the object to persist
 @HiveType()
 class PostH extends HiveObject {
   @HiveField(0)
