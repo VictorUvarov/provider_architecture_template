@@ -1,43 +1,66 @@
 # provider_start
 
-A Flutter Skeleton application for the provider architecture.
+A production ready flutter application template for the provider architecture.
 
 ## Inspiration
 
 - This project is a starting point for a Flutter application using the provider architecture.
-- This project heavily uses the flutter tutorials and snippets of the filled stacks youtube channel.
+- This project heavily uses the flutter tutorials and snippets of the filled stacks YouTube channel.
 - Feel free to send in Pull Requests to improve the application.
 
 Filled Stacks Links:
 
 - [Filled Stacks Website](https://www.filledstacks.com/)
 - [Filled Stacks Github Tutorials](https://github.com/FilledStacks/flutter-tutorials)
-- [Filled Stacks Youtube](https://www.youtube.com/channel/UC2d0BYlqQCdF9lJfydl_02Q)
+- [Filled Stacks YouTube](https://www.youtube.com/channel/UC2d0BYlqQCdF9lJfydl_02Q)
 - [Filled Stacks Slack](https://filledstacks.slack.com/join/shared_invite/enQtNjY0NTQ3MTYwMzEwLTJjZmU0ODRhOTA5ZGE3MTUxOTUzODdlNzFjMDg0ZGU4ZDQzMzVlMDQ0MzYxZWNhOWViOGI1NjZiZDE1YTQ3NGM)
+
+## Folder structure
+
+```shell
+.
+├── core
+│   ├── constant
+│   ├── enums
+│   ├── exceptions
+│   ├── localization
+│   ├── managers
+│   ├── mixins
+│   ├── models
+│   ├── repositories
+│   ├── services
+│   ├── utils
+│   └── view_models
+└── ui
+    ├── shared
+    ├── views
+    └── widgets
+```
 
 ## Features
 
 ### Master branch
 
-- [x] custom routing
+- [x] bottom navigation bar
+- [x] intuitive UI router
 - [x] script for auto formatting on commits
 - [x] localization
-- [x] validation mixin
+- [x] validation mixin for forms
 - [x] json serialization
-- [x] functional widgets
+- [x] auth service example
+- [x] dialog service
+- [x] connectivity service
+- [x] hardware info service
 - [x] http service
 - [x] navigation service
 - [x] key storage service
-- [x] dialog service
-- [x] api service
-- [x] connectivity service
+- [x] local storage service (NoSQL)
 - [x] system light/dark theme support
 - [x] platform adaptive widgets
-- [x] life cycle manager
-- [x] app settings
+- [x] life cycle manager to start/stop background services
+- [x] app settings launcher
 - [x] custom fonts
-- [x] app icons
-- [x] local storage service (NoSQL)
+- [x] custom app icons
 - [ ] graphQL api service
 - [ ] responsive views
 - [ ] continuous scrolling
@@ -50,21 +73,23 @@ Filled Stacks Links:
 
 ## Example pages included
 
-- Login View
-- Splash View
-- Post Details
-- Home View
-- Settings View
+- Home View (Renders a list of posts fetched from JSON place holder API)
+- Login View (Form that simulates user login and form validation)
+- Main View (View that handles tab navigation)
+- Splash View (Initial loading screen that uses flare animations)
+- Post Details (Dynamic view that loads the post's user information)
+- Settings View (Example view that launches app settings and signs out user)
 
-## Installation
+## Getting started
 
-- run `./format.sh` to setup git pre commit formatting
+- run `chmod +x ./format.sh && ./format.sh` to setup git pre commit formatting or
+- run `chmod +x ./manual_format.sh` and run `./manual_format.sh` whenever you want to format the dart code
 - run `flutter packages pub run build_runner build --delete-conflicting-outputs` if you plan to add/change any serializers once
 - run `flutter packages pub run build_runner watch --delete-conflicting-outputs` if you plan to add/change any serializers multiple times
 
 ## Adding support for another language
 
-- Find the language local code for here [codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
+- Find the language local code from here [codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 - Inside of `lib/local_setup.dart` add the local code to `supportedLocales` and `supportedLocalCodes`
 - Create a `<local>.json` file under assets/lang/ and fill out every value for your language
 - Run `flutter clean` inside you lib apps directory if flutter complains
@@ -72,6 +97,13 @@ Filled Stacks Links:
 
 ## Adding app icon
 
-- Change icon `assets/images/logo.png` another image
+- Change icon `assets/images/logo.png` to another image
 - If new icon has a different path update `flutter_icons:` in the `pubspec.yaml` file
 - Run flutter `flutter pub get` and then `flutter pub run flutter_launcher_icons:main`
+
+## Adding another model
+
+- Create a `<YOUR_MODEL>.dart` under `core/models/<YOUR_MODEL>/<YOUR_MODEL>.dart`
+- Copy an example model and replace all the example model names with `<YOUR_MODEL>`
+- Add `<YOUR_MODEL>` to the list in `@SerializersFor` class constructor found under core/models/serializer.dart
+- Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to build your new model

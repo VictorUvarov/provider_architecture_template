@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:provider_start/core/constant/animations.dart';
-import 'package:provider_start/core/services/hardware/hardware_service.dart';
+import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/ui/views/main_view.dart';
@@ -28,7 +28,7 @@ class SplashView extends StatelessWidget {
       next: MainView(),
       until: () async {
         await Future.wait([
-          locator<HardwareService>().init(),
+          locator<HardwareInfoService>().init(),
           locator<LocalStorageService>().init(),
         ]);
       },

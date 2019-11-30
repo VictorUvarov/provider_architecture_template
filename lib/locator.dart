@@ -9,8 +9,8 @@ import 'package:provider_start/core/services/connectivity/connectivity_service.d
 import 'package:provider_start/core/services/connectivity/connectivity_service_impl.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service_impl.dart';
-import 'package:provider_start/core/services/hardware/hardware_service.dart';
-import 'package:provider_start/core/services/hardware/hardware_service_impl.dart';
+import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
+import 'package:provider_start/core/services/hardware_info/hardware_info_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
@@ -39,7 +39,8 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
-  locator.registerLazySingleton<HardwareService>(() => HardwareServiceImpl());
+  locator.registerLazySingleton<HardwareInfoService>(
+      () => HardwareInfoServiceImpl());
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );

@@ -11,8 +11,6 @@ part 'user.g.dart';
 ///   - @BuiltValueField: is the key that is in the JSON you
 ///     receive from an API
 abstract class User implements Built<User, UserBuilder> {
-  static Serializer<User> get serializer => _$userSerializer;
-
   int get id;
 
   String get name;
@@ -44,5 +42,6 @@ abstract class User implements Built<User, UserBuilder> {
   }
 
   User._();
+  static Serializer<User> get serializer => _$userSerializer;
   factory User([void Function(UserBuilder) updates]) = _$User;
 }

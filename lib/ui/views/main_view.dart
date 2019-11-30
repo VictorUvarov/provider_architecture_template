@@ -7,6 +7,9 @@ import 'package:provider_start/core/view_models/main_view_model.dart';
 import 'package:provider_start/ui/views/home_view.dart';
 import 'package:provider_start/ui/views/settings_view.dart';
 
+/// Main view container that handles rendering pages according to which bottom
+/// navigation bar item is tapped
+///   - can be replaced with a [TabView]
 class MainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

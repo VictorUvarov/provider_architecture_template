@@ -11,8 +11,6 @@ part 'post.g.dart';
 ///   - @BuiltValueField: is the key that is in the JSON you
 ///     receive from an API
 abstract class Post implements Built<Post, PostBuilder> {
-  static Serializer<Post> get serializer => _$postSerializer;
-
   int get id;
 
   String get title;
@@ -41,5 +39,6 @@ abstract class Post implements Built<Post, PostBuilder> {
   }
 
   Post._();
+  static Serializer<Post> get serializer => _$postSerializer;
   factory Post([void Function(PostBuilder) updates]) = _$Post;
 }
