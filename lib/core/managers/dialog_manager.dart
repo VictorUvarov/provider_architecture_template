@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/models/alert_request.dart';
-import 'package:provider_start/core/models/alert_response.dart';
+import 'package:provider_start/core/models/alert_request/alert_request.dart';
+import 'package:provider_start/core/models/alert_response/alert_response.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/locator.dart';
 
@@ -38,7 +38,9 @@ class _DialogManagerState extends State<DialogManager> {
       context: context,
       builder: (context) => WillPopScope(
         onWillPop: () async {
-          _dialogService.dialogComplete(AlertResponse(confirmed: false));
+          _dialogService.dialogComplete(
+            AlertResponse((a) => a..confirmed = false),
+          );
           return false;
         },
         child: PlatformAlertDialog(
@@ -48,13 +50,17 @@ class _DialogManagerState extends State<DialogManager> {
             FlatButton(
               child: Text(local.buttonTextCancel),
               onPressed: () {
-                _dialogService.dialogComplete(AlertResponse(confirmed: false));
+                _dialogService.dialogComplete(
+                  AlertResponse((a) => a..confirmed = false),
+                );
               },
             ),
             PlatformButton(
               child: Text(request.buttonTitle ?? local.buttonTextCancel),
               onPressed: () {
-                _dialogService.dialogComplete(AlertResponse(confirmed: true));
+                _dialogService.dialogComplete(
+                  AlertResponse((a) => a..confirmed = true),
+                );
               },
               android: (context) => MaterialRaisedButtonData(
                 textTheme: ButtonTextTheme.primary,

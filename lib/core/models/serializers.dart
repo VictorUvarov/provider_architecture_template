@@ -8,7 +8,8 @@ import 'package:provider_start/core/models/user/user.dart';
 
 part 'serializers.g.dart';
 
-/// List of Serializable models that will built using `build_value` package
+/// List of models that will have a serializer generated for them.
+///   - Usually you only add models here that you expect to fetch from some API
 @SerializersFor([
   User,
   Post,

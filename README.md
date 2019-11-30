@@ -103,7 +103,18 @@ Filled Stacks Links:
 
 ## Adding another model
 
+### Simple model
+
 - Create a `<YOUR_MODEL>.dart` under `core/models/<YOUR_MODEL>/<YOUR_MODEL>.dart`
-- Copy an example model and replace all the example model names with `<YOUR_MODEL>`
-- Add `<YOUR_MODEL>` to the list in `@SerializersFor` class constructor found under core/models/serializer.dart
+- Copy the `AlertRequest` from `core/models/alert_request/alert_request.dart` and replace all the class model names with `<YOUR_MODEL>`
+- Add your own custom getter values.
+- Add a part file. Ex: `<YOUR_MODEL>.g.dart` above the class
+- Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to build your new model
+
+### Serializable model
+
+- Create a `<YOUR_MODEL>.dart` under `core/models/<YOUR_MODEL>/<YOUR_MODEL>.dart`
+- Copy the `User` from `core/models/user/user.dart` and replace all the class model names with `<YOUR_MODEL>`
+- Add your own custom getter values.
+- Add `<YOUR_MODEL>` to the list in `@SerializersFor` class constructor found under `core/models/serializer.dart`
 - Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to build your new model
