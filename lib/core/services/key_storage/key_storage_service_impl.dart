@@ -23,10 +23,6 @@ class KeyStorageServiceImpl implements KeyStorageService {
   bool get hasLoggedIn => _getFromDisk(logged_in_key) ?? false;
   set hasLoggedIn(bool value) => _saveToDisk(logged_in_key, value);
 
-  @override
-  bool get nightMode => _getFromDisk(night_mode_key) ?? false;
-  set nightMode(bool value) => _saveToDisk(night_mode_key, value);
-
   dynamic _getFromDisk(String key) {
     final value = _preferences.get(key);
     debugPrint(

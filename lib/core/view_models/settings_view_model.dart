@@ -12,8 +12,6 @@ class SettingsViewModel extends BaseViewModel {
   final _keyStorageService = locator<KeyStorageService>();
   final _navigationService = locator<NavigationService>();
 
-  bool get isNightMode => _keyStorageService.nightMode;
-
   Future<void> init() async {
     setState(ViewState.Busy);
 
