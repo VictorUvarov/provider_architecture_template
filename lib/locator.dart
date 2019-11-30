@@ -1,49 +1,74 @@
 import 'package:get_it/get_it.dart';
-import 'package:provider_start/core/enums/theme_type.dart';
-import 'package:provider_start/core/services/api_service.dart';
-import 'package:provider_start/core/services/background_fetch_service.dart';
-import 'package:provider_start/core/services/dialog_service.dart';
-import 'package:provider_start/core/services/hardware_service.dart';
-import 'package:provider_start/core/services/http_service.dart';
-import 'package:provider_start/core/services/key_storage_service.dart';
-import 'package:provider_start/core/services/location_permission_service.dart';
-import 'package:provider_start/core/services/location_service.dart';
-import 'package:provider_start/core/services/navigation_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
-import 'package:provider_start/core/ui_models/views/home_model.dart';
-import 'package:provider_start/core/ui_models/views/login_model.dart';
-import 'package:provider_start/core/ui_models/views/settings_model.dart';
-import 'package:provider_start/core/ui_models/views/tab_model.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
+import 'package:provider_start/core/services/location/location_service.dart';
+import 'package:provider_start/core/services/location/location_service_impl.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
+import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository_impl.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/auth/auth_service_impl.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service_impl.dart';
+import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/dialog/dialog_service_impl.dart';
+import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
+import 'package:provider_start/core/services/hardware_info/hardware_info_service_impl.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
+import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
+import 'package:provider_start/core/view_models/home_view_model.dart';
+import 'package:provider_start/core/view_models/login_view_model.dart';
+import 'package:provider_start/core/view_models/main_view_model.dart';
+import 'package:provider_start/core/view_models/post_details_view_model.dart';
+import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/core/view_models/widgets/animated_list_item_model.dart';
 
-GetIt locator = GetIt();
+GetIt locator = GetIt.instance;
 
+/// Setup function that is run before the App is run.
+///   - Sets up singletons that can be called from anywhere
+/// in the app by using locator<Service>() call.
+///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => HardwareService());
-  locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => HttpService());
-  locator.registerLazySingleton(() => ApiService());
-  locator.registerLazySingleton(() => LocationService());
-  locator.registerLazySingleton(() => LocationPermissionService());
+  // Repositories
+  locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
+  locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
 
-  // Example, replace with something like location service
-  locator.registerLazySingleton(() => BackgroundFetchService());
+  // Services
+  locator.registerLazySingleton<NavigationService>(
+    () => NavigationServiceImpl(),
+  );
+  locator.registerLazySingleton<HardwareInfoService>(
+      () => HardwareInfoServiceImpl());
+  locator.registerLazySingleton<ConnectivityService>(
+    () => ConnectivityServiceImpl(),
+  );
+  locator.registerLazySingleton<LocationService>(() => LocationServiceImpl());
+  locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
+  locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  locator.registerLazySingleton<LocalStorageService>(
+    () => LocalStorageServiceImpl(),
+  );
 
-  locator.registerFactory(() => TabModel());
-  locator.registerFactory(() => HomeModel());
-  locator.registerFactory(() => SettingsModel());
-  locator.registerFactory(() => LoginModel());
+  // View view models
+  locator.registerFactory(() => HomeViewModel());
+  locator.registerFactory(() => SettingsViewModel());
+  locator.registerFactory(() => LoginViewModel());
+  locator.registerFactory(() => MainViewModel());
+  locator.registerFactory(() => PostDetailsViewModel());
+
+  // Widget view models
+  locator.registerFactory(() => AnimatedListItemViewModel());
 
   await initializeServices();
 }
 
+/// Initialize other services here that require additional code
+/// to run before the services can be registered
 Future<void> initializeServices() async {
-  var instance = await KeyStorageService.getInstance();
+  final instance = await KeyStorageServiceImpl.getInstance();
   locator.registerSingleton<KeyStorageService>(instance);
-
-  if (instance.nightMode) {
-    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.dark));
-  } else {
-    locator.registerLazySingleton(() => ThemeService(theme: ThemeType.primary));
-  }
 }

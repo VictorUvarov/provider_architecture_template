@@ -1,0 +1,19 @@
+{
+  "app-title": "заглавие",
+  "home-view-title": "Главная",
+  "home-view-no-posts": "Нет доступных сообщений",
+  "settings-view-title": "настройки",
+  "settings-view-permissions": "права доступа",
+  "settings-view-permissions-desc": "Разрешения на открытие приложения",
+  "settings-view-app-settings": "Настройки приложения",
+  "settings-view-app-settings-desc": "Открыть настройки приложения",
+  "settings-view-location": "Текущее местоположение",
+  "settings-view-sign-out": "выход",
+  "settings-view-sign-out-desc": "Выйти из приложения",
+  "login-view-title": "Авторизоваться",
+  "login-button-text": "Авторизоваться",
+  "button-text-cancel": "Отмена",
+  "button-text-confirm": "подтвердить",
+  "email-hint-text": "электронное письмо",
+  "password-hint-text": "пароль"
+}

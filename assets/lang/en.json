@@ -1,0 +1,19 @@
+{
+  "app-title": "Title",
+  "home-view-title": "Home",
+  "home-view-no-posts": "No posts available",
+  "settings-view-title": "Settings",
+  "settings-view-permissions": "Permissions",
+  "settings-view-permissions-desc": "Open App Permissions",
+  "settings-view-app-settings": "App Settings",
+  "settings-view-app-settings-desc": "Open App Settings",
+  "settings-view-location": "Current location",
+  "settings-view-sign-out": "Sign out",
+  "settings-view-sign-out-desc": "Sign out of the app",
+  "login-view-title": "Login",
+  "login-button-text": "Login",
+  "button-text-cancel": "Cancel",
+  "button-text-confirm": "Confirm",
+  "email-hint-text": "Email",
+  "password-hint-text": "Password"
+}

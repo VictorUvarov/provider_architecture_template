@@ -1,0 +1,19 @@
+{
+  "app-title": "Título",
+  "home-view-title": "Inicio",
+  "home-view-no-posts": "No hay publicaciones disponibles",
+  "settings-view-title": "Configuración",
+  "settings-view-permissions": "Permisos",
+  "settings-view-permissions-desc": "Open App Permissions",
+  "settings-view-app-settings": "Configuraciones de App",
+  "settings-view-app-settings-desc": "Abrir configuraciones",
+  "settings-view-location": "Ubicación actual",
+  "settings-view-sign-out": "Desconectar",
+  "settings-view-sign-out-desc": "Salir de la aplicación",
+  "login-view-title": "Iniciar Sesión",
+  "login-button-text": "Iniciar",
+  "button-text-cancel": "Cancelar",
+  "button-text-confirm": "Confirmar",
+  "email-hint-text": "correo electrónico",
+  "password-hint-text": "contraseña"
+}

@@ -1,62 +1,96 @@
-import 'package:flutter/foundation.dart';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
+import 'package:provider_start/local_setup.dart';
 
 class AppLocalizations {
-  AppLocalizations(this.locale);
   final Locale locale;
+  Map<String, String> _sentences;
+
+  AppLocalizations(this.locale);
 
   static AppLocalizations of(BuildContext context) =>
       Localizations.of<AppLocalizations>(context, AppLocalizations);
 
-  static const _localizedValues = {
-    'en': {
-      'app-title': 'Title',
-      'home-view-title': 'Home',
-      'settings-view-title': 'Settings',
-      'settings-view-permissions': 'Permissions',
-      'settings-view-permissions-desc': 'Open App Permissions',
-      'settings-view-delete': 'Delete Something',
-      'settings-view-delete-desc': 'Delete all the things',
-      'settings-view-location': 'Location',
-      'settings-view-night-mode': 'Night Mode',
-      'login-view-title': 'Login',
-      'login-button-text': 'Login',
-    },
-  };
+  Future<bool> load() async {
+    final path = 'assets/lang/${locale.languageCode}.json';
+    final data = await rootBundle.loadString(path);
+    final Map<String, dynamic> _result = json.decode(data);
 
-  String get appTitle => _localizedValues[locale.languageCode]['app-title'];
-  String get homeViewTitle =>
-      _localizedValues[locale.languageCode]['home-view-title'];
-  String get settingsViewTitle =>
-      _localizedValues[locale.languageCode]['settings-view-title'];
-  String get settingsViewPermissions =>
-      _localizedValues[locale.languageCode]['settings-view-permissions'];
+    _sentences = <String, String>{};
+    _result.forEach((String key, dynamic value) {
+      _sentences[key] = value.toString();
+    });
+
+    return true;
+  }
+
+  String _translate(String key) {
+    return _sentences[key];
+  }
+
+  // List of available local strings that the app can use
+  //  - translated from the corresponding /assets/lang/<local>.json files
+  String get appTitle => _translate('app-title');
+
+  String get homeViewTitle => _translate('home-view-title');
+  String get homeViewNoPosts => _translate('home-view-no-posts');
+
+  String get settingsViewTitle => _translate('settings-view-title');
+  String get settingsViewPermissions => _translate('settings-view-permissions');
   String get settingsViewPermissionsDesc =>
-      _localizedValues[locale.languageCode]['settings-view-permissions-desc'];
-  String get settingsViewDelete =>
-      _localizedValues[locale.languageCode]['settings-view-delete'];
-  String get settingsViewDeleteDesc =>
-      _localizedValues[locale.languageCode]['settings-view-delete-desc'];
-  String get settingsViewLocation =>
-      _localizedValues[locale.languageCode]['settings-view-location'];
-  String get settingsViewNightMode =>
-      _localizedValues[locale.languageCode]['settings-view-night-mode'];
-  String get loginViewTitle =>
-      _localizedValues[locale.languageCode]['login-view-title'];
-  String get loginButtonText =>
-      _localizedValues[locale.languageCode]['login-button-text'];
+      _translate('settings-view-permissions-desc');
+  String get settingsViewAppSettings =>
+      _translate('settings-view-app-settings');
+  String get settingsViewAppSettingsDesc =>
+      _translate('settings-view-app-settings-desc');
+  String get settingsViewLocation => _translate('settings-view-location');
+  String get settingsViewSignOut => _translate('settings-view-sign-out');
+  String get settingsViewSignOutDesc =>
+      _translate('settings-view-sign-out-desc');
+
+  String get loginViewTitle => _translate('login-view-title');
+  String get loginButtonText => _translate('login-button-text');
+
+  String get buttonTextCancel => _translate('button-text-cancel');
+  String get buttonTextConfirm => _translate('button-text-confirm');
+
+  String get emailHintText => _translate('email-hint-text');
+  String get passwordHintText => _translate('password-hint-text');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      supportedLocalCodes.contains(locale.languageCode);
 
   @override
-  Future<AppLocalizations> load(Locale locale) =>
-      SynchronousFuture<AppLocalizations>(AppLocalizations(locale));
+  Future<AppLocalizations> load(Locale locale) async {
+    final localizations = AppLocalizations(locale);
+    await localizations.load();
+    return localizations;
+  }
 
   @override
   bool shouldReload(AppLocalizationsDelegate old) => false;
+}
+
+class FallbackCupertinoLocalizationsDelegate
+    extends LocalizationsDelegate<CupertinoLocalizations> {
+  const FallbackCupertinoLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) => true;
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) =>
+      DefaultCupertinoLocalizations.load(locale);
+
+  @override
+  bool shouldReload(FallbackCupertinoLocalizationsDelegate old) => false;
 }

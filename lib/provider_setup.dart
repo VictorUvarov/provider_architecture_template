@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_start/core/models/user_location.dart';
-import 'package:provider_start/core/services/location_service.dart';
-import 'package:provider_start/core/services/theme_service.dart';
+import 'package:provider_start/core/enums/connectivity_status.dart';
+import 'package:provider_start/core/models/user_location/user_location.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
+import 'package:provider_start/core/services/location/location_service.dart';
 import 'package:provider_start/locator.dart';
 
+/// List of providers that provider transforms into a widget tree
+/// with the main app as the child of that tree, so that the entire
+/// app can use these streams anywhere there is a [BuildContext]
 List<SingleChildCloneableWidget> providers = [
   ...independentServices,
   ...dependentServices,
@@ -17,8 +21,9 @@ List<SingleChildCloneableWidget> dependentServices = [];
 
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<UserLocation>(
-    builder: (context) => locator<LocationService>().locationStream,
+    create: (context) => locator<LocationService>().location$,
   ),
-  StreamProvider<ThemeData>(
-      builder: (context) => locator<ThemeService>().theme),
+  StreamProvider<ConnectivityStatus>(
+    create: (context) => locator<ConnectivityService>().connectivity$,
+  ),
 ];
