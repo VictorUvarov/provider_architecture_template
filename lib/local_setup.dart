@@ -15,6 +15,10 @@ const supportedLocalCodes = ['en', 'es', 'ru'];
 /// A callback provided by [MaterialApp] that lets you
 /// specify which locales you plan to support by returning them.
 Locale loadSupportedLocals(locale, supportedLocales) {
+  if (locale == null) {
+    return supportedLocales.first;
+  }
+
   for (final supportedLocale in supportedLocales) {
     if (supportedLocale.languageCode == locale.languageCode ||
         supportedLocale.countryCode == locale.countryCode) {
