@@ -7,6 +7,12 @@ PODS:
   - device_info (0.0.1):
     - Flutter
   - Flutter (1.0.0)
+  - geolocator (5.1.5):
+    - Flutter
+  - google_api_availability (2.0.1):
+    - Flutter
+  - location_permissions (2.0.3):
+    - Flutter
   - path_provider (0.0.1):
     - Flutter
   - Reachability (3.2)
@@ -18,6 +24,9 @@ DEPENDENCIES:
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - device_info (from `.symlinks/plugins/device_info/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
+  - geolocator (from `.symlinks/plugins/geolocator/ios`)
+  - google_api_availability (from `.symlinks/plugins/google_api_availability/ios`)
+  - location_permissions (from `.symlinks/plugins/location_permissions/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
@@ -34,6 +43,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/device_info/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
+  geolocator:
+    :path: ".symlinks/plugins/geolocator/ios"
+  google_api_availability:
+    :path: ".symlinks/plugins/google_api_availability/ios"
+  location_permissions:
+    :path: ".symlinks/plugins/location_permissions/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
@@ -41,12 +56,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_settings: 27651d311385d34d91afa163c0e4539cfd0c4c5d
-  connectivity: c72716e202a1225ec4810740d5cb56b8ae3bf4cc
-  device_info: 3ebad48f726348f69abd802f3334a8d1ed795fbd
+  connectivity: 6e94255659cc86dcbef1d452ad3e0491bb1b3e75
+  device_info: cbf09d2ec12aa7110e0b09fabe54b5bd6c8efe74
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
+  geolocator: 80aba2bb48f8c7dfc5a8b70b9d13fc3edc8399c4
+  google_api_availability: 163b30f802e6148c67f092aa4501c90ddd8eec8d
+  location_permissions: 195ff2a1182fa9029ef3f2653156961ee5a1e40b
+  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  shared_preferences: 1feebfa37bb57264736e16865e7ffae7fc99b523
+  shared_preferences: 430726339841afefe5142b9c1f50cb6bd7793e01
 
 PODFILE CHECKSUM: b6a0a141693093b304368d08511b46cf3d1d0ac5
 

@@ -66,8 +66,9 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) =>
-      supportedLocalCodes.contains(locale.languageCode);
+  bool isSupported(Locale locale) {
+    return supportedLocalCodes.contains(locale.languageCode);
+  }
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
@@ -85,11 +86,14 @@ class FallbackCupertinoLocalizationsDelegate
   const FallbackCupertinoLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => true;
+  bool isSupported(Locale locale) {
+    return supportedLocalCodes.contains(locale.languageCode);
+  }
 
   @override
-  Future<CupertinoLocalizations> load(Locale locale) =>
-      DefaultCupertinoLocalizations.load(locale);
+  Future<CupertinoLocalizations> load(Locale locale) {
+    return DefaultCupertinoLocalizations.load(locale);
+  }
 
   @override
   bool shouldReload(FallbackCupertinoLocalizationsDelegate old) => false;

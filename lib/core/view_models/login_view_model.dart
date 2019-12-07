@@ -31,7 +31,6 @@ class LoginViewModel extends BaseViewModel with Validators {
 
     try {
       await _authService.signInWithEmailAndPassword(email, password);
-
       await _navigationService.popAllAndPushNamed(ViewRoutes.splash);
       setState(ViewState.Idle);
     } on AuthException catch (error) {
