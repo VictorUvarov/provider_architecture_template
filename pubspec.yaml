@@ -54,6 +54,7 @@ dev_dependencies:
   built_value_generator: ^6.7.1
   hive_generator: ^0.5.2
   build_runner: ^1.7.1
+  pedantic: ^1.8.0
 
 flutter_icons:
   android: "launcher_icon"

@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:provider_start/core/models/post/post_h.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
-import 'package:provider_start/core/utils/file_utils.dart' as fileUtils;
+import 'package:provider_start/core/utils/file_utils.dart' as file_utils;
 
 class LocalStorageServiceImpl implements LocalStorageService {
   Box<PostH> _postsBox;
@@ -15,7 +15,7 @@ class LocalStorageServiceImpl implements LocalStorageService {
 
   Future<void> init() async {
     try {
-      final path = await fileUtils.getApplicationDocumentsDirectoryPath();
+      final path = await file_utils.getApplicationDocumentsDirectoryPath();
       Hive.init(path);
 
       Hive.registerAdapter(UserHAdapter(), 0);
