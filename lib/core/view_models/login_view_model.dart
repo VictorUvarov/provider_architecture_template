@@ -15,10 +15,13 @@ class LoginViewModel extends BaseViewModel with Validators {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final _passwordFocusNode = FocusNode();
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
+  FocusNode get passwordFocusNode => _passwordFocusNode;
   GlobalKey<FormState> get formKey => _formKey;
 
   Future<void> login() async {
@@ -37,5 +40,11 @@ class LoginViewModel extends BaseViewModel with Validators {
       debugPrint('(ERROR) ${error.message}');
       setState(ViewState.Error);
     }
+  }
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
   }
 }

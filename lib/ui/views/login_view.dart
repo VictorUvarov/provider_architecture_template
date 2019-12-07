@@ -68,6 +68,8 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
     return TextFormField(
       controller: model.emailController,
       validator: model.validateEmail,
+      onFieldSubmitted: (_) => model.passwordFocusNode.requestFocus(),
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         hintText: local.emailHintText,
         contentPadding: const EdgeInsets.all(8),
@@ -89,6 +91,7 @@ class _PasswordTextField extends ProviderWidget<LoginViewModel> {
     return TextFormField(
       controller: model.passwordController,
       validator: model.validatePassword,
+      focusNode: model.passwordFocusNode,
       obscureText: true,
       textInputAction: TextInputAction.send,
       onFieldSubmitted: (_) => model.login(),
