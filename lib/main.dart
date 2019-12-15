@@ -8,6 +8,7 @@ import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
@@ -17,6 +18,9 @@ import 'package:provider_start/ui/views/login_view.dart';
 import 'package:provider_start/ui/views/splash_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  setupLogger();
   await setupLocator();
   runApp(MyApp());
 }

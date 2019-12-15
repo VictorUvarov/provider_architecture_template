@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:hive/hive.dart';
 import 'package:provider_start/core/models/post/post_h.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as file_utils;
+import 'package:provider_start/core/utils/logger.dart';
 
 class LocalStorageServiceImpl implements LocalStorageService {
   Box<PostH> _postsBox;
@@ -21,7 +21,7 @@ class LocalStorageServiceImpl implements LocalStorageService {
       Hive.registerAdapter(UserHAdapter(), 0);
       Hive.registerAdapter(PostHAdapter(), 1);
     } on HiveError catch (e) {
-      debugPrint('(WARNING) ${e.message}');
+      Logger.w('LocalStorageService: ${e.message}', e: e, s: e.stackTrace);
     }
 
     _postsBox = await Hive.openBox<PostH>(LocalStorageKeys.posts);

@@ -91,6 +91,7 @@ Filled Stacks Links:
 
 - Find the language local code from here [codes](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes)
 - Inside of `lib/local_setup.dart` add the local code to `supportedLocales` and `supportedLocalCodes`
+- Add the local code to the `CFBundleLocalizations` array in `ios/Runner/Info.plist`
 - Create a `<local>.json` file under assets/lang/ and fill out every value for your language
 - Run `flutter clean` inside you lib apps directory if flutter complains
 - There is also a different way to implement locals using the [intl](https://pub.dev/packages/intl) package. An example on how to do so can be found [here](https://github.com/flutter/website/tree/master/examples/internationalization/intl_example)

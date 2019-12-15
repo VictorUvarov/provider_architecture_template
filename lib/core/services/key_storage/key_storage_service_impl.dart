@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service that is responsible for storing/retrieving data in/from
@@ -24,14 +24,14 @@ class KeyStorageServiceImpl implements KeyStorageService {
 
   dynamic _getFromDisk(String key) {
     final value = _preferences.get(key);
-    debugPrint(
-        '(TRACE) LocalStorageService:_getFromDisk. key: $key value: $value');
+
+    Logger.d('LocalStorageService: (Fetching) key: $key value: $value');
+
     return value;
   }
 
   void _saveToDisk<T>(String key, T content) {
-    debugPrint(
-        '(TRACE) LocalStorageService:_saveToDisk. key: $key value: $content');
+    Logger.d('LocalStorageService: (Saving) key: $key value: $content');
 
     if (content is String) {
       _preferences.setString(key, content);

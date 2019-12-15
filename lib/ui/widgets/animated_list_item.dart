@@ -16,6 +16,7 @@ class AnimatedListItem extends StatelessWidget {
         : CupertinoTheme.of(context).primaryColor;
 
     return ViewModelProvider<AnimatedListItemViewModel>.withConsumer(
+      viewModel: AnimatedListItemViewModel(),
       onModelReady: (model) => model.init(color),
       builder: (context, model, child) => GestureDetector(
         onTap: model.updateColor,

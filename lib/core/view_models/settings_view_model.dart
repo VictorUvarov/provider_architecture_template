@@ -4,6 +4,7 @@ import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
 
@@ -33,6 +34,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void openAppSettings() {
+    Logger.d('User has opened app settings');
     AppSettings.openAppSettings();
   }
 
@@ -48,6 +50,7 @@ class SettingsViewModel extends BaseViewModel {
     );
 
     if (dialogResult.confirmed) {
+      Logger.d('User has signed out');
       _keyStorageService.hasLoggedIn = false;
       await _navigationService.popAllAndPushNamed(ViewRoutes.login);
     }

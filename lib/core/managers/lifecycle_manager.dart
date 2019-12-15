@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/services/location/location_service.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 
 /// A manager to start/stop [StoppableService]s when the app goes/returns into/from the background
@@ -40,7 +41,7 @@ class _LifeCycleManagerState extends State<LifeCycleManager>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    debugPrint('(TRACE) App life cycle change to $state');
+    Logger.d('App life cycle change to $state');
     servicesToManage.forEach((service) {
       if (state == AppLifecycleState.resumed) {
         service.start();
