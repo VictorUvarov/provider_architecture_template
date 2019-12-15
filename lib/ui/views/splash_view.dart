@@ -25,7 +25,7 @@ class SplashView extends StatelessWidget {
       backgroundColor: backgroundColor,
       width: 100.0,
       name: Animations.loader,
-      next: MainView(),
+      next: (_) => MainView(),
       until: () async {
         await Future.wait([
           locator<HardwareInfoService>().init(),

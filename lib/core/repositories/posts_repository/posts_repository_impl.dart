@@ -12,6 +12,7 @@ import 'package:provider_start/core/repositories/posts_repository/posts_reposito
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 
 class PostsRepositoryImpl implements PostsRepository {
@@ -22,20 +23,27 @@ class PostsRepositoryImpl implements PostsRepository {
   Future<List<Post>> fetchPosts() async {
     try {
       if (await _connectionService.isConnected()) {
+        Logger.d('PostsRepository: Fetching posts Remotely');
         final posts = await compute(_fetchPostsRemotely, null);
         unawaited(_storePostsLocally(posts));
         return posts;
       } else {
+        Logger.d('PostsRepository: Fetching posts locally');
         final posts = _fetchPostsLocally();
         return posts;
       }
-    } on NetworkException {
-      throw RepositoryException(RepositoryExceptionMessages.general_posts);
+    } on NetworkException catch (e) {
+      Logger.e('PostsRepository: ${e.message}', e: e, s: e.stackTrace);
+      throw RepositoryException(
+        RepositoryExceptionMessages.general_posts,
+        stackTrace: e.stackTrace,
+      );
     }
   }
 
   static Future<List<Post>> _fetchPostsRemotely(_) async {
     final HttpServiceImpl httpService = HttpServiceImpl();
+    setupLogger();
 
     try {
       final postsJsonData =

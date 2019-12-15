@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as file_utils;
+import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/utils/network_utils.dart' as network_utils;
 
 /// Helper service that abstracts away common HTTP Requests
@@ -21,7 +21,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    debugPrint('(TRACE) Sending GET to ${ApiRoutes.base_url}/$route');
+    Logger.d('Sending GET to ${ApiRoutes.base_url}/$route');
 
     try {
       final fullRoute = '${ApiRoutes.base_url}/$route';
@@ -31,7 +31,8 @@ class HttpServiceImpl implements HttpService {
           contentType: 'application/json',
         ),
       );
-    } catch (_) {
+    } on DioError catch (e) {
+      Logger.e(e.message, e: e, s: StackTrace.current);
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
@@ -49,7 +50,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    debugPrint('(TRACE) Sending $body to ${ApiRoutes.base_url}/$route');
+    Logger.d('Sending $body to ${ApiRoutes.base_url}/$route');
 
     try {
       final fullRoute = '${ApiRoutes.base_url}/$route';
@@ -62,7 +63,8 @@ class HttpServiceImpl implements HttpService {
           contentType: 'application/json',
         ),
       );
-    } catch (_) {
+    } on DioError catch (e) {
+      Logger.e(e.message, e: e, s: StackTrace.current);
       throw NetworkException(NetworkExceptionMessages.general);
     }
 
@@ -111,7 +113,8 @@ class HttpServiceImpl implements HttpService {
         file.path,
         onReceiveProgress: network_utils.showLoadingProgress,
       );
-    } catch (_) {
+    } on DioError catch (e) {
+      Logger.e(e.message, e: e, s: StackTrace.current);
       throw NetworkException(NetworkExceptionMessages.general);
     }
 

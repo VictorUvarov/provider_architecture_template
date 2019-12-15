@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:device_info/device_info.dart';
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 
 /// Service that is responsible for getting hardware device info
 class HardwareInfoServiceImpl implements HardwareInfoService {
@@ -35,8 +35,8 @@ class HardwareInfoServiceImpl implements HardwareInfoService {
       _device = androidInfo.model;
     }
 
-    debugPrint('udid: $_udid');
-    debugPrint('operating_system: $_operatingSystem');
-    debugPrint('device: $_device');
+    Logger.d('udid: $_udid');
+    Logger.d('operating_system: $_operatingSystem');
+    Logger.d('device: $_device');
   }
 }

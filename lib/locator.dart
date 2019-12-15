@@ -17,12 +17,6 @@ import 'package:provider_start/core/services/local_storage/local_storage_service
 import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
-import 'package:provider_start/core/view_models/home_view_model.dart';
-import 'package:provider_start/core/view_models/login_view_model.dart';
-import 'package:provider_start/core/view_models/main_view_model.dart';
-import 'package:provider_start/core/view_models/post_details_view_model.dart';
-import 'package:provider_start/core/view_models/settings_view_model.dart';
-import 'package:provider_start/core/view_models/widgets/animated_list_item_model.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -49,16 +43,6 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),
   );
-
-  // View view models
-  locator.registerFactory(() => HomeViewModel());
-  locator.registerFactory(() => SettingsViewModel());
-  locator.registerFactory(() => LoginViewModel());
-  locator.registerFactory(() => MainViewModel());
-  locator.registerFactory(() => PostDetailsViewModel());
-
-  // Widget view models
-  locator.registerFactory(() => AnimatedListItemViewModel());
 
   await initializeServices();
 }

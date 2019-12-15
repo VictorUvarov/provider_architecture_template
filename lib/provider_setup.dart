@@ -19,6 +19,6 @@ List<SingleChildCloneableWidget> dependentServices = [];
 
 List<SingleChildCloneableWidget> uiConsumableProviders = [
   StreamProvider<ConnectivityStatus>(
-    builder: (context) => locator<ConnectivityService>().connectivity$,
+    create: (context) => locator<ConnectivityService>().connectivity$,
   ),
 ];
