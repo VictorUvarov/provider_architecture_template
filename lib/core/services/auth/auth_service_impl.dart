@@ -1,11 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
-import 'package:provider_start/locator.dart';
 
 class AuthServiceImpl implements AuthService {
-  final _keyStorageService = locator<KeyStorageService>();
+  final KeyStorageService keyStorageService;
+
+  const AuthServiceImpl({@required this.keyStorageService});
 
   @override
   Future<void> signUpWithEmailPassword(
@@ -15,7 +17,7 @@ class AuthServiceImpl implements AuthService {
   ) async {
     try {
       await Future.delayed(Duration(milliseconds: 250));
-      _keyStorageService.hasLoggedIn = true;
+      keyStorageService.hasLoggedIn = true;
     } on Exception {
       Logger.e('AuthService: Error signing up');
       throw AuthException('Error signing up');
@@ -29,10 +31,16 @@ class AuthServiceImpl implements AuthService {
   ) async {
     try {
       await Future.delayed(Duration(milliseconds: 250));
-      _keyStorageService.hasLoggedIn = true;
+      keyStorageService.hasLoggedIn = true;
     } on Exception {
       Logger.e('AuthService: Error signing in');
       throw AuthException('Error signing in');
     }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await Future.delayed(Duration(milliseconds: 250));
+    keyStorageService.hasLoggedIn = false;
   }
 }

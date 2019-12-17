@@ -47,7 +47,9 @@ Future<void> setupLocator() async {
   );
   locator.registerLazySingleton<LocationService>(() => LocationServiceImpl());
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
-  locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  locator.registerLazySingleton<AuthService>(
+    () => AuthServiceImpl(keyStorageService: locator()),
+  );
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),
   );
