@@ -5,7 +5,6 @@ import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/mixins/validators.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
 
@@ -15,9 +14,7 @@ class LoginViewModel extends BaseViewModel with Validators {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   final _passwordFocusNode = FocusNode();
-
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController get emailController => _emailController;
@@ -38,8 +35,7 @@ class LoginViewModel extends BaseViewModel with Validators {
       setState(ViewState.Idle);
 
       await _navigationService.popAllAndPushNamed(ViewRoutes.splash);
-    } on AuthException catch (error) {
-      Logger.e('LoginViewModel: ${error.message}', s: error.stackTrace);
+    } on AuthException {
       setState(ViewState.Error);
     }
   }

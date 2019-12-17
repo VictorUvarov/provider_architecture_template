@@ -1,4 +1,10 @@
 import 'package:get_it/get_it.dart';
+import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
+import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.dart';
+import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
+import 'package:provider_start/core/data_sources/users/users_remote_data_source.dart';
+import 'package:provider_start/core/services/http/http_service.dart';
+import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/location/location_service.dart';
@@ -27,11 +33,10 @@ GetIt locator = GetIt.instance;
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator() async {
-  // Repositories
-  locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
-  locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
-
   // Services
+  final instance = await KeyStorageServiceImpl.getInstance();
+  locator.registerLazySingleton<KeyStorageService>(() => instance);
+
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
@@ -46,13 +51,35 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),
   );
+  locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
 
-  await initializeServices();
-}
+  // Data sources
+  locator.registerLazySingleton<PostsLocalDataSource>(
+    () => PostsLocalDataSourceImpl(localStorageService: locator()),
+  );
+  locator.registerLazySingleton<PostsRemoteDataSource>(
+    () => PostsRemoteDataSourceImpl(httpService: locator()),
+  );
+  locator.registerLazySingleton<UsersLocalDataSource>(
+    () => UsersLocalDataSourceImpl(localStorageService: locator()),
+  );
+  locator.registerLazySingleton<UsersRemoteDataSource>(
+    () => UsersRemoteDataSourceImpl(httpService: locator()),
+  );
 
-/// Initialize other services here that require additional code
-/// to run before the services can be registered
-Future<void> initializeServices() async {
-  final instance = await KeyStorageServiceImpl.getInstance();
-  locator.registerSingleton<KeyStorageService>(instance);
+  // Repositories
+  locator.registerLazySingleton<PostsRepository>(
+    () => PostsRepositoryImpl(
+      localDataSource: locator(),
+      connectivityService: locator(),
+      remoteDataSource: locator(),
+    ),
+  );
+  locator.registerLazySingleton<UsersRepository>(
+    () => UsersRepositoryImpl(
+      connectivityService: locator(),
+      localDataSource: locator(),
+      remoteDataSource: locator(),
+    ),
+  );
 }

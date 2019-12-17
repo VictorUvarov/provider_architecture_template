@@ -1,18 +1,25 @@
 import "package:flutter/foundation.dart";
-import "package:flutter/material.dart";
 import 'package:logger/logger.dart' as debug_logger;
 import 'package:provider_start/core/utils/simple_log_printer.dart'
     as debug_logger_util;
+import 'package:mockito/mockito.dart';
 
 /// Run this before starting app
-void setupLogger() {
-  if (!kReleaseMode) {
+void setupLogger({bool test = false}) {
+  if (test) {
+    Logger.useClient(_MockClient());
+  } else if (!kReleaseMode) {
     // Add standard log output only on debug builds
     debug_logger.Logger.level = debug_logger.Level.verbose;
     Logger.useClient(_DebugLoggerClient());
   } else {
     // Pass all uncaught errors from the framework to something like Crashlytics.
   }
+}
+
+class _MockClient extends Mock implements _LoggerClient {
+  @override
+  log({LogLevel level, String message, e, StackTrace s}) {}
 }
 
 class Logger {
@@ -52,7 +59,7 @@ class Logger {
   static e(
     String message, {
     dynamic e,
-    @required StackTrace s,
+    StackTrace s,
   }) {
     _client.log(
       level: LogLevel.error,

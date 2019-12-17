@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
-import 'package:provider_start/core/constant/network_exception_messages.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/file_utils.dart' as file_utils;
@@ -13,10 +12,6 @@ import 'package:provider_start/core/utils/network_utils.dart' as network_utils;
 class HttpServiceImpl implements HttpService {
   final _dio = Dio();
 
-  /// Send GET request to endpoint/[route] and return the `response`
-  /// - if successful: returns decoded json data
-  ///
-  /// - throws `NetworkException` if GET fails
   @override
   Future<dynamic> getHttp(String route) async {
     Response response;
@@ -32,8 +27,8 @@ class HttpServiceImpl implements HttpService {
         ),
       );
     } on DioError catch (e) {
-      Logger.e(e.message, e: e, s: StackTrace.current);
-      throw NetworkException(NetworkExceptionMessages.general);
+      Logger.e('HttpService: Failed to GET ${e.message}');
+      throw NetworkException(e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);
@@ -42,10 +37,6 @@ class HttpServiceImpl implements HttpService {
     return response.data;
   }
 
-  /// Send POST request with [body] to endpoint/[route] and return the `response`
-  /// - if successful: returns decoded json data
-  ///
-  /// - throws `NetworkException` if POST request fails
   @override
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
@@ -64,8 +55,8 @@ class HttpServiceImpl implements HttpService {
         ),
       );
     } on DioError catch (e) {
-      Logger.e(e.message, e: e, s: StackTrace.current);
-      throw NetworkException(NetworkExceptionMessages.general);
+      Logger.e('HttpService: Failed to POST ${e.message}');
+      throw NetworkException(e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);
@@ -74,10 +65,6 @@ class HttpServiceImpl implements HttpService {
     return response.data;
   }
 
-  /// Send POST request with [files] to endpoint/[route] and return the `response`
-  /// - if successful: returns decoded json data
-  ///
-  /// - throws `NetworkException` if posting form fails
   @override
   Future<dynamic> postHttpForm(
     String route,
@@ -98,9 +85,6 @@ class HttpServiceImpl implements HttpService {
     return data;
   }
 
-  /// Download file from [fileUrl] and return the File
-  ///
-  /// - throws `NetworkException` if file download fails
   @override
   Future<File> downloadFile(String fileUrl) async {
     Response response;
@@ -114,8 +98,8 @@ class HttpServiceImpl implements HttpService {
         onReceiveProgress: network_utils.showLoadingProgress,
       );
     } on DioError catch (e) {
-      Logger.e(e.message, e: e, s: StackTrace.current);
-      throw NetworkException(NetworkExceptionMessages.general);
+      Logger.e('HttpService: Failed to download file ${e.message}');
+      throw NetworkException(e.message);
     }
 
     network_utils.checkForNetworkExceptions(response);

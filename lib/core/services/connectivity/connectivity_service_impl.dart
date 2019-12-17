@@ -11,20 +11,20 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
   StreamSubscription<ConnectivityResult> _subscription;
   ConnectivityResult _lastResult;
-  bool _serviceStoped = false;
+  bool _serviceStopped = false;
 
   @override
   Stream<ConnectivityStatus> get connectivity$ =>
       _connectivityResultController.stream;
 
-  bool get serviceStopped => _serviceStoped;
+  bool get serviceStopped => _serviceStopped;
 
   ConnectivityServiceImpl() {
     _subscription =
         _connectivity.onConnectivityChanged.listen(_emitConnectivity);
   }
 
-  Future<bool> isConnected() async {
+  Future<bool> get isConnected async {
     final result = await _connectivity.checkConnectivity();
 
     switch (result) {
@@ -40,7 +40,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
   @override
   void start() async {
     Logger.d('ConnectivityService resumed');
-    _serviceStoped = false;
+    _serviceStopped = false;
 
     await _resumeSignal();
     _subscription.resume();
@@ -49,7 +49,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
   @override
   void stop() {
     Logger.d('ConnectivityService paused');
-    _serviceStoped = true;
+    _serviceStopped = true;
 
     _subscription.pause(_resumeSignal());
   }

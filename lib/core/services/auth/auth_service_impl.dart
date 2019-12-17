@@ -1,4 +1,3 @@
-import 'package:provider_start/core/constant/auth_exception_messages.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
@@ -17,9 +16,9 @@ class AuthServiceImpl implements AuthService {
     try {
       await Future.delayed(Duration(milliseconds: 250));
       _keyStorageService.hasLoggedIn = true;
-    } on Exception catch (_) {
-      Logger.e('AuthService: Error signing up', s: StackTrace.current);
-      throw AuthException(AuthExceptionMessages.general);
+    } on Exception {
+      Logger.e('AuthService: Error signing up');
+      throw AuthException('Error signing up');
     }
   }
 
@@ -31,9 +30,9 @@ class AuthServiceImpl implements AuthService {
     try {
       await Future.delayed(Duration(milliseconds: 250));
       _keyStorageService.hasLoggedIn = true;
-    } on Exception catch (_) {
-      Logger.e('AuthService: Error signing in', s: StackTrace.current);
-      throw AuthException(AuthExceptionMessages.general);
+    } on Exception {
+      Logger.e('AuthService: Error signing in');
+      throw AuthException('Error signing in');
     }
   }
 }
