@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -43,7 +44,10 @@ class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
     return ListTile(
       title: Text(local.settingsViewAppSettings),
       subtitle: Text(local.settingsViewAppSettingsDesc),
-      trailing: Icon(Icons.launch),
+      trailing: PlatformWidget(
+        android: (_) => Icon(Icons.launch),
+        ios: (_) => Icon(CupertinoIcons.share_up),
+      ),
       onTap: model.openAppSettings,
     );
   }
@@ -57,7 +61,10 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
     return ListTile(
       title: Text(local.settingsViewSignOut),
       subtitle: Text(local.settingsViewSignOutDesc),
-      trailing: Icon(Icons.exit_to_app),
+      trailing: PlatformWidget(
+        android: (_) => Icon(Icons.exit_to_app),
+        ios: (_) => Icon(CupertinoIcons.right_chevron),
+      ),
       onTap: () => model.signOut(
         title: local.settingsViewSignOut,
         desc: local.settingsViewSignOutDesc,

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
 
@@ -26,7 +28,10 @@ class PostTile extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         isThreeLine: true,
-        trailing: Icon(Icons.arrow_forward),
+        trailing: PlatformWidget(
+          android: (_) => Icon(Icons.arrow_forward),
+          ios: (_) => Icon(CupertinoIcons.forward),
+        ),
         onTap: () {
           Navigator.of(context).pushNamed(
             ViewRoutes.post_details,
