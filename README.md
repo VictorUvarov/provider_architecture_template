@@ -21,6 +21,7 @@ Filled Stacks Links:
 .
 ├── core
 │   ├── constant
+│   ├── data_sources
 │   ├── enums
 │   ├── exceptions
 │   ├── localization
@@ -61,9 +62,7 @@ Filled Stacks Links:
 - [x] app settings launcher
 - [x] custom fonts
 - [x] custom app icons
-- [ ] graphQL api service
 - [ ] responsive views
-- [ ] continuous scrolling
 - [ ] unit tests
 
 ### Geolocator branch
