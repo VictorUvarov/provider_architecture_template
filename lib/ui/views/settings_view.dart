@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/models/user_location/user_location.dart';
 import 'package:provider_start/core/view_models/settings_view_model.dart';
 
 /// An example settings view that uses platform adaptive widgets
@@ -31,7 +29,6 @@ class SettingsView extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             _AppSettingsListTile(),
-            _LocationListTile(),
             _SignOutListTile(),
           ],
         ),
@@ -50,24 +47,6 @@ class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
       subtitle: Text(local.settingsViewAppSettingsDesc),
       trailing: Icon(Icons.launch),
       onTap: model.openAppSettings,
-    );
-  }
-}
-
-class _LocationListTile extends ProviderWidget<SettingsViewModel> {
-  @override
-  Widget build(BuildContext context, SettingsViewModel model) {
-    final local = AppLocalizations.of(context);
-    final location = Provider.of<UserLocation>(context);
-
-    return ListTile(
-      title: Text(local.settingsViewLocation),
-      subtitle: Text(
-        location == null
-            ? 'Unknown'
-            : 'Lat: ${location?.latitude} Long: ${location?.longitude}',
-      ),
-      trailing: Icon(Icons.location_on),
     );
   }
 }

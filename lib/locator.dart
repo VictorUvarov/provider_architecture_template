@@ -7,8 +7,6 @@ import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
-import 'package:provider_start/core/services/location/location_service.dart';
-import 'package:provider_start/core/services/location/location_service_impl.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
@@ -45,9 +43,10 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-  locator.registerLazySingleton<LocationService>(() => LocationServiceImpl());
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
-  locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
+  locator.registerLazySingleton<AuthService>(
+    () => AuthServiceImpl(keyStorageService: locator()),
+  );
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),
   );

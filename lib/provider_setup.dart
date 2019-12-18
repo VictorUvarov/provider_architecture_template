@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_start/core/enums/connectivity_status.dart';
-import 'package:provider_start/core/models/user_location/user_location.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
-import 'package:provider_start/core/services/location/location_service.dart';
 import 'package:provider_start/locator.dart';
 
 /// List of providers that provider transforms into a widget tree
@@ -20,9 +18,6 @@ List<SingleChildCloneableWidget> independentServices = [];
 List<SingleChildCloneableWidget> dependentServices = [];
 
 List<SingleChildCloneableWidget> uiConsumableProviders = [
-  StreamProvider<UserLocation>(
-    create: (context) => locator<LocationService>().location$,
-  ),
   StreamProvider<ConnectivityStatus>(
     create: (context) => locator<ConnectivityService>().connectivity$,
   ),

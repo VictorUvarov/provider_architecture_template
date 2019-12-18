@@ -6,7 +6,6 @@ import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';

@@ -1,8 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/view_models/base_view_model.dart';
@@ -10,8 +10,8 @@ import 'package:provider_start/locator.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
-  final _keyStorageService = locator<KeyStorageService>();
   final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
 
   Future<void> init() async {
     setState(ViewState.Busy);
@@ -51,7 +51,7 @@ class SettingsViewModel extends BaseViewModel {
 
     if (dialogResult.confirmed) {
       Logger.d('User has signed out');
-      _keyStorageService.hasLoggedIn = false;
+      await _authService.signOut();
       await _navigationService.popAllAndPushNamed(ViewRoutes.login);
     }
   }
