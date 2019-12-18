@@ -10,8 +10,6 @@ import 'package:provider_start/core/view_models/settings_view_model.dart';
 /// functions that return Widgets. e.g. Widget buildWidget();
 ///   - To add/change a functional_widget look at README.md - installation section
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);

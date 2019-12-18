@@ -7,8 +7,6 @@ import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
@@ -18,10 +16,6 @@ class LoginView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.loginViewTitle),
-          ios: (_) => CupertinoNavigationBarData(
-            previousPageTitle: local.loginViewTitle,
-            transitionBetweenRoutes: false,
-          ),
         ),
         body: Form(
           key: model.formKey,
