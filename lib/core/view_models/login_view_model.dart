@@ -42,6 +42,8 @@ class LoginViewModel extends BaseViewModel with Validators {
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
   }
