@@ -7,7 +7,6 @@ import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
-import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
@@ -19,10 +18,10 @@ class MockPostsRemoteDataSource extends Mock implements PostsRemoteDataSource {}
 class MockConnectivityService extends Mock implements ConnectivityService {}
 
 void main() {
-  PostsRepositoryImpl repository;
-  MockPostsRemoteDataSource mockPostsRemoteDataSource;
-  MockPostsLocalDataSource mockPostsLocalDataSource;
-  MockConnectivityService mockConnectivityService;
+  PostsRepository repository;
+  PostsRemoteDataSource postsRemoteDataSource;
+  PostsLocalDataSource postsLocalDataSource;
+  ConnectivityService connectivityService;
 
   final mockPost = Post(
     (p) => p
@@ -33,18 +32,18 @@ void main() {
   );
   final mockPosts = [mockPost, mockPost];
 
-  setUp(() {
+  setUp(() async {
     setupLogger(test: true);
-    setupLocator(test: true);
+    await setupLocator(test: true);
     locator.allowReassignment = true;
 
-    mockPostsRemoteDataSource = MockPostsRemoteDataSource();
-    mockPostsLocalDataSource = MockPostsLocalDataSource();
-    mockConnectivityService = MockConnectivityService();
+    postsRemoteDataSource = MockPostsRemoteDataSource();
+    postsLocalDataSource = MockPostsLocalDataSource();
+    connectivityService = MockConnectivityService();
 
-    locator.registerSingleton<PostsRemoteDataSource>(mockPostsRemoteDataSource);
-    locator.registerSingleton<PostsLocalDataSource>(mockPostsLocalDataSource);
-    locator.registerSingleton<ConnectivityService>(mockConnectivityService);
+    locator.registerSingleton<PostsRemoteDataSource>(postsRemoteDataSource);
+    locator.registerSingleton<PostsLocalDataSource>(postsLocalDataSource);
+    locator.registerSingleton<ConnectivityService>(connectivityService);
 
     repository = locator<PostsRepository>();
   });
@@ -56,7 +55,7 @@ void main() {
   void runTestsOnline(Function body) {
     group('device is online', () {
       setUp(() {
-        when(mockConnectivityService.isConnected).thenAnswer((_) async => true);
+        when(connectivityService.isConnected).thenAnswer((_) async => true);
       });
 
       body();
@@ -66,8 +65,7 @@ void main() {
   void runTestsOffline(Function body) {
     group('device is offline', () {
       setUp(() {
-        when(mockConnectivityService.isConnected)
-            .thenAnswer((_) async => false);
+        when(connectivityService.isConnected).thenAnswer((_) async => false);
       });
 
       body();
@@ -79,11 +77,11 @@ void main() {
       'should check if the device is online',
       () async {
         // arrange
-        when(mockConnectivityService.isConnected).thenAnswer((_) async => true);
+        when(connectivityService.isConnected).thenAnswer((_) async => true);
         // act
         await repository.fetchPosts();
         // assert
-        verify(mockConnectivityService.isConnected);
+        verify(connectivityService.isConnected);
       },
     );
 
@@ -92,12 +90,12 @@ void main() {
         'should return remote data when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockPostsRemoteDataSource.fetchPosts())
+          when(postsRemoteDataSource.fetchPosts())
               .thenAnswer((_) async => mockPosts);
           // act
           final result = await repository.fetchPosts();
           // assert
-          verify(mockPostsRemoteDataSource.fetchPosts());
+          verify(postsRemoteDataSource.fetchPosts());
           expect(result, equals(mockPosts));
         },
       );
@@ -106,13 +104,13 @@ void main() {
         'should cache the data locally when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockPostsRemoteDataSource.fetchPosts())
+          when(postsRemoteDataSource.fetchPosts())
               .thenAnswer((_) async => mockPosts);
           // act
           await repository.fetchPosts();
           // assert
-          verify(mockPostsRemoteDataSource.fetchPosts());
-          verify(mockPostsLocalDataSource.cachePosts(mockPosts));
+          verify(postsRemoteDataSource.fetchPosts());
+          verify(postsLocalDataSource.cachePosts(mockPosts));
         },
       );
 
@@ -120,15 +118,15 @@ void main() {
         'should throw repository exception when the call to remote data source is unsuccessful',
         () async {
           // arrange
-          when(mockPostsRemoteDataSource.fetchPosts())
+          when(postsRemoteDataSource.fetchPosts())
               .thenThrow(NetworkException(''));
           try {
             // act
             await repository.fetchPosts();
           } catch (e) {
             // assert
-            verify(mockPostsRemoteDataSource.fetchPosts());
-            verifyZeroInteractions(mockPostsLocalDataSource);
+            verify(postsRemoteDataSource.fetchPosts());
+            verifyZeroInteractions(postsLocalDataSource);
             expect(e.runtimeType, equals(RepositoryException('').runtimeType));
           }
         },
@@ -140,13 +138,12 @@ void main() {
         'should return last locally cached data when the cached data is present',
         () async {
           // arrange
-          when(mockPostsLocalDataSource.fetchPosts())
-              .thenAnswer((_) => mockPosts);
+          when(postsLocalDataSource.fetchPosts()).thenAnswer((_) => mockPosts);
           // act
           final result = await repository.fetchPosts();
           // assert
-          verifyZeroInteractions(mockPostsRemoteDataSource);
-          verify(mockPostsLocalDataSource.fetchPosts());
+          verifyZeroInteractions(postsRemoteDataSource);
+          verify(postsLocalDataSource.fetchPosts());
           expect(result, equals(mockPosts));
         },
       );
@@ -155,15 +152,14 @@ void main() {
         'should throw repository exception when the call to remote data source is unsuccessful',
         () async {
           // arrange
-          when(mockPostsLocalDataSource.fetchPosts())
-              .thenThrow(CacheException(''));
+          when(postsLocalDataSource.fetchPosts()).thenThrow(CacheException(''));
           try {
             // act
             await repository.fetchPosts();
           } catch (e) {
             // assert
-            verify(mockPostsLocalDataSource.fetchPosts());
-            verifyZeroInteractions(mockPostsRemoteDataSource);
+            verify(postsLocalDataSource.fetchPosts());
+            verifyZeroInteractions(postsRemoteDataSource);
             expect(e.runtimeType, equals(RepositoryException('').runtimeType));
           }
         },

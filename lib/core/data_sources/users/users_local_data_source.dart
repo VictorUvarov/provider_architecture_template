@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
+import 'package:provider_start/locator.dart';
 
 abstract class UsersLocalDataSource {
   User fetchUser(int uid);
@@ -11,9 +11,7 @@ abstract class UsersLocalDataSource {
 }
 
 class UsersLocalDataSourceImpl implements UsersLocalDataSource {
-  final LocalStorageService localStorageService;
-
-  UsersLocalDataSourceImpl({@required this.localStorageService});
+  final localStorageService = locator<LocalStorageService>();
 
   @override
   Future<void> cacheUser(User user) {

@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
-import 'package:provider_start/core/services/auth/auth_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/locator.dart';
 
@@ -10,8 +9,8 @@ class MockKeyStorageService extends Mock implements KeyStorageService {
 }
 
 void main() {
-  MockKeyStorageService mockKeyStorageService;
-  AuthServiceImpl authService;
+  KeyStorageService keyStorageService;
+  AuthService authService;
 
   final mockEmail = 'email@gmail.com';
   final mockPassword = 'password';
@@ -20,9 +19,10 @@ void main() {
   setUp(() async {
     await setupLocator(test: true);
     locator.allowReassignment = true;
-    locator.registerSingleton<KeyStorageService>(MockKeyStorageService());
-    mockKeyStorageService = locator<KeyStorageService>();
-    locator.registerSingleton<AuthService>(AuthServiceImpl());
+
+    keyStorageService = MockKeyStorageService();
+    locator.registerSingleton<KeyStorageService>(keyStorageService);
+
     authService = locator<AuthService>();
   });
 
@@ -38,7 +38,7 @@ void main() {
       );
 
       // assert
-      expect(mockKeyStorageService.hasLoggedIn, equals(true));
+      expect(keyStorageService.hasLoggedIn, equals(true));
     });
   });
 
@@ -53,7 +53,7 @@ void main() {
       );
 
       // assert
-      expect(mockKeyStorageService.hasLoggedIn, equals(true));
+      expect(keyStorageService.hasLoggedIn, equals(true));
     });
   });
 
@@ -65,7 +65,7 @@ void main() {
       await authService.signOut();
 
       // assert
-      expect(mockKeyStorageService.hasLoggedIn, equals(false));
+      expect(keyStorageService.hasLoggedIn, equals(false));
     });
   });
 }

@@ -7,9 +7,9 @@ import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
-import 'package:provider_start/core/repositories/users_repository/users_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 class MockUsersLocalDataSource extends Mock implements UsersLocalDataSource {}
 
@@ -18,10 +18,10 @@ class MockUsersRemoteDataSource extends Mock implements UsersRemoteDataSource {}
 class MockConnectivityService extends Mock implements ConnectivityService {}
 
 void main() {
-  UsersRepositoryImpl repository;
-  MockUsersRemoteDataSource mockUsersRemoteDataSource;
-  MockUsersLocalDataSource mockUsersLocalDataSource;
-  MockConnectivityService mockConnectivityService;
+  UsersRepository repository;
+  UsersRemoteDataSource usersRemoteDataSource;
+  UsersLocalDataSource usersLocalDataSource;
+  ConnectivityService connectivityService;
 
   final mockUID = 1;
   final mockUser = User(
@@ -34,16 +34,20 @@ void main() {
       ..website = 'barrackobama.com',
   );
 
-  setUp(() {
-    mockUsersRemoteDataSource = MockUsersRemoteDataSource();
-    mockUsersLocalDataSource = MockUsersLocalDataSource();
-    mockConnectivityService = MockConnectivityService();
-    repository = UsersRepositoryImpl(
-      remoteDataSource: mockUsersRemoteDataSource,
-      localDataSource: mockUsersLocalDataSource,
-      connectivityService: mockConnectivityService,
-    );
+  setUp(() async {
+    await setupLocator(test: true);
     setupLogger(test: true);
+    locator.allowReassignment = true;
+
+    usersRemoteDataSource = MockUsersRemoteDataSource();
+    usersLocalDataSource = MockUsersLocalDataSource();
+    connectivityService = MockConnectivityService();
+
+    locator.registerSingleton<UsersRemoteDataSource>(usersRemoteDataSource);
+    locator.registerSingleton<UsersLocalDataSource>(usersLocalDataSource);
+    locator.registerSingleton<ConnectivityService>(connectivityService);
+
+    repository = locator<UsersRepository>();
   });
 
   test('users repository is a UsersRepository type', () {
@@ -53,7 +57,7 @@ void main() {
   void runTestsOnline(Function body) {
     group('device is online', () {
       setUp(() {
-        when(mockConnectivityService.isConnected).thenAnswer((_) async => true);
+        when(connectivityService.isConnected).thenAnswer((_) async => true);
       });
 
       body();
@@ -63,8 +67,7 @@ void main() {
   void runTestsOffline(Function body) {
     group('device is offline', () {
       setUp(() {
-        when(mockConnectivityService.isConnected)
-            .thenAnswer((_) async => false);
+        when(connectivityService.isConnected).thenAnswer((_) async => false);
       });
 
       body();
@@ -77,11 +80,11 @@ void main() {
       () async {
         // arrange
         final uid = 1;
-        when(mockConnectivityService.isConnected).thenAnswer((_) async => true);
+        when(connectivityService.isConnected).thenAnswer((_) async => true);
         // act
         await repository.fetchUser(uid);
         // assert
-        verify(mockConnectivityService.isConnected);
+        verify(connectivityService.isConnected);
       },
     );
 
@@ -90,12 +93,12 @@ void main() {
         'should return remote data when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockUsersRemoteDataSource.fetchUser(any))
+          when(usersRemoteDataSource.fetchUser(any))
               .thenAnswer((_) async => mockUser);
           // act
           final result = await repository.fetchUser(mockUID);
           // assert
-          verify(mockUsersRemoteDataSource.fetchUser(mockUID));
+          verify(usersRemoteDataSource.fetchUser(mockUID));
           expect(result, equals(mockUser));
         },
       );
@@ -104,13 +107,13 @@ void main() {
         'should cache the data locally when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockUsersRemoteDataSource.fetchUser(mockUID))
+          when(usersRemoteDataSource.fetchUser(mockUID))
               .thenAnswer((_) async => mockUser);
           // act
           await repository.fetchUser(mockUID);
           // assert
-          verify(mockUsersRemoteDataSource.fetchUser(mockUID));
-          verify(mockUsersLocalDataSource.cacheUser(mockUser));
+          verify(usersRemoteDataSource.fetchUser(mockUID));
+          verify(usersLocalDataSource.cacheUser(mockUser));
         },
       );
 
@@ -118,15 +121,15 @@ void main() {
         'should throw repository exception when the call to remote data source is unsuccessful',
         () async {
           // arrange
-          when(mockUsersRemoteDataSource.fetchUser(mockUID))
+          when(usersRemoteDataSource.fetchUser(mockUID))
               .thenThrow(NetworkException(''));
           try {
             // act
             await repository.fetchUser(mockUID);
           } catch (e) {
             // assert
-            verify(mockUsersRemoteDataSource.fetchUser(mockUID));
-            verifyZeroInteractions(mockUsersLocalDataSource);
+            verify(usersRemoteDataSource.fetchUser(mockUID));
+            verifyZeroInteractions(usersLocalDataSource);
             expect(e.runtimeType, equals(RepositoryException('').runtimeType));
           }
         },
@@ -135,7 +138,7 @@ void main() {
       test('should throw repository exception when the null id is passed in',
           () async {
         // arrange
-        when(mockUsersRemoteDataSource.fetchUser(null))
+        when(usersRemoteDataSource.fetchUser(null))
             .thenThrow(NetworkException(''));
 
         try {
@@ -143,8 +146,8 @@ void main() {
           await repository.fetchUser(null);
         } catch (e) {
           // assert
-          verifyNever(mockUsersRemoteDataSource.fetchUser(null));
-          verifyZeroInteractions(mockUsersLocalDataSource);
+          verifyNever(usersRemoteDataSource.fetchUser(null));
+          verifyZeroInteractions(usersLocalDataSource);
           expect(e.runtimeType, equals(RepositoryException('').runtimeType));
         }
       });
@@ -155,13 +158,13 @@ void main() {
         'should return last locally cached data when the cached data is present',
         () async {
           // arrange
-          when(mockUsersLocalDataSource.fetchUser(mockUID))
+          when(usersLocalDataSource.fetchUser(mockUID))
               .thenAnswer((_) => mockUser);
           // act
           final result = await repository.fetchUser(mockUID);
           // assert
-          verifyZeroInteractions(mockUsersRemoteDataSource);
-          verify(mockUsersLocalDataSource.fetchUser(mockUID));
+          verifyZeroInteractions(usersRemoteDataSource);
+          verify(usersLocalDataSource.fetchUser(mockUID));
           expect(result, equals(mockUser));
         },
       );
@@ -170,15 +173,15 @@ void main() {
         'should throw repository exception when the call to remote data source is unsuccessful',
         () async {
           // arrange
-          when(mockUsersLocalDataSource.fetchUser(mockUID))
+          when(usersLocalDataSource.fetchUser(mockUID))
               .thenThrow(CacheException(''));
           try {
             // act
             await repository.fetchUser(mockUID);
           } catch (e) {
             // assert
-            verify(mockUsersLocalDataSource.fetchUser(mockUID));
-            verifyZeroInteractions(mockUsersRemoteDataSource);
+            verify(usersLocalDataSource.fetchUser(mockUID));
+            verifyZeroInteractions(usersRemoteDataSource);
             expect(e.runtimeType, equals(RepositoryException('').runtimeType));
           }
         },
@@ -188,15 +191,15 @@ void main() {
         'should throw repository exception when null id is passed in',
         () async {
           // arrange
-          when(mockUsersLocalDataSource.fetchUser(null))
+          when(usersLocalDataSource.fetchUser(null))
               .thenThrow(CacheException(''));
           try {
             // act
             await repository.fetchUser(null);
           } catch (e) {
             // assert
-            verifyNever(mockUsersLocalDataSource.fetchUser(null));
-            verifyZeroInteractions(mockUsersRemoteDataSource);
+            verifyNever(usersLocalDataSource.fetchUser(null));
+            verifyZeroInteractions(usersRemoteDataSource);
             expect(e.runtimeType, equals(RepositoryException('').runtimeType));
           }
         },

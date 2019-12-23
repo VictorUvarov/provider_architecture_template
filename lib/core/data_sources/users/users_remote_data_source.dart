@@ -4,15 +4,14 @@ import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 abstract class UsersRemoteDataSource {
   Future<User> fetchUser(int uid);
 }
 
 class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
-  final HttpService httpService;
-
-  UsersRemoteDataSourceImpl({@required this.httpService});
+  final httpService = locator<HttpService>();
 
   @override
   Future<User> fetchUser(int uid) async {
