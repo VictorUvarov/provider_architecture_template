@@ -6,9 +6,9 @@ Logger getLogger() {
 
 class SimpleLogPrinter extends LogPrinter {
   @override
-  void log(LogEvent event) {
-    final color = PrettyPrinter.levelColors[event.level];
-    final emoji = PrettyPrinter.levelEmojis[event.level];
-    println(color('$emoji - ${event.message}'));
+  List<String> log(LogEvent event) {
+    AnsiColor color = PrettyPrinter.levelColors[event.level];
+    String emoji = PrettyPrinter.levelEmojis[event.level];
+    return [color('$emoji: ${event.message}')];
   }
 }

@@ -54,7 +54,7 @@ dev_dependencies:
   hive_generator: ^0.5.2
   build_runner: ^1.7.2
   pedantic: ^1.8.0
-  logger: ^0.7.0+2
+  logger: ^0.8.0
   mockito: ^4.1.1
 
 flutter_icons:
