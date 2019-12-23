@@ -30,10 +30,12 @@ GetIt locator = GetIt.instance;
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
-Future<void> setupLocator() async {
+Future<void> setupLocator({bool test = false}) async {
   // Services
-  final instance = await KeyStorageServiceImpl.getInstance();
-  locator.registerLazySingleton<KeyStorageService>(() => instance);
+  if (!test) {
+    final instance = await KeyStorageServiceImpl.getInstance();
+    locator.registerLazySingleton<KeyStorageService>(() => instance);
+  }
 
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
@@ -44,9 +46,7 @@ Future<void> setupLocator() async {
     () => ConnectivityServiceImpl(),
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
-  locator.registerLazySingleton<AuthService>(
-    () => AuthServiceImpl(keyStorageService: locator()),
-  );
+  locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
   locator.registerLazySingleton<LocalStorageService>(
     () => LocalStorageServiceImpl(),
   );

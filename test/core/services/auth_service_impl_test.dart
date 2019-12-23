@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/auth/auth_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/locator.dart';
 
 class MockKeyStorageService extends Mock implements KeyStorageService {
   bool hasLoggedIn;
@@ -15,9 +17,13 @@ void main() {
   final mockPassword = 'password';
   final mockDisplayName = 'Barrack Obama';
 
-  setUp(() {
-    mockKeyStorageService = MockKeyStorageService();
-    authService = AuthServiceImpl(keyStorageService: mockKeyStorageService);
+  setUp(() async {
+    await setupLocator(test: true);
+    locator.allowReassignment = true;
+    locator.registerSingleton<KeyStorageService>(MockKeyStorageService());
+    mockKeyStorageService = locator<KeyStorageService>();
+    locator.registerSingleton<AuthService>(AuthServiceImpl());
+    authService = locator<AuthService>();
   });
 
   group('signUpWithEmailPassword', () {

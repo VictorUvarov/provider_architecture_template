@@ -1,13 +1,11 @@
-import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 class AuthServiceImpl implements AuthService {
-  final KeyStorageService keyStorageService;
-
-  const AuthServiceImpl({@required this.keyStorageService});
+  final keyStorageService = locator<KeyStorageService>();
 
   @override
   Future<void> signUpWithEmailPassword(
