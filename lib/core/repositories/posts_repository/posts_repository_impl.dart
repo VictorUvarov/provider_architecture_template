@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
 import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
@@ -10,17 +9,12 @@ import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 class PostsRepositoryImpl implements PostsRepository {
-  final PostsRemoteDataSource remoteDataSource;
-  final PostsLocalDataSource localDataSource;
-  final ConnectivityService connectivityService;
-
-  PostsRepositoryImpl({
-    @required this.remoteDataSource,
-    @required this.localDataSource,
-    @required this.connectivityService,
-  });
+  final remoteDataSource = locator<PostsRemoteDataSource>();
+  final localDataSource = locator<PostsLocalDataSource>();
+  final connectivityService = locator<ConnectivityService>();
 
   @override
   Future<List<Post>> fetchPosts() async {

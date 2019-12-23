@@ -10,6 +10,7 @@ import 'package:provider_start/core/repositories/posts_repository/posts_reposito
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 class MockPostsLocalDataSource extends Mock implements PostsLocalDataSource {}
 
@@ -33,15 +34,19 @@ void main() {
   final mockPosts = [mockPost, mockPost];
 
   setUp(() {
+    setupLogger(test: true);
+    setupLocator(test: true);
+    locator.allowReassignment = true;
+
     mockPostsRemoteDataSource = MockPostsRemoteDataSource();
     mockPostsLocalDataSource = MockPostsLocalDataSource();
     mockConnectivityService = MockConnectivityService();
-    repository = PostsRepositoryImpl(
-      remoteDataSource: mockPostsRemoteDataSource,
-      localDataSource: mockPostsLocalDataSource,
-      connectivityService: mockConnectivityService,
-    );
-    setupLogger(test: true);
+
+    locator.registerSingleton<PostsRemoteDataSource>(mockPostsRemoteDataSource);
+    locator.registerSingleton<PostsLocalDataSource>(mockPostsLocalDataSource);
+    locator.registerSingleton<ConnectivityService>(mockConnectivityService);
+
+    repository = locator<PostsRepository>();
   });
 
   test('posts repository is a PostsRepository type', () {

@@ -3,15 +3,14 @@ import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
 
 abstract class PostsRemoteDataSource {
   Future<List<Post>> fetchPosts();
 }
 
 class PostsRemoteDataSourceImpl implements PostsRemoteDataSource {
-  final HttpService httpService;
-
-  PostsRemoteDataSourceImpl({@required this.httpService});
+  final httpService = locator<HttpService>();
 
   @override
   Future<List<Post>> fetchPosts() async {

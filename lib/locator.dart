@@ -54,10 +54,10 @@ Future<void> setupLocator({bool test = false}) async {
 
   // Data sources
   locator.registerLazySingleton<PostsLocalDataSource>(
-    () => PostsLocalDataSourceImpl(localStorageService: locator()),
+    () => PostsLocalDataSourceImpl(),
   );
   locator.registerLazySingleton<PostsRemoteDataSource>(
-    () => PostsRemoteDataSourceImpl(httpService: locator()),
+    () => PostsRemoteDataSourceImpl(),
   );
   locator.registerLazySingleton<UsersLocalDataSource>(
     () => UsersLocalDataSourceImpl(localStorageService: locator()),
@@ -67,13 +67,7 @@ Future<void> setupLocator({bool test = false}) async {
   );
 
   // Repositories
-  locator.registerLazySingleton<PostsRepository>(
-    () => PostsRepositoryImpl(
-      localDataSource: locator(),
-      connectivityService: locator(),
-      remoteDataSource: locator(),
-    ),
-  );
+  locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
   locator.registerLazySingleton<UsersRepository>(
     () => UsersRepositoryImpl(
       connectivityService: locator(),
