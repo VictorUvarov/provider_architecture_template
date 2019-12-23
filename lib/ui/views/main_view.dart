@@ -29,11 +29,17 @@ class MainView extends StatelessWidget {
           currentIndex: model.index,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: PlatformWidget(
+                android: (_) => Icon(Icons.home),
+                ios: (_) => Icon(CupertinoIcons.home),
+              ),
               title: Text(local.homeViewTitle),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: PlatformWidget(
+                android: (_) => Icon(Icons.settings),
+                ios: (_) => Icon(CupertinoIcons.settings),
+              ),
               title: Text(local.settingsViewTitle),
             ),
           ],

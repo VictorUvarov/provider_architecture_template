@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
-import 'package:provider_start/core/services/location/location_service.dart';
 import 'package:provider_start/core/services/stoppable_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
@@ -17,7 +16,6 @@ class LifeCycleManager extends StatefulWidget {
 class _LifeCycleManagerState extends State<LifeCycleManager>
     with WidgetsBindingObserver {
   List<StoppableService> servicesToManage = [
-    locator<LocationService>(),
     locator<ConnectivityService>(),
   ];
 

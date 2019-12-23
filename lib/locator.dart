@@ -7,8 +7,6 @@ import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
-import 'package:provider_start/core/services/location/location_service.dart';
-import 'package:provider_start/core/services/location/location_service_impl.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
@@ -23,6 +21,8 @@ import 'package:provider_start/core/services/hardware_info/hardware_info_service
 import 'package:provider_start/core/services/hardware_info/hardware_info_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
+import 'package:provider_start/core/services/location/location_service.dart';
+import 'package:provider_start/core/services/location/location_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
 
@@ -37,6 +37,9 @@ Future<void> setupLocator() async {
   final instance = await KeyStorageServiceImpl.getInstance();
   locator.registerLazySingleton<KeyStorageService>(() => instance);
 
+  locator.registerLazySingleton<LocationService>(
+    () => LocationServiceImpl(),
+  );
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
@@ -45,7 +48,6 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
-  locator.registerLazySingleton<LocationService>(() => LocationServiceImpl());
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<AuthService>(
     () => AuthServiceImpl(keyStorageService: locator()),
