@@ -56,6 +56,11 @@ dev_dependencies:
   pedantic: ^1.8.0
   logger: ^0.8.0
   mockito: ^4.1.1
+  flutter_native_splash: ^0.1.9
+
+flutter_native_splash:
+  image: assets/images/logo.png
+  color: "42a5f5"
 
 flutter_icons:
   android: "launcher_icon"

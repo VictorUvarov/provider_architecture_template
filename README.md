@@ -62,6 +62,7 @@ Filled Stacks Links:
 - [x] app settings launcher
 - [x] custom fonts
 - [x] custom app icons
+- [x] custom native splash screen
 - [ ] responsive views
 - [ ] unit tests
 
@@ -99,7 +100,12 @@ Filled Stacks Links:
 
 - Change icon `assets/images/logo.png` to another image
 - If new icon has a different path update `flutter_icons:` in the `pubspec.yaml` file
-- Run flutter `flutter pub get` and then `flutter pub run flutter_launcher_icons:main`
+- Run `flutter pub get` and then `flutter pub run flutter_launcher_icons:main`
+
+## Updating app splash screen
+
+- Change logo `assets/images/logo.png` to another PNG image file under `flutter_native_splash` in the `pubspec.yaml`
+- Run `flutter pub pub run flutter_native_splash:create` to create the new splash screen
 
 ## Adding another model
 

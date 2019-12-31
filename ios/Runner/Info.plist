@@ -50,5 +50,8 @@
 
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs access to location data when the app is in use</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
+
 </dict>
 </plist>
