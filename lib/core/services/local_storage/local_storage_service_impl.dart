@@ -16,10 +16,11 @@ class LocalStorageServiceImpl implements LocalStorageService {
   Future<void> init() async {
     try {
       final path = await file_utils.getApplicationDocumentsDirectoryPath();
-      Hive.init(path);
 
-      Hive.registerAdapter(UserHAdapter(), 0);
-      Hive.registerAdapter(PostHAdapter(), 1);
+      Hive
+        ..init(path)
+        ..registerAdapter(UserHAdapter())
+        ..registerAdapter(PostHAdapter());
     } on HiveError catch (e) {
       Logger.w('LocalStorageService: ${e.message}', e: e, s: e.stackTrace);
     }

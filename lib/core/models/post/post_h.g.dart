@@ -8,6 +8,9 @@ part of 'post_h.dart';
 
 class PostHAdapter extends TypeAdapter<PostH> {
   @override
+  final typeId = 1;
+
+  @override
   PostH read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{

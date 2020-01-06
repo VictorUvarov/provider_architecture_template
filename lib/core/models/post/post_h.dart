@@ -4,8 +4,9 @@ import 'package:provider_start/core/models/post/post.dart';
 part 'post_h.g.dart';
 
 /// A Hive Database compatible Post Model
+///   - @HiveType(typeId: unique) is necessary for each HiveObject
 ///   - @HiveField(unique) is necessary if you need the object to persist
-@HiveType()
+@HiveType(typeId: 1)
 class PostH extends HiveObject {
   @HiveField(0)
   final int id;

@@ -4,8 +4,9 @@ import 'package:provider_start/core/models/user/user.dart';
 part 'user_h.g.dart';
 
 /// A Hive Database compatible UserH Model
+///   - @HiveType(typeId: unique) is necessary for each HiveObject
 ///   - @HiveField(unique) is necessary if you need the object to persist
-@HiveType()
+@HiveType(typeId: 0)
 class UserH extends HiveObject {
   @HiveField(0)
   final int id;

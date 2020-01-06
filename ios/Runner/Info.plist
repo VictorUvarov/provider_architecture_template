@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>es</string>
-		<string>ru</string>
-		<string>en</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -17,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>provider_start</string>
+	<string>provider_architecture_template</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -48,10 +42,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location data when the app is in use</string>
-	<key>UIStatusBarHidden</key>
-	<true/>
 
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>es</string>
+		<string>ru</string>
+		<string>en</string>
+	</array>
 </dict>
 </plist>

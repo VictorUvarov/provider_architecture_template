@@ -14,7 +14,7 @@ description: A production ready flutter application template for the provider ar
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -24,20 +24,20 @@ dependencies:
 
   # Utilities
   flutter_launcher_icons: ^0.7.4
-  provider_architecture: ^1.0.3
+  provider_architecture: ^1.0.5
   shared_preferences: ^0.5.6
-  connectivity: ^0.4.6+1
-  app_settings: ^2.0.2
+  connectivity: ^0.4.6+2
+  app_settings: ^3.0.0+1
   device_info: ^0.4.1+4
   path_provider: ^1.5.1
-  hive_flutter: ^0.2.1
-  built_value: ^7.0.0
+  hive_flutter: ^0.3.0+1
+  built_value: ^7.0.4
   http_parser: ^3.1.3
-  provider: ^3.2.0
-  get_it: ^3.0.3
+  provider: ^4.0.1
+  get_it: ^3.1.0
   mime: ^0.9.6+3
-  hive: ^1.1.1
-  dio: ^3.0.7
+  hive: ^1.3.0
+  dio: ^3.0.8
 
   # UI Utilities
   flutter_platform_widgets: ^0.30.1
@@ -50,17 +50,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  built_value_generator: ^7.0.0
-  hive_generator: ^0.5.2
+  built_value_generator: ^7.0.4
+  hive_generator: ^0.7.0
   build_runner: ^1.7.2
   pedantic: ^1.8.0
-  logger: ^0.8.0
+  logger: ^0.8.2
   mockito: ^4.1.1
-  flutter_native_splash: ^0.1.9
-
-flutter_native_splash:
-  image: assets/images/logo.png
-  color: "42a5f5"
 
 flutter_icons:
   android: "launcher_icon"
