@@ -7,6 +7,8 @@
   "settings-view-permissions-desc": "Разрешения на открытие приложения",
   "settings-view-app-settings": "Настройки приложения",
   "settings-view-app-settings-desc": "Открыть настройки приложения",
+  "settings-view-notifications": "Уведомления",
+  "settings-view-notifications-desc": "Включить уведомления",
   "settings-view-location": "Текущее местоположение",
   "settings-view-sign-out": "выход",
   "settings-view-sign-out-desc": "Выйти из приложения",

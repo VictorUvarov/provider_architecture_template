@@ -17,7 +17,6 @@ class StartUpViewModel extends BaseViewModel {
     final hasLoggedInUser = await _authService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      await Future.delayed(Duration(seconds: 5));
       await Future.wait([
         _hardwareInfoService.init(),
         _localStorageService.init(),

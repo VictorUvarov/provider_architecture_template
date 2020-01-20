@@ -47,6 +47,10 @@ class AppLocalizations {
       _translate('settings-view-app-settings');
   String get settingsViewAppSettingsDesc =>
       _translate('settings-view-app-settings-desc');
+  String get settingsViewNotifications =>
+      _translate('settings-view-notifications');
+  String get settingsViewNotificationsDesc =>
+      _translate('settings-view-notifications-desc');
   String get settingsViewLocation => _translate('settings-view-location');
   String get settingsViewSignOut => _translate('settings-view-sign-out');
   String get settingsViewSignOutDesc =>

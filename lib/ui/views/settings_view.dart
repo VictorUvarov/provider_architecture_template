@@ -28,6 +28,7 @@ class SettingsView extends StatelessWidget {
         body: ListView(
           children: <Widget>[
             _AppSettingsListTile(),
+            _NotificationsListTile(),
             _SignOutListTile(),
           ],
         ),
@@ -49,6 +50,22 @@ class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
         ios: (_) => Icon(CupertinoIcons.share_up),
       ),
       onTap: model.openAppSettings,
+    );
+  }
+}
+
+class _NotificationsListTile extends ProviderWidget<SettingsViewModel> {
+  @override
+  Widget build(BuildContext context, SettingsViewModel model) {
+    final local = AppLocalizations.of(context);
+
+    return ListTile(
+      title: Text(local.settingsViewNotifications),
+      subtitle: Text(local.settingsViewNotificationsDesc),
+      trailing: Switch.adaptive(
+        value: model.notificationsEnabled,
+        onChanged: model.toggleNotificationsEnabled,
+      ),
     );
   }
 }
