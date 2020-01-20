@@ -35,20 +35,23 @@ class LoginView extends StatelessWidget {
   }
 }
 
-class _Container extends StatelessWidget {
+class _Container extends ProviderWidget<LoginViewModel> {
   final List<Widget> children;
 
-  const _Container({Key key, @required this.children})
+  _Container({Key key, @required this.children})
       : assert(children != null),
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: children,
+  Widget build(BuildContext context, LoginViewModel model) {
+    return IgnorePointer(
+      ignoring: model.state == ViewState.Busy,
+      child: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: children,
+          ),
         ),
       ),
     );

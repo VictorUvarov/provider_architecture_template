@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
@@ -34,7 +35,7 @@ class LoginViewModel extends BaseViewModel with Validators {
       await _authService.signInWithEmailAndPassword(email, password);
       setState(ViewState.Idle);
 
-      await _navigationService.popAllAndPushNamed(ViewRoutes.splash);
+      unawaited(_navigationService.popAllAndPushNamed(ViewRoutes.splash));
     } on AuthException {
       setState(ViewState.Error);
     }
