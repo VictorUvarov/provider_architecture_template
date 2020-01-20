@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Service that is responsible for storing/retrieving data in/from
 /// local storage using the [SharedPreferences] package.
 class KeyStorageServiceImpl implements KeyStorageService {
-  static const logged_in_key = 'logged_in';
+  static const notifications_key = 'notifications_key';
 
   static KeyStorageServiceImpl _instance;
   static SharedPreferences _preferences;
@@ -19,8 +19,9 @@ class KeyStorageServiceImpl implements KeyStorageService {
   }
 
   @override
-  bool get hasLoggedIn => _getFromDisk(logged_in_key) ?? false;
-  set hasLoggedIn(bool value) => _saveToDisk(logged_in_key, value);
+  bool get hasNotificationsEnabled => _getFromDisk(notifications_key) ?? false;
+  set hasNotificationsEnabled(bool value) =>
+      _saveToDisk(notifications_key, value);
 
   dynamic _getFromDisk(String key) {
     final value = _preferences.get(key);

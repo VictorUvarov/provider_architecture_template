@@ -34,7 +34,9 @@ void main() {
 
   setUp(() async {
     setupLogger(test: true);
+
     await setupLocator(test: true);
+
     locator.allowReassignment = true;
 
     postsRemoteDataSource = MockPostsRemoteDataSource();

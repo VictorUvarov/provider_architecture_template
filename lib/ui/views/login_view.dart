@@ -5,6 +5,7 @@ import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/widgets/loading_animation.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -109,7 +110,7 @@ class _SignInButton extends ProviderWidget<LoginViewModel> {
     final theme = Theme.of(context);
 
     return model.state == ViewState.Busy
-        ? PlatformCircularProgressIndicator()
+        ? LoadingAnimation()
         : PlatformButton(
             child: Text(local.loginButtonText),
             onPressed: model.login,

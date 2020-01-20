@@ -35,8 +35,9 @@ void main() {
   );
 
   setUp(() async {
-    await setupLocator(test: true);
     setupLogger(test: true);
+
+    await setupLocator(test: true);
     locator.allowReassignment = true;
 
     usersRemoteDataSource = MockUsersRemoteDataSource();

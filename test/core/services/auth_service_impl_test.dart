@@ -1,71 +1,72 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/locator.dart';
 
-class MockKeyStorageService extends Mock implements KeyStorageService {
-  bool hasLoggedIn;
-}
+class MockAuthService extends Mock implements AuthService {}
 
 void main() {
-  KeyStorageService keyStorageService;
   AuthService authService;
 
   final mockEmail = 'email@gmail.com';
   final mockPassword = 'password';
   final mockDisplayName = 'Barrack Obama';
 
+  final mockUser = User(
+    (u) => u
+      ..id = 1
+      ..email = mockEmail
+      ..username = mockDisplayName,
+  );
+
   setUp(() async {
     await setupLocator(test: true);
     locator.allowReassignment = true;
-
-    keyStorageService = MockKeyStorageService();
-    locator.registerSingleton<KeyStorageService>(keyStorageService);
 
     authService = locator<AuthService>();
   });
 
   group('signUpWithEmailPassword', () {
-    test('key storage isLoggedIn becomes true when signed up', () async {
+    test('current user is not null when signed up', () async {
       // arrange
 
       // act
       await authService.signUpWithEmailPassword(
-        mockEmail,
+        mockUser.email,
         mockPassword,
-        mockDisplayName,
+        mockUser.username,
       );
 
       // assert
-      expect(keyStorageService.hasLoggedIn, equals(true));
+      expect(authService.currentUser.id, equals(mockUser.id));
     });
   });
 
   group('signUpWithEmailPassword', () {
-    test('key storage isLoggedIn becomes true when signed in', () async {
+    test('current user is not null when signed in', () async {
       // arrange
 
       // act
       await authService.signInWithEmailAndPassword(
-        mockEmail,
+        mockUser.email,
         mockPassword,
       );
 
       // assert
-      expect(keyStorageService.hasLoggedIn, equals(true));
+      expect(authService.currentUser.id, equals(mockUser.id));
     });
   });
 
   group('signOut', () {
-    test('key storage isLoggedIn becomes false when signed out', () async {
+    test('current user is null when signed out', () async {
       // arrange
 
       // act
       await authService.signOut();
 
       // assert
-      expect(keyStorageService.hasLoggedIn, equals(false));
+      expect(authService.currentUser, equals(null));
     });
   });
 }

@@ -5,8 +5,6 @@ import 'package:provider_start/core/data_sources/users/users_local_data_source.d
 import 'package:provider_start/core/data_sources/users/users_remote_data_source.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
@@ -19,6 +17,8 @@ import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service_impl.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service_impl.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
 import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';

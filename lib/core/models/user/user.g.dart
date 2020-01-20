@@ -20,22 +20,31 @@ class _$UserSerializer implements StructuredSerializer<User> {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
       'username',
       serializers.serialize(object.username,
-          specifiedType: const FullType(String)),
-      'phone',
-      serializers.serialize(object.phone,
           specifiedType: const FullType(String)),
       'email',
       serializers.serialize(object.email,
           specifiedType: const FullType(String)),
-      'website',
-      serializers.serialize(object.website,
-          specifiedType: const FullType(String)),
     ];
-
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.phone != null) {
+      result
+        ..add('phone')
+        ..add(serializers.serialize(object.phone,
+            specifiedType: const FullType(String)));
+    }
+    if (object.website != null) {
+      result
+        ..add('website')
+        ..add(serializers.serialize(object.website,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -54,20 +63,20 @@ class _$UserSerializer implements StructuredSerializer<User> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'username':
           result.username = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'phone':
-          result.phone = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'email':
           result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'phone':
+          result.phone = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'website':
@@ -85,13 +94,13 @@ class _$User extends User {
   @override
   final int id;
   @override
-  final String name;
-  @override
   final String username;
   @override
-  final String phone;
-  @override
   final String email;
+  @override
+  final String name;
+  @override
+  final String phone;
   @override
   final String website;
 
@@ -99,25 +108,16 @@ class _$User extends User {
       (new UserBuilder()..update(updates)).build();
 
   _$User._(
-      {this.id, this.name, this.username, this.phone, this.email, this.website})
+      {this.id, this.username, this.email, this.name, this.phone, this.website})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('User', 'id');
     }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('User', 'name');
-    }
     if (username == null) {
       throw new BuiltValueNullFieldError('User', 'username');
     }
-    if (phone == null) {
-      throw new BuiltValueNullFieldError('User', 'phone');
-    }
     if (email == null) {
       throw new BuiltValueNullFieldError('User', 'email');
-    }
-    if (website == null) {
-      throw new BuiltValueNullFieldError('User', 'website');
     }
   }
 
@@ -133,10 +133,10 @@ class _$User extends User {
     if (identical(other, this)) return true;
     return other is User &&
         id == other.id &&
-        name == other.name &&
         username == other.username &&
-        phone == other.phone &&
         email == other.email &&
+        name == other.name &&
+        phone == other.phone &&
         website == other.website;
   }
 
@@ -144,9 +144,11 @@ class _$User extends User {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc($jc(0, id.hashCode), name.hashCode), username.hashCode),
-                phone.hashCode),
-            email.hashCode),
+            $jc(
+                $jc($jc($jc(0, id.hashCode), username.hashCode),
+                    email.hashCode),
+                name.hashCode),
+            phone.hashCode),
         website.hashCode));
   }
 
@@ -154,10 +156,10 @@ class _$User extends User {
   String toString() {
     return (newBuiltValueToStringHelper('User')
           ..add('id', id)
-          ..add('name', name)
           ..add('username', username)
-          ..add('phone', phone)
           ..add('email', email)
+          ..add('name', name)
+          ..add('phone', phone)
           ..add('website', website))
         .toString();
   }
@@ -170,21 +172,21 @@ class UserBuilder implements Builder<User, UserBuilder> {
   int get id => _$this._id;
   set id(int id) => _$this._id = id;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
-
   String _username;
   String get username => _$this._username;
   set username(String username) => _$this._username = username;
 
-  String _phone;
-  String get phone => _$this._phone;
-  set phone(String phone) => _$this._phone = phone;
-
   String _email;
   String get email => _$this._email;
   set email(String email) => _$this._email = email;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  String _phone;
+  String get phone => _$this._phone;
+  set phone(String phone) => _$this._phone = phone;
 
   String _website;
   String get website => _$this._website;
@@ -195,10 +197,10 @@ class UserBuilder implements Builder<User, UserBuilder> {
   UserBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _name = _$v.name;
       _username = _$v.username;
-      _phone = _$v.phone;
       _email = _$v.email;
+      _name = _$v.name;
+      _phone = _$v.phone;
       _website = _$v.website;
       _$v = null;
     }
@@ -223,10 +225,10 @@ class UserBuilder implements Builder<User, UserBuilder> {
     final _$result = _$v ??
         new _$User._(
             id: id,
-            name: name,
             username: username,
-            phone: phone,
             email: email,
+            name: name,
+            phone: phone,
             website: website);
     replace(_$result);
     return _$result;

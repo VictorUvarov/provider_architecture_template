@@ -4,6 +4,7 @@ import 'package:provider_architecture/provider_architecture.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/home_view_model.dart';
+import 'package:provider_start/ui/widgets/loading_animation.dart';
 import 'package:provider_start/ui/widgets/post_tile.dart';
 
 class HomeView extends StatelessWidget {
@@ -42,7 +43,7 @@ class _LoadingAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: PlatformCircularProgressIndicator(),
+      child: LoadingAnimation(),
     );
   }
 }

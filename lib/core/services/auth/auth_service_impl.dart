@@ -1,11 +1,11 @@
 import 'package:provider_start/core/exceptions/auth_exception.dart';
+import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
-import 'package:provider_start/locator.dart';
 
 class AuthServiceImpl implements AuthService {
-  final keyStorageService = locator<KeyStorageService>();
+  User _currentUser;
+  User get currentUser => _currentUser;
 
   @override
   Future<void> signUpWithEmailPassword(
@@ -14,8 +14,16 @@ class AuthServiceImpl implements AuthService {
     String displayName,
   ) async {
     try {
+      // authenticate with server
       await Future.delayed(Duration(milliseconds: 250));
-      keyStorageService.hasLoggedIn = true;
+
+      // fetch current user from server
+      _currentUser = User(
+        (u) => u
+          ..id = 1
+          ..email = email
+          ..username = displayName,
+      );
     } on Exception {
       Logger.e('AuthService: Error signing up');
       throw AuthException('Error signing up');
@@ -28,8 +36,16 @@ class AuthServiceImpl implements AuthService {
     String password,
   ) async {
     try {
+      // authenticate with server
       await Future.delayed(Duration(milliseconds: 250));
-      keyStorageService.hasLoggedIn = true;
+
+      // fetch current user from server
+      _currentUser = User(
+        (u) => u
+          ..id = 1
+          ..email = email
+          ..username = 'Barrack Obama',
+      );
     } on Exception {
       Logger.e('AuthService: Error signing in');
       throw AuthException('Error signing in');
@@ -39,6 +55,12 @@ class AuthServiceImpl implements AuthService {
   @override
   Future<void> signOut() async {
     await Future.delayed(Duration(milliseconds: 250));
-    keyStorageService.hasLoggedIn = false;
+    _currentUser = null;
+  }
+
+  @override
+  Future<bool> isUserLoggedIn() async {
+    // check server for login status
+    return _currentUser != null;
   }
 }

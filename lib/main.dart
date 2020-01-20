@@ -6,7 +6,6 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/managers/core_manager.dart';
 import 'package:provider_start/core/managers/dialog_manager.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
@@ -14,8 +13,7 @@ import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/shared/themes.dart' as themes;
 import 'package:provider_start/local_setup.dart';
-import 'package:provider_start/ui/views/login_view.dart';
-import 'package:provider_start/ui/views/splash_view.dart';
+import 'package:provider_start/ui/views/start_up_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +50,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: (settings) =>
               Router.generateRoute(context, settings),
           builder: _setupDialogManager,
-          home: _getStartupScreen(),
+          home: StartUpView(),
         ),
       ),
     );
@@ -69,18 +67,5 @@ class MyApp extends StatelessWidget {
         builder: (context) => DialogManager(child: widget),
       ),
     );
-  }
-
-  /// Gets the current View that should show. This function
-  /// determines which page to show according to whether
-  /// the user has logged in already. Could be used for sign up, etc...
-  Widget _getStartupScreen() {
-    final keyStorageService = locator<KeyStorageService>();
-
-    if (!keyStorageService.hasLoggedIn) {
-      return LoginView();
-    }
-
-    return SplashView();
   }
 }

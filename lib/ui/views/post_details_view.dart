@@ -5,6 +5,7 @@ import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/view_models/post_details_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/widgets/loading_animation.dart';
 
 class PostDetailsView extends StatelessWidget {
   final Post post;
@@ -45,7 +46,7 @@ class _UserDetails extends ProviderWidget<PostDetailsViewModel> {
   Widget build(BuildContext context, PostDetailsViewModel model) {
     if (model.state == ViewState.Busy) {
       return Center(
-        child: PlatformCircularProgressIndicator(),
+        child: LoadingAnimation(),
       );
     } else if (model.state == ViewState.Error) {
       return Icon(Icons.error_outline);

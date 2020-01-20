@@ -13,14 +13,17 @@ part 'user.g.dart';
 abstract class User implements Built<User, UserBuilder> {
   int get id;
 
-  String get name;
-
   String get username;
-
-  String get phone;
 
   String get email;
 
+  @nullable
+  String get name;
+
+  @nullable
+  String get phone;
+
+  @nullable
   String get website;
 
   String toJson() {
