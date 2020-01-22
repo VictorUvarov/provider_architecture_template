@@ -3,9 +3,9 @@ import 'package:provider_start/core/services/navigation/navigation_service.dart'
 
 class NavigationServiceImpl implements NavigationService {
   final _navigatorKey = GlobalKey<NavigatorState>();
-
   @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+
   @override
   Future<dynamic> pushNamed(String routeName, {Object arguments}) {
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);

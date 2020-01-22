@@ -18,9 +18,7 @@ class PostTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           post.title,
-          style: textTheme.subhead.copyWith(
-            fontWeight: FontWeight.w500,
-          ),
+          style: textTheme.subhead,
         ),
         subtitle: Text(
           post.description,

@@ -24,6 +24,10 @@ abstract class Post implements Built<Post, PostBuilder> {
     return json.encode(serializers.serializeWith(Post.serializer, this));
   }
 
+  Map<String, dynamic> toMap() {
+    return serializers.serializeWith(Post.serializer, this);
+  }
+
   static Post fromJson(String jsonString) {
     return serializers.deserializeWith(
       Post.serializer,

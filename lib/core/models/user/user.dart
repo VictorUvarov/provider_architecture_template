@@ -30,6 +30,10 @@ abstract class User implements Built<User, UserBuilder> {
     return json.encode(serializers.serializeWith(User.serializer, this));
   }
 
+  Map<String, dynamic> toMap() {
+    return serializers.serializeWith(User.serializer, this);
+  }
+
   static User fromJson(String jsonString) {
     return serializers.deserializeWith(
       User.serializer,

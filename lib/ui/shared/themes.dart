@@ -1,21 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final primaryMaterialTheme = ThemeData.light()
-  ..textTheme.apply(fontFamily: 'Open Sans');
-final darkMaterialTheme = ThemeData.dark()
-  ..textTheme.apply(fontFamily: 'Open Sans');
+final _lightThemeData = ThemeData.light();
+final _darkThemeData = ThemeData.dark();
+
+final primaryMaterialTheme = _lightThemeData.copyWith(
+  textTheme: _lightThemeData.textTheme.apply(
+    fontFamily: 'Open Sans',
+  ),
+);
+final darkMaterialTheme = _darkThemeData.copyWith(
+  textTheme: _darkThemeData.textTheme.apply(
+    fontFamily: 'Open Sans',
+  ),
+);
 
 final primaryCupertinoTheme = CupertinoThemeData(
-  primaryColor: Colors.purple,
+  primaryColor: Colors.blue,
   brightness: Brightness.light,
   textTheme: CupertinoTextThemeData(
-    primaryColor: Colors.purple,
+    primaryColor: Colors.blue,
     navTitleTextStyle: TextStyle(
-      color: Colors.purple,
+      color: Colors.blue,
     ),
     tabLabelTextStyle: TextStyle(
-      color: Colors.purple,
+      color: Colors.blue,
     ),
   ),
 );
