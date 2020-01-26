@@ -27,7 +27,7 @@ class PostsRemoteDataSourceImpl implements PostsRemoteDataSource {
 
       final posts = postsJsonData
           .map((data) => data as Map<String, dynamic>)
-          .map(Post.fromMap)
+          .map((postMap) => Post.fromMap(postMap))
           .toList();
 
       return posts;

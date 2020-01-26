@@ -28,14 +28,14 @@ abstract class Post implements Built<Post, PostBuilder> {
     return serializers.serializeWith(Post.serializer, this);
   }
 
-  static Post fromJson(String jsonString) {
+  factory Post.fromJson(String jsonString) {
     return serializers.deserializeWith(
       Post.serializer,
       json.decode(jsonString),
     );
   }
 
-  static Post fromMap(Map<String, dynamic> map) {
+  factory Post.fromMap(Map<String, dynamic> map) {
     return serializers.deserializeWith(
       Post.serializer,
       map,

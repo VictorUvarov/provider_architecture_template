@@ -34,14 +34,14 @@ abstract class User implements Built<User, UserBuilder> {
     return serializers.serializeWith(User.serializer, this);
   }
 
-  static User fromJson(String jsonString) {
+  factory User.fromJson(String jsonString) {
     return serializers.deserializeWith(
       User.serializer,
       json.decode(jsonString),
     );
   }
 
-  static User fromMap(Map<String, dynamic> map) {
+  factory User.fromMap(Map<String, dynamic> map) {
     return serializers.deserializeWith(
       User.serializer,
       map,
