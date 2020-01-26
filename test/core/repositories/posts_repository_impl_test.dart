@@ -129,7 +129,7 @@ void main() {
             // assert
             verify(postsRemoteDataSource.fetchPosts());
             verifyZeroInteractions(postsLocalDataSource);
-            expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+            expect(e, equals(isA<RepositoryException>()));
           }
         },
       );
@@ -155,6 +155,7 @@ void main() {
         () async {
           // arrange
           when(postsLocalDataSource.fetchPosts()).thenThrow(CacheException(''));
+
           try {
             // act
             await repository.fetchPosts();
@@ -162,7 +163,7 @@ void main() {
             // assert
             verify(postsLocalDataSource.fetchPosts());
             verifyZeroInteractions(postsRemoteDataSource);
-            expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+            expect(e, equals(isA<RepositoryException>()));
           }
         },
       );

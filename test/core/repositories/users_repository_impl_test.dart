@@ -131,7 +131,7 @@ void main() {
             // assert
             verify(usersRemoteDataSource.fetchUser(mockUID));
             verifyZeroInteractions(usersLocalDataSource);
-            expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+            expect(e, equals(isA<RepositoryException>()));
           }
         },
       );
@@ -149,7 +149,7 @@ void main() {
           // assert
           verifyNever(usersRemoteDataSource.fetchUser(null));
           verifyZeroInteractions(usersLocalDataSource);
-          expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+          expect(e, equals(isA<RepositoryException>()));
         }
       });
     });
@@ -183,7 +183,7 @@ void main() {
             // assert
             verify(usersLocalDataSource.fetchUser(mockUID));
             verifyZeroInteractions(usersRemoteDataSource);
-            expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+            expect(e, equals(isA<RepositoryException>()));
           }
         },
       );
@@ -201,7 +201,7 @@ void main() {
             // assert
             verifyNever(usersLocalDataSource.fetchUser(null));
             verifyZeroInteractions(usersRemoteDataSource);
-            expect(e.runtimeType, equals(RepositoryException('').runtimeType));
+            expect(e, equals(isA<RepositoryException>()));
           }
         },
       );
