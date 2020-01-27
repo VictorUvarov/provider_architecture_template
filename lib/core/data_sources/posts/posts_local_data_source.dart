@@ -1,27 +1,41 @@
+import 'package:hive/hive.dart';
+import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/models/post/post_h.dart';
-import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
-import 'package:provider_start/locator.dart';
+import 'package:provider_start/core/utils/file_utils.dart';
 
 abstract class PostsLocalDataSource {
-  List<Post> fetchPosts();
+  Future<void> init();
+
+  Future<List<Post>> fetchPosts();
 
   Future<void> cachePosts(List<Post> posts);
 }
 
 class PostsLocalDataSourceImpl implements PostsLocalDataSource {
-  final localStorageService = locator<LocalStorageService>();
+  Box<PostH> postsBox;
 
   @override
-  List<Post> fetchPosts() {
-    if (localStorageService.postsBox.isEmpty) {
+  Future<void> init() async {
+    final path = await getApplicationDocumentsDirectoryPath();
+    Hive.init(path);
+    Hive.registerAdapter(PostHAdapter());
+
+    if (!Hive.isBoxOpen(LocalStorageKeys.posts)) {
+      postsBox = await Hive.openBox<PostH>(LocalStorageKeys.posts);
+    }
+  }
+
+  @override
+  Future<List<Post>> fetchPosts() async {
+    if (postsBox.isEmpty) {
       throw CacheException('No posts found in cache');
     }
 
-    return localStorageService.postsBox.values
+    return postsBox.values
         .cast<PostH>()
-        .map((postH) => Post.fromMap(postH.toMap()))
+        .map<Post>((postH) => Post.fromMap(postH.toMap()))
         .toList();
   }
 
@@ -30,6 +44,6 @@ class PostsLocalDataSourceImpl implements PostsLocalDataSource {
     final postsMap = <int, PostH>{};
     posts.forEach((post) => postsMap.addAll({post.id: PostH.fromPost(post)}));
 
-    await localStorageService.postsBox.putAll(postsMap);
+    await postsBox.putAll(postsMap);
   }
 }

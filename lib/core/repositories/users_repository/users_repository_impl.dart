@@ -26,7 +26,8 @@ class UsersRepositoryImpl implements UsersRepository {
         await localDataSource.cacheUser(user);
         return user;
       } else {
-        return localDataSource.fetchUser(uid);
+        final user = await localDataSource.fetchUser(uid);
+        return user;
       }
     } on NetworkException catch (e) {
       Logger.e('Failed to fetch posts remotely');

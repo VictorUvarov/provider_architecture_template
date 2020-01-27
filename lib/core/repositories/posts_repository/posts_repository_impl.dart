@@ -24,7 +24,7 @@ class PostsRepositoryImpl implements PostsRepository {
         await localDataSource.cachePosts(posts);
         return posts;
       } else {
-        final posts = localDataSource.fetchPosts();
+        final posts = await localDataSource.fetchPosts();
         return posts;
       }
     } on NetworkException catch (e) {

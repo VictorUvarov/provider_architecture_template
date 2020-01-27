@@ -140,7 +140,8 @@ void main() {
         'should return last locally cached data when the cached data is present',
         () async {
           // arrange
-          when(postsLocalDataSource.fetchPosts()).thenAnswer((_) => mockPosts);
+          when(postsLocalDataSource.fetchPosts())
+              .thenAnswer((_) async => mockPosts);
           // act
           final result = await repository.fetchPosts();
           // assert

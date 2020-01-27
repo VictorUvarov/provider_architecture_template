@@ -160,7 +160,7 @@ void main() {
         () async {
           // arrange
           when(usersLocalDataSource.fetchUser(mockUID))
-              .thenAnswer((_) => mockUser);
+              .thenAnswer((_) async => mockUser);
           // act
           final result = await repository.fetchUser(mockUID);
           // assert

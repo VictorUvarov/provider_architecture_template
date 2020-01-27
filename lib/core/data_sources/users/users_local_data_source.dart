@@ -1,26 +1,40 @@
+import 'package:hive/hive.dart';
+import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
-import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
-import 'package:provider_start/locator.dart';
+import 'package:provider_start/core/utils/file_utils.dart';
 
 abstract class UsersLocalDataSource {
-  User fetchUser(int uid);
+  Future<void> init();
+
+  Future<User> fetchUser(int uid);
 
   Future<void> cacheUser(User user);
 }
 
 class UsersLocalDataSourceImpl implements UsersLocalDataSource {
-  final localStorageService = locator<LocalStorageService>();
+  Box<UserH> usersBox;
 
   @override
-  Future<void> cacheUser(User user) {
-    return localStorageService.usersBox.put(user.id, UserH.fromUser(user));
+  Future<void> init() async {
+    final path = await getApplicationDocumentsDirectoryPath();
+    Hive.init(path);
+    Hive.registerAdapter(UserHAdapter());
+
+    if (!Hive.isBoxOpen(LocalStorageKeys.users)) {
+      usersBox = await Hive.openBox<UserH>(LocalStorageKeys.users);
+    }
   }
 
   @override
-  User fetchUser(int uid) {
-    final userH = localStorageService.usersBox.get(uid);
+  Future<void> cacheUser(User user) async {
+    return usersBox.put(user.id, UserH.fromUser(user));
+  }
+
+  @override
+  Future<User> fetchUser(int uid) async {
+    final userH = usersBox.get(uid);
 
     if (userH == null) {
       throw CacheException('No user with $uid found in cache');

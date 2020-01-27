@@ -19,8 +19,6 @@ import 'package:provider_start/core/services/hardware_info/hardware_info_service
 import 'package:provider_start/core/services/hardware_info/hardware_info_service_impl.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
-import 'package:provider_start/core/services/local_storage/local_storage_service.dart';
-import 'package:provider_start/core/services/local_storage/local_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
 
@@ -32,24 +30,18 @@ GetIt locator = GetIt.instance;
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator({bool test = false}) async {
   // Services
-  if (!test) {
-    final instance = await KeyStorageServiceImpl.getInstance();
-    locator.registerLazySingleton<KeyStorageService>(() => instance);
-  }
 
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
   locator.registerLazySingleton<HardwareInfoService>(
-      () => HardwareInfoServiceImpl());
+    () => HardwareInfoServiceImpl(),
+  );
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
-  locator.registerLazySingleton<LocalStorageService>(
-    () => LocalStorageServiceImpl(),
-  );
   locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
 
   // Data sources
@@ -69,4 +61,13 @@ Future<void> setupLocator({bool test = false}) async {
   // Repositories
   locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
   locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
+
+  if (!test) {
+    await _setupSharedPreferences();
+  }
+}
+
+Future<void> _setupSharedPreferences() async {
+  final instance = await KeyStorageServiceImpl.getInstance();
+  locator.registerLazySingleton<KeyStorageService>(() => instance);
 }
