@@ -32,7 +32,6 @@ class _DialogManagerState extends State<DialogManager> {
 
   void _showDialog(AlertRequest request) {
     final local = AppLocalizations.of(context);
-    final theme = Theme.of(context);
 
     showDialog(
       context: context,
@@ -55,17 +54,13 @@ class _DialogManagerState extends State<DialogManager> {
                 );
               },
             ),
-            PlatformButton(
+            FlatButton(
               child: Text(request.buttonTitle ?? local.buttonTextCancel),
               onPressed: () {
                 _dialogService.dialogComplete(
                   AlertResponse((a) => a..confirmed = true),
                 );
               },
-              android: (context) => MaterialRaisedButtonData(
-                textTheme: ButtonTextTheme.primary,
-                color: theme.primaryColor,
-              ),
             ),
           ],
         ),
