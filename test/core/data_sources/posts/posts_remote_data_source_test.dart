@@ -12,24 +12,10 @@ void main() {
   PostsRemoteDataSource postsRemoteDataSource;
   HttpService httpService;
 
-  final postsJsonData = [
+  final mockPostsJson = [
     {"userId": 1, "id": 1, "title": "Post 1", "body": "Post 1 body"},
     {"userId": 1, "id": 2, "title": "Post 2", "body": "Post 2 body"},
   ];
-
-  final mockPost1 = Post(
-    (p) => p
-      ..id = 1
-      ..title = 'title'
-      ..description = 'desc'
-      ..userId = 1,
-  );
-  final mockPost2 = mockPost1.rebuild(
-    (p) => p
-      ..id = 2
-      ..userId = 2,
-  );
-  final mockPosts = [mockPost1, mockPost2];
 
   setUp(() async {
     await setupLocator(test: true);
@@ -41,11 +27,10 @@ void main() {
     postsRemoteDataSource = locator<PostsRemoteDataSource>();
   });
 
-  test('data source should call httpService.getHttp when we fetch posts',
-      () async {
+  test('should call httpService.getHttp when we fetch posts', () async {
     // arrange
     when(httpService.getHttp(ApiRoutes.posts))
-        .thenAnswer((_) => Future.value(postsJsonData));
+        .thenAnswer((_) => Future.value(mockPostsJson));
 
     // act
     await postsRemoteDataSource.fetchPosts();
@@ -54,18 +39,17 @@ void main() {
     verify(httpService.getHttp(ApiRoutes.posts));
   });
 
-  test('data source should convert json data to posts when we fetch posts',
-      () async {
+  test('should convert json data to posts when we fetch posts', () async {
     // arrange
     when(httpService.getHttp(ApiRoutes.posts))
-        .thenAnswer((_) => Future.value(postsJsonData));
-    final mappedPosts =
-        postsJsonData.map<Post>((postMap) => Post.fromMap(postMap)).toList();
+        .thenAnswer((_) => Future.value(mockPostsJson));
+    final mockPosts =
+        mockPostsJson.map<Post>((postMap) => Post.fromMap(postMap)).toList();
 
     // act
     final posts = await postsRemoteDataSource.fetchPosts();
 
     // assert
-    expect(posts, equals(mappedPosts));
+    expect(posts, equals(mockPosts));
   });
 }
