@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/alert_request/alert_request.dart';
-import 'package:provider_start/core/models/alert_response/alert_response.dart';
+import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
+import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/locator.dart';
 
@@ -31,6 +32,14 @@ class _DialogManagerState extends State<DialogManager> {
   }
 
   void _showDialog(AlertRequest request) {
+    if (request is ConfirmAlertRequest) {
+      _showConfirmAlert(request);
+    }
+    // Check for different alerts like an alert with a form
+    // that requires different request options
+  }
+
+  void _showConfirmAlert(ConfirmAlertRequest request) {
     final local = AppLocalizations.of(context);
 
     showDialog(
@@ -38,7 +47,7 @@ class _DialogManagerState extends State<DialogManager> {
       builder: (context) => WillPopScope(
         onWillPop: () async {
           _dialogService.dialogComplete(
-            AlertResponse((a) => a..confirmed = false),
+            ConfirmAlertResponse((a) => a..confirmed = false),
           );
           return false;
         },
@@ -50,7 +59,7 @@ class _DialogManagerState extends State<DialogManager> {
               child: Text(local.buttonTextCancel),
               onPressed: () {
                 _dialogService.dialogComplete(
-                  AlertResponse((a) => a..confirmed = false),
+                  ConfirmAlertResponse((a) => a..confirmed = false),
                 );
               },
             ),
@@ -58,7 +67,7 @@ class _DialogManagerState extends State<DialogManager> {
               child: Text(request.buttonTitle ?? local.buttonTextCancel),
               onPressed: () {
                 _dialogService.dialogComplete(
-                  AlertResponse((a) => a..confirmed = true),
+                  ConfirmAlertResponse((a) => a..confirmed = true),
                 );
               },
             ),

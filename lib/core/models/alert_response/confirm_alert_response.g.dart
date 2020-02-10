@@ -1,35 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'alert_response.dart';
+part of 'confirm_alert_response.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$AlertResponse extends AlertResponse {
+class _$ConfirmAlertResponse extends ConfirmAlertResponse {
   @override
   final bool confirmed;
 
-  factory _$AlertResponse([void Function(AlertResponseBuilder) updates]) =>
-      (new AlertResponseBuilder()..update(updates)).build();
+  factory _$ConfirmAlertResponse(
+          [void Function(ConfirmAlertResponseBuilder) updates]) =>
+      (new ConfirmAlertResponseBuilder()..update(updates)).build();
 
-  _$AlertResponse._({this.confirmed}) : super._() {
+  _$ConfirmAlertResponse._({this.confirmed}) : super._() {
     if (confirmed == null) {
-      throw new BuiltValueNullFieldError('AlertResponse', 'confirmed');
+      throw new BuiltValueNullFieldError('ConfirmAlertResponse', 'confirmed');
     }
   }
 
   @override
-  AlertResponse rebuild(void Function(AlertResponseBuilder) updates) =>
+  ConfirmAlertResponse rebuild(
+          void Function(ConfirmAlertResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AlertResponseBuilder toBuilder() => new AlertResponseBuilder()..replace(this);
+  ConfirmAlertResponseBuilder toBuilder() =>
+      new ConfirmAlertResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AlertResponse && confirmed == other.confirmed;
+    return other is ConfirmAlertResponse && confirmed == other.confirmed;
   }
 
   @override
@@ -39,23 +42,23 @@ class _$AlertResponse extends AlertResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AlertResponse')
+    return (newBuiltValueToStringHelper('ConfirmAlertResponse')
           ..add('confirmed', confirmed))
         .toString();
   }
 }
 
-class AlertResponseBuilder
-    implements Builder<AlertResponse, AlertResponseBuilder> {
-  _$AlertResponse _$v;
+class ConfirmAlertResponseBuilder
+    implements Builder<ConfirmAlertResponse, ConfirmAlertResponseBuilder> {
+  _$ConfirmAlertResponse _$v;
 
   bool _confirmed;
   bool get confirmed => _$this._confirmed;
   set confirmed(bool confirmed) => _$this._confirmed = confirmed;
 
-  AlertResponseBuilder();
+  ConfirmAlertResponseBuilder();
 
-  AlertResponseBuilder get _$this {
+  ConfirmAlertResponseBuilder get _$this {
     if (_$v != null) {
       _confirmed = _$v.confirmed;
       _$v = null;
@@ -64,21 +67,21 @@ class AlertResponseBuilder
   }
 
   @override
-  void replace(AlertResponse other) {
+  void replace(ConfirmAlertResponse other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$AlertResponse;
+    _$v = other as _$ConfirmAlertResponse;
   }
 
   @override
-  void update(void Function(AlertResponseBuilder) updates) {
+  void update(void Function(ConfirmAlertResponseBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AlertResponse build() {
-    final _$result = _$v ?? new _$AlertResponse._(confirmed: confirmed);
+  _$ConfirmAlertResponse build() {
+    final _$result = _$v ?? new _$ConfirmAlertResponse._(confirmed: confirmed);
     replace(_$result);
     return _$result;
   }

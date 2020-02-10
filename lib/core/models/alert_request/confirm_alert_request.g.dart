@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'alert_request.dart';
+part of 'confirm_alert_request.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$AlertRequest extends AlertRequest {
+class _$ConfirmAlertRequest extends ConfirmAlertRequest {
   @override
   final String title;
   @override
@@ -14,33 +14,36 @@ class _$AlertRequest extends AlertRequest {
   @override
   final String buttonTitle;
 
-  factory _$AlertRequest([void Function(AlertRequestBuilder) updates]) =>
-      (new AlertRequestBuilder()..update(updates)).build();
+  factory _$ConfirmAlertRequest(
+          [void Function(ConfirmAlertRequestBuilder) updates]) =>
+      (new ConfirmAlertRequestBuilder()..update(updates)).build();
 
-  _$AlertRequest._({this.title, this.description, this.buttonTitle})
+  _$ConfirmAlertRequest._({this.title, this.description, this.buttonTitle})
       : super._() {
     if (title == null) {
-      throw new BuiltValueNullFieldError('AlertRequest', 'title');
+      throw new BuiltValueNullFieldError('ConfirmAlertRequest', 'title');
     }
     if (description == null) {
-      throw new BuiltValueNullFieldError('AlertRequest', 'description');
+      throw new BuiltValueNullFieldError('ConfirmAlertRequest', 'description');
     }
     if (buttonTitle == null) {
-      throw new BuiltValueNullFieldError('AlertRequest', 'buttonTitle');
+      throw new BuiltValueNullFieldError('ConfirmAlertRequest', 'buttonTitle');
     }
   }
 
   @override
-  AlertRequest rebuild(void Function(AlertRequestBuilder) updates) =>
+  ConfirmAlertRequest rebuild(
+          void Function(ConfirmAlertRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  AlertRequestBuilder toBuilder() => new AlertRequestBuilder()..replace(this);
+  ConfirmAlertRequestBuilder toBuilder() =>
+      new ConfirmAlertRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AlertRequest &&
+    return other is ConfirmAlertRequest &&
         title == other.title &&
         description == other.description &&
         buttonTitle == other.buttonTitle;
@@ -54,7 +57,7 @@ class _$AlertRequest extends AlertRequest {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('AlertRequest')
+    return (newBuiltValueToStringHelper('ConfirmAlertRequest')
           ..add('title', title)
           ..add('description', description)
           ..add('buttonTitle', buttonTitle))
@@ -62,9 +65,9 @@ class _$AlertRequest extends AlertRequest {
   }
 }
 
-class AlertRequestBuilder
-    implements Builder<AlertRequest, AlertRequestBuilder> {
-  _$AlertRequest _$v;
+class ConfirmAlertRequestBuilder
+    implements Builder<ConfirmAlertRequest, ConfirmAlertRequestBuilder> {
+  _$ConfirmAlertRequest _$v;
 
   String _title;
   String get title => _$this._title;
@@ -78,9 +81,9 @@ class AlertRequestBuilder
   String get buttonTitle => _$this._buttonTitle;
   set buttonTitle(String buttonTitle) => _$this._buttonTitle = buttonTitle;
 
-  AlertRequestBuilder();
+  ConfirmAlertRequestBuilder();
 
-  AlertRequestBuilder get _$this {
+  ConfirmAlertRequestBuilder get _$this {
     if (_$v != null) {
       _title = _$v.title;
       _description = _$v.description;
@@ -91,22 +94,22 @@ class AlertRequestBuilder
   }
 
   @override
-  void replace(AlertRequest other) {
+  void replace(ConfirmAlertRequest other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$AlertRequest;
+    _$v = other as _$ConfirmAlertRequest;
   }
 
   @override
-  void update(void Function(AlertRequestBuilder) updates) {
+  void update(void Function(ConfirmAlertRequestBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$AlertRequest build() {
+  _$ConfirmAlertRequest build() {
     final _$result = _$v ??
-        new _$AlertRequest._(
+        new _$ConfirmAlertRequest._(
             title: title, description: description, buttonTitle: buttonTitle);
     replace(_$result);
     return _$result;

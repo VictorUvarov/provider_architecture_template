@@ -1,6 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
+import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
@@ -24,20 +26,6 @@ class SettingsViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
-  Future<void> showAlert({
-    String title,
-    String desc,
-    String buttonConfirmText,
-  }) async {
-    final dialogResult = await _dialogService.showDialog(
-      title: title,
-      description: desc,
-      buttonTitle: buttonConfirmText,
-    );
-
-    if (dialogResult.confirmed) {}
-  }
-
   void openAppSettings() {
     Logger.d('User has opened app settings');
     AppSettings.openAppSettings();
@@ -48,11 +36,14 @@ class SettingsViewModel extends BaseViewModel {
     String desc,
     String buttonConfirmText,
   }) async {
-    final dialogResult = await _dialogService.showDialog(
-      title: title,
-      description: desc,
-      buttonTitle: buttonConfirmText,
+    final alertRequest = ConfirmAlertRequest(
+      (r) => r
+        ..title = title
+        ..description = desc
+        ..buttonTitle = buttonConfirmText,
     );
+    final ConfirmAlertResponse dialogResult =
+        await _dialogService.showDialog(alertRequest);
 
     if (dialogResult.confirmed) {
       Logger.d('User has signed out');

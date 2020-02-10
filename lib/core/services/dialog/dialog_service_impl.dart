@@ -21,19 +21,10 @@ class DialogServiceImpl implements DialogService {
   }
 
   @override
-  Future<AlertResponse> showDialog({
-    String title,
-    String description,
-    String buttonTitle,
-  }) {
+  Future<AlertResponse> showDialog(AlertRequest alertRequest) {
     _dialogCompleter = Completer<AlertResponse>();
 
-    _showDialogListener(AlertRequest(
-      (req) => req
-        ..title = title
-        ..description = description
-        ..buttonTitle = buttonTitle,
-    ));
+    _showDialogListener(alertRequest);
 
     return _dialogCompleter.future;
   }

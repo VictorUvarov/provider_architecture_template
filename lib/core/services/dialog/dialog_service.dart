@@ -7,11 +7,7 @@ abstract class DialogService {
 
   void registerDialogListener(Function(AlertRequest) showDialogListener);
 
-  Future<AlertResponse> showDialog({
-    String title,
-    String description,
-    String buttonTitle,
-  });
+  Future<AlertResponse> showDialog(AlertRequest alertRequest);
 
   void dialogComplete(AlertResponse response);
 }
