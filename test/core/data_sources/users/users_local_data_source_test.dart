@@ -2,10 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:hive/hive.dart';
 import 'package:provider_start/core/constant/local_storage_keys.dart';
-import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
+import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
-import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/models/post/post_h.dart';
+import 'package:provider_start/core/models/user/user.dart';
+import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
 import 'package:provider_start/locator.dart';
 
@@ -13,29 +13,25 @@ class MockHive extends Mock implements HiveInterface {}
 
 class MockFileHelper extends Mock implements FileHelper {}
 
-class MockBox<PostH> extends Mock implements Box<PostH> {}
+class MockBox<UserH> extends Mock implements Box<UserH> {}
 
 void main() {
-  PostsLocalDataSource postsLocalDataSource;
+  UsersLocalDataSource usersLocalDataSource;
   FileHelper fileHelper;
   HiveInterface hive;
-  MockBox<PostH> postsBox;
+  MockBox<UserH> usersBox;
 
-  final fakePath = '/foo/bars';
+  final fakePath = 'users/';
 
-  final mockPost1 = Post(
+  final mockUser = User(
     (p) => p
       ..id = 1
-      ..title = 'title'
-      ..description = 'desc'
-      ..userId = 1,
+      ..username = 'James420'
+      ..email = 'Jamesbond@gmail.com'
+      ..name = 'James Bond'
+      ..phone = '1112223333'
+      ..website = 'Jamesbond.dev',
   );
-  final mockPost2 = mockPost1.rebuild(
-    (p) => p
-      ..id = 2
-      ..userId = 2,
-  );
-  final mockPosts = [mockPost1, mockPost2];
 
   setUp(() async {
     await setupLocator(test: true);
@@ -47,27 +43,27 @@ void main() {
     locator.registerSingleton<HiveInterface>(MockHive());
     hive = locator<HiveInterface>();
 
-    postsLocalDataSource = locator<PostsLocalDataSource>();
+    usersLocalDataSource = locator<UsersLocalDataSource>();
 
-    postsBox = MockBox<PostH>();
+    usersBox = MockBox<UserH>();
   });
 
   void setupHiveDirectoryWithClosedBox() {
-    when(hive.isBoxOpen(LocalStorageKeys.posts)).thenReturn(false);
+    when(hive.isBoxOpen(LocalStorageKeys.users)).thenReturn(false);
     when(fileHelper.getApplicationDocumentsDirectoryPath())
         .thenAnswer((_) => Future.value(fakePath));
   }
 
   void setupHiveDirectoryWithOpenBox() {
-    when(hive.isBoxOpen(LocalStorageKeys.posts)).thenReturn(true);
+    when(hive.isBoxOpen(LocalStorageKeys.users)).thenReturn(true);
     when(fileHelper.getApplicationDocumentsDirectoryPath())
         .thenAnswer((_) => Future.value(fakePath));
   }
 
   void setupOpenedBox() {
-    when(hive.openBox<PostH>(LocalStorageKeys.posts))
-        .thenAnswer((_) => Future.value(postsBox));
-    when(hive.box<PostH>(LocalStorageKeys.posts)).thenReturn(postsBox);
+    when(hive.openBox<UserH>(LocalStorageKeys.users))
+        .thenAnswer((_) => Future.value(usersBox));
+    when(hive.box<UserH>(LocalStorageKeys.users)).thenReturn(usersBox);
   }
 
   test(
@@ -77,7 +73,7 @@ void main() {
     setupHiveDirectoryWithClosedBox();
 
     // act
-    await postsLocalDataSource.init();
+    await usersLocalDataSource.init();
 
     // assert
     verify(fileHelper.getApplicationDocumentsDirectoryPath());
@@ -88,23 +84,23 @@ void main() {
     setupHiveDirectoryWithClosedBox();
 
     // act
-    await postsLocalDataSource.init();
+    await usersLocalDataSource.init();
 
     // assert
     verify(hive.init(fakePath));
   });
 
-  test('local data source should register a post adapter', () async {
+  test('local data source should register a user adapter', () async {
     // arrange
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
     try {
       // act
-      await postsLocalDataSource.init();
+      await usersLocalDataSource.init();
 
       // assert
-      verify(hive.registerAdapter<PostH>(PostHAdapter()));
+      verify(hive.registerAdapter<UserH>(UserHAdapter()));
     } catch (e) {
       //TODO: Fix this test to not use try catch
     }
@@ -115,10 +111,10 @@ void main() {
     setupHiveDirectoryWithClosedBox();
 
     // act
-    await postsLocalDataSource.init();
+    await usersLocalDataSource.init();
 
     // assert
-    verify(hive.openBox(LocalStorageKeys.posts));
+    verify(hive.openBox(LocalStorageKeys.users));
   });
 
   test('local data source should not open box when box is open', () async {
@@ -126,24 +122,25 @@ void main() {
     setupHiveDirectoryWithOpenBox();
 
     // act
-    await postsLocalDataSource.init();
+    await usersLocalDataSource.init();
 
     // assert
-    verifyNever(hive.openBox(LocalStorageKeys.posts));
+    verifyNever(hive.openBox(LocalStorageKeys.users));
   });
 
   test(
-      'local data fetchPosts() should throw CacheException when no posts are found',
+      'local data fetchUser(uid) should throw CacheException when no user is found',
       () async {
     // arrange
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
-    when(postsBox.isEmpty).thenReturn(true);
+    when(usersBox.isEmpty).thenReturn(true);
+    // when(usersBox.get(userId)).thenReturn(UserH.fromUser(mockUser));
 
     try {
       // act
-      await postsLocalDataSource.fetchPosts();
+      await usersLocalDataSource.fetchUser(1);
     } catch (e) {
       // assert
       expect(e, equals(isA<CacheException>()));
@@ -158,17 +155,10 @@ void main() {
 
     try {
       // act
-      await postsLocalDataSource.cachePosts(mockPosts);
-
-      final postsMap = <int, PostH>{};
-      mockPosts.forEach(
-        (post) => postsMap.addAll(
-          {post.id: PostH.fromPost(post)},
-        ),
-      );
+      await usersLocalDataSource.cacheUser(mockUser);
 
       // assert
-      verify(postsBox.putAll(postsMap));
+      verify(usersBox.put(mockUser.id, UserH.fromUser(mockUser)));
     } catch (e) {
       //TODO: Fix this test to not use try catch
     }

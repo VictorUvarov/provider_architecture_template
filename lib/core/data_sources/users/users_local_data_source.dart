@@ -15,29 +15,31 @@ abstract class UsersLocalDataSource {
 }
 
 class UsersLocalDataSourceImpl implements UsersLocalDataSource {
-  final FileHelper _fileHelper = locator<FileHelper>();
+  final _fileHelper = locator<FileHelper>();
+  final _hiveService = locator<HiveInterface>();
 
-  Box<UserH> usersBox;
+  bool get _isBoxOpen => _hiveService.isBoxOpen(LocalStorageKeys.users);
+  Box<UserH> get _usersBox => _hiveService.box<UserH>(LocalStorageKeys.users);
 
   @override
   Future<void> init() async {
     final path = await _fileHelper.getApplicationDocumentsDirectoryPath();
-    Hive.init(path);
-    Hive.registerAdapter(UserHAdapter());
+    _hiveService.init(path);
+    _hiveService.registerAdapter<UserH>(UserHAdapter());
 
-    if (!Hive.isBoxOpen(LocalStorageKeys.users)) {
-      usersBox = await Hive.openBox<UserH>(LocalStorageKeys.users);
+    if (!_isBoxOpen) {
+      await _hiveService.openBox<UserH>(LocalStorageKeys.users);
     }
   }
 
   @override
   Future<void> cacheUser(User user) async {
-    return usersBox.put(user.id, UserH.fromUser(user));
+    return _usersBox.put(user.id, UserH.fromUser(user));
   }
 
   @override
   Future<User> fetchUser(int uid) async {
-    final userH = usersBox.get(uid);
+    final userH = _usersBox.get(uid);
 
     if (userH == null) {
       throw CacheException('No user with $uid found in cache');
