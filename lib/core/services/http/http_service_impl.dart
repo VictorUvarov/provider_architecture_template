@@ -4,12 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
-import 'package:provider_start/core/utils/file_utils.dart' as file_utils;
+import 'package:provider_start/core/utils/file_helper.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/utils/network_utils.dart' as network_utils;
+import 'package:provider_start/locator.dart';
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpServiceImpl implements HttpService {
+  final _fileHelper = locator<FileHelper>();
+
   final _dio = Dio();
 
   @override
@@ -75,7 +78,7 @@ class HttpServiceImpl implements HttpService {
 
     final formData = FormData.fromMap(body);
     files?.forEach((file) async {
-      final mFile = await file_utils.convertFileToMultipartFile(file);
+      final mFile = await _fileHelper.convertFileToMultipartFile(file);
       formData.files.add(MapEntry('file$index', mFile));
       index++;
     });
@@ -89,7 +92,7 @@ class HttpServiceImpl implements HttpService {
   Future<File> downloadFile(String fileUrl) async {
     Response response;
 
-    final file = await file_utils.getFileFromUrl(fileUrl);
+    final file = await _fileHelper.getFileFromUrl(fileUrl);
 
     try {
       response = await _dio.download(

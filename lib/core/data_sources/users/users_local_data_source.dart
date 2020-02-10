@@ -3,7 +3,8 @@ import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
-import 'package:provider_start/core/utils/file_utils.dart';
+import 'package:provider_start/core/utils/file_helper.dart';
+import 'package:provider_start/locator.dart';
 
 abstract class UsersLocalDataSource {
   Future<void> init();
@@ -14,11 +15,13 @@ abstract class UsersLocalDataSource {
 }
 
 class UsersLocalDataSourceImpl implements UsersLocalDataSource {
+  final FileHelper _fileHelper = locator<FileHelper>();
+
   Box<UserH> usersBox;
 
   @override
   Future<void> init() async {
-    final path = await getApplicationDocumentsDirectoryPath();
+    final path = await _fileHelper.getApplicationDocumentsDirectoryPath();
     Hive.init(path);
     Hive.registerAdapter(UserHAdapter());
 

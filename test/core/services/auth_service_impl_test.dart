@@ -66,7 +66,7 @@ void main() {
       await authService.signOut();
 
       // assert
-      expect(authService.currentUser, equals(null));
+      expect(authService.currentUser, isNull);
     });
   });
 }

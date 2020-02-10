@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive/hive.dart';
 import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
 import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.dart';
 import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
@@ -21,6 +22,7 @@ import 'package:provider_start/core/services/key_storage/key_storage_service.dar
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
+import 'package:provider_start/core/utils/file_helper.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -30,7 +32,6 @@ GetIt locator = GetIt.instance;
 ///   - Also sets up factor methods for view models.
 Future<void> setupLocator({bool test = false}) async {
   // Services
-
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
   );
@@ -65,6 +66,12 @@ Future<void> setupLocator({bool test = false}) async {
   if (!test) {
     await _setupSharedPreferences();
   }
+
+  // Utils
+  locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());
+
+  // External
+  locator.registerLazySingleton<HiveInterface>(() => Hive);
 }
 
 Future<void> _setupSharedPreferences() async {
