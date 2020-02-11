@@ -10,7 +10,9 @@ import 'package:provider_start/ui/widgets/loading_animation.dart';
 class PostDetailsView extends StatelessWidget {
   final Post post;
 
-  const PostDetailsView({Key key, @required this.post}) : super(key: key);
+  const PostDetailsView({Key key, @required this.post})
+      : assert(post != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +27,13 @@ class PostDetailsView extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(post.description),
-              UIHelper.verticalSpaceLarge(),
-              _UserDetails(),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(post.description),
+            UIHelper.verticalSpaceLarge(),
+            _UserDetails(),
+          ],
         ),
       ),
     );
