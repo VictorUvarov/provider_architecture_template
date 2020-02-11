@@ -8,19 +8,19 @@ class BaseViewModel extends ChangeNotifier {
   ViewState _state = ViewState.Idle;
   ViewState get state => _state;
 
-  bool _disposed = true;
+  bool _disposed = false;
 
   void setState(ViewState viewState) {
     _state = viewState;
 
-    if (!_disposed) return;
+    if (_disposed) return;
 
     notifyListeners();
   }
 
   @override
   void dispose() {
-    _disposed = false;
+    _disposed = true;
     super.dispose();
   }
 }
