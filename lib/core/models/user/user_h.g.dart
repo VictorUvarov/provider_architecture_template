@@ -43,4 +43,14 @@ class UserHAdapter extends TypeAdapter<UserH> {
       ..writeByte(5)
       ..write(obj.website);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserHAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

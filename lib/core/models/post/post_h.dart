@@ -53,4 +53,18 @@ class PostH extends HiveObject {
     map['userId'] = userId;
     return map;
   }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^ title.hashCode ^ description.hashCode ^ userId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PostH &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          description == other.description &&
+          userId == other.userId;
 }

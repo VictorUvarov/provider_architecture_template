@@ -67,4 +67,25 @@ class UserH extends HiveObject {
     map['website'] = website;
     return map;
   }
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      name.hashCode ^
+      username.hashCode ^
+      phone.hashCode ^
+      email.hashCode ^
+      website.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserH &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          username == other.username &&
+          phone == other.phone &&
+          email == other.email &&
+          website == other.website;
 }

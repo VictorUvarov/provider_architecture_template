@@ -80,7 +80,7 @@ void main() {
     await postsLocalDataSource.init();
 
     // assert
-    verify(fileHelper.getApplicationDocumentsDirectoryPath());
+    verify(fileHelper.getApplicationDocumentsDirectoryPath()).called(1);
   });
 
   test('local data source should initialize hive when initializing', () async {
@@ -91,7 +91,7 @@ void main() {
     await postsLocalDataSource.init();
 
     // assert
-    verify(hive.init(fakePath));
+    verify(hive.init(fakePath)).called(1);
   });
 
   test('local data source should register a post adapter', () async {
@@ -99,15 +99,11 @@ void main() {
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
-    try {
-      // act
-      await postsLocalDataSource.init();
+    // act
+    await postsLocalDataSource.init();
 
-      // assert
-      verify(hive.registerAdapter<PostH>(PostHAdapter()));
-    } catch (e) {
-      //TODO: Fix this test to not use try catch
-    }
+    // assert
+    verify(hive.registerAdapter<PostH>(PostHAdapter())).called(1);
   });
 
   test('local data source should open box when box is not open', () async {
@@ -118,7 +114,7 @@ void main() {
     await postsLocalDataSource.init();
 
     // assert
-    verify(hive.openBox(LocalStorageKeys.posts));
+    verify(hive.openBox(LocalStorageKeys.posts)).called(1);
   });
 
   test('local data source should not open box when box is open', () async {
@@ -156,21 +152,15 @@ void main() {
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
-    try {
-      // act
-      await postsLocalDataSource.cachePosts(mockPosts);
+    // act
+    await postsLocalDataSource.cachePosts(mockPosts);
 
-      final postsMap = <int, PostH>{};
-      mockPosts.forEach(
-        (post) => postsMap.addAll(
-          {post.id: PostH.fromPost(post)},
-        ),
-      );
-
-      // assert
-      verify(postsBox.putAll(postsMap));
-    } catch (e) {
-      //TODO: Fix this test to not use try catch
+    final postsMap = <int, PostH>{};
+    for (final post in mockPosts) {
+      postsMap.putIfAbsent(post.id, () => PostH.fromPost(post));
     }
+
+    // assert
+    verify(postsBox.putAll(postsMap)).called(1);
   });
 }

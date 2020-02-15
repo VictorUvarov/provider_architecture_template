@@ -119,3 +119,7 @@ Filled Stacks Links:
 - Add your own custom getter values.
 - Add `<YOUR_MODEL>` to the list in `@SerializersFor` class constructor found under `core/models/serializer.dart`
 - Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to build your new model
+
+### Testing
+
+- Currently Hive does not override the hashcode and == operator for a class. This causes mock tests to fail. To fix this issue simply override the two getters like in the post_h.g.dart file example.

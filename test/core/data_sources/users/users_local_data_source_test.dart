@@ -76,7 +76,7 @@ void main() {
     await usersLocalDataSource.init();
 
     // assert
-    verify(fileHelper.getApplicationDocumentsDirectoryPath());
+    verify(fileHelper.getApplicationDocumentsDirectoryPath()).called(1);
   });
 
   test('local data source should initialize hive when initializing', () async {
@@ -87,7 +87,7 @@ void main() {
     await usersLocalDataSource.init();
 
     // assert
-    verify(hive.init(fakePath));
+    verify(hive.init(fakePath)).called(1);
   });
 
   test('local data source should register a user adapter', () async {
@@ -95,15 +95,11 @@ void main() {
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
-    try {
-      // act
-      await usersLocalDataSource.init();
+    // act
+    await usersLocalDataSource.init();
 
-      // assert
-      verify(hive.registerAdapter<UserH>(UserHAdapter()));
-    } catch (e) {
-      //TODO: Fix this test to not use try catch
-    }
+    // assert
+    verify(hive.registerAdapter<UserH>(UserHAdapter())).called(1);
   });
 
   test('local data source should open box when box is not open', () async {
@@ -114,7 +110,7 @@ void main() {
     await usersLocalDataSource.init();
 
     // assert
-    verify(hive.openBox(LocalStorageKeys.users));
+    verify(hive.openBox(LocalStorageKeys.users)).called(1);
   });
 
   test('local data source should not open box when box is open', () async {
@@ -136,7 +132,6 @@ void main() {
     setupOpenedBox();
 
     when(usersBox.isEmpty).thenReturn(true);
-    // when(usersBox.get(userId)).thenReturn(UserH.fromUser(mockUser));
 
     try {
       // act
@@ -153,14 +148,10 @@ void main() {
     setupHiveDirectoryWithOpenBox();
     setupOpenedBox();
 
-    try {
-      // act
-      await usersLocalDataSource.cacheUser(mockUser);
+    // act
+    await usersLocalDataSource.cacheUser(mockUser);
 
-      // assert
-      verify(usersBox.put(mockUser.id, UserH.fromUser(mockUser)));
-    } catch (e) {
-      //TODO: Fix this test to not use try catch
-    }
+    // assert
+    verify(usersBox.put(mockUser.id, UserH.fromUser(mockUser))).called(1);
   });
 }
