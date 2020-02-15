@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider_start/core/localization/localization.dart';
@@ -12,18 +13,21 @@ final supportedLocales = supportedLocalCodes
 
 /// A callback provided by [MaterialApp] that lets you
 /// specify which locales you plan to support by returning them.
-Locale loadSupportedLocals(locale, supportedLocales) {
+Locale loadSupportedLocals(Locale locale, Iterable<Locale> supportedLocales) {
   if (locale == null) {
+    Intl.defaultLocale = supportedLocales.first.languageCode;
     return supportedLocales.first;
   }
 
   for (final supportedLocale in supportedLocales) {
     if (supportedLocale.languageCode == locale.languageCode ||
         supportedLocale.countryCode == locale.countryCode) {
+      Intl.defaultLocale = supportedLocale.languageCode;
       return supportedLocale;
     }
   }
 
+  Intl.defaultLocale = supportedLocales.first.languageCode;
   return supportedLocales.first;
 }
 
