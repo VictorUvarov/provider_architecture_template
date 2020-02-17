@@ -60,11 +60,12 @@ class _NotificationsListTile extends ProviderWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     return ListTile(
+      onTap: model.toggleNotificationsEnabled,
       title: Text(local.settingsViewNotifications),
       subtitle: Text(local.settingsViewNotificationsDesc),
       trailing: Switch.adaptive(
         value: model.notificationsEnabled,
-        onChanged: model.toggleNotificationsEnabled,
+        onChanged: (_) => model.toggleNotificationsEnabled(),
       ),
     );
   }

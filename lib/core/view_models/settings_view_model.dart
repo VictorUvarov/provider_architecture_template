@@ -52,9 +52,9 @@ class SettingsViewModel extends BaseViewModel {
     }
   }
 
-  void toggleNotificationsEnabled(bool value) {
-    _notificationsEnabled = value;
-    _keyStorageService.hasNotificationsEnabled = value;
+  void toggleNotificationsEnabled() {
+    _notificationsEnabled = !_notificationsEnabled;
+    _keyStorageService.hasNotificationsEnabled = _notificationsEnabled;
     notifyListeners();
   }
 }
