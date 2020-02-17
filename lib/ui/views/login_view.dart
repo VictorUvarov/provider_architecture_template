@@ -14,20 +14,23 @@ class LoginView extends StatelessWidget {
 
     return ViewModelProvider<LoginViewModel>.withoutConsumer(
       viewModel: LoginViewModel(),
-      builder: (context, model, child) => PlatformScaffold(
-        appBar: PlatformAppBar(
-          title: Text(local.loginViewTitle),
-        ),
-        body: Form(
-          key: model.formKey,
-          child: _Container(
-            children: <Widget>[
-              _EmailTextField(),
-              UIHelper.verticalSpaceMedium(),
-              _PasswordTextField(),
-              UIHelper.verticalSpaceMedium(),
-              _SignInButton(),
-            ],
+      builder: (context, model, child) => GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(model.viewFocusNode),
+        child: PlatformScaffold(
+          appBar: PlatformAppBar(
+            title: Text(local.loginViewTitle),
+          ),
+          body: Form(
+            key: model.formKey,
+            child: _Container(
+              children: <Widget>[
+                _EmailTextField(),
+                UIHelper.verticalSpaceMedium(),
+                _PasswordTextField(),
+                UIHelper.verticalSpaceMedium(),
+                _SignInButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -68,6 +71,7 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
       validator: model.validateEmail,
       onFieldSubmitted: (_) => model.passwordFocusNode.requestFocus(),
       textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         hintText: local.emailHintText,
         contentPadding: const EdgeInsets.all(8),

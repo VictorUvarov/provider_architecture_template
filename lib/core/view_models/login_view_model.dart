@@ -17,11 +17,13 @@ class LoginViewModel extends BaseViewModel with Validators {
   final _passwordController = TextEditingController();
   final _passwordFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
+  final _viewFocusNode = FocusNode();
 
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
   FocusNode get passwordFocusNode => _passwordFocusNode;
   GlobalKey<FormState> get formKey => _formKey;
+  FocusNode get viewFocusNode => _viewFocusNode;
 
   Future<void> login() async {
     if (!_formKey.currentState.validate()) return;
@@ -43,6 +45,7 @@ class LoginViewModel extends BaseViewModel with Validators {
 
   @override
   void dispose() {
+    _viewFocusNode.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _passwordFocusNode.dispose();
