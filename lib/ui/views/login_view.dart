@@ -8,6 +8,11 @@ import 'package:provider_start/ui/shared/ui_helper.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
 
 class LoginView extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _passwordFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
@@ -15,18 +20,26 @@ class LoginView extends StatelessWidget {
     return ViewModelProvider<LoginViewModel>.withoutConsumer(
       viewModel: LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(model.viewFocusNode),
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: PlatformScaffold(
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
           ),
           body: Form(
-            key: model.formKey,
+            key: _formKey,
             child: _Container(
               children: <Widget>[
-                _EmailTextField(),
+                _EmailTextField(
+                  formKey: _formKey,
+                  controller: _emailController,
+                  nextFocusNode: _passwordFocusNode,
+                ),
                 UIHelper.verticalSpaceMedium(),
-                _PasswordTextField(),
+                _PasswordTextField(
+                  formKey: _formKey,
+                  controller: _passwordController,
+                  currentFocusNode: _passwordFocusNode,
+                ),
                 UIHelper.verticalSpaceMedium(),
                 _SignInButton(),
               ],
@@ -62,14 +75,30 @@ class _Container extends ProviderWidget<LoginViewModel> {
 }
 
 class _EmailTextField extends ProviderWidget<LoginViewModel> {
+  final GlobalKey<FormState> formKey;
+  final TextEditingController controller;
+  final FocusNode currentFocusNode;
+  final FocusNode nextFocusNode;
+
+  _EmailTextField({
+    this.formKey,
+    @required this.controller,
+    this.currentFocusNode,
+    this.nextFocusNode,
+  });
+
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     final local = AppLocalizations.of(context);
 
     return TextFormField(
-      controller: model.emailController,
+      controller: controller,
       validator: model.validateEmail,
-      onFieldSubmitted: (_) => model.passwordFocusNode.requestFocus(),
+      onFieldSubmitted: (_) => nextFocusNode.requestFocus(),
+      onChanged: (email) {
+        model.setEmail(email);
+        formKey?.currentState?.validate();
+      },
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -86,16 +115,32 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
 }
 
 class _PasswordTextField extends ProviderWidget<LoginViewModel> {
+  final GlobalKey<FormState> formKey;
+  final TextEditingController controller;
+  final FocusNode currentFocusNode;
+  final FocusNode nextFocusNode;
+
+  _PasswordTextField({
+    this.formKey,
+    @required this.controller,
+    this.currentFocusNode,
+    this.nextFocusNode,
+  });
+
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     final local = AppLocalizations.of(context);
 
     return TextFormField(
-      controller: model.passwordController,
+      controller: controller,
       validator: model.validatePassword,
-      focusNode: model.passwordFocusNode,
+      focusNode: currentFocusNode,
       obscureText: true,
       textInputAction: TextInputAction.send,
+      onChanged: (password) {
+        model.setPassword(password);
+        formKey?.currentState?.validate();
+      },
       onFieldSubmitted: (_) => model.login(),
       decoration: InputDecoration(
         hintText: local.passwordHintText,
