@@ -32,7 +32,7 @@ class NavigationServiceImpl implements NavigationService {
   }
 
   @override
-  bool pop({returnValue}) {
-    return navigatorKey.currentState.pop(returnValue);
+  void pop({returnValue}) {
+    navigatorKey.currentState.pop(returnValue);
   }
 }
