@@ -17,7 +17,6 @@ class _LoginViewState extends State<LoginView> {
   TextEditingController emailController;
   TextEditingController passwordController;
   FocusNode passwordFocusNode;
-  FocusNode scaffoldFocusNode;
 
   @override
   void initState() {
@@ -26,7 +25,6 @@ class _LoginViewState extends State<LoginView> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordFocusNode = FocusNode();
-    scaffoldFocusNode = FocusNode();
   }
 
   @override
@@ -34,7 +32,6 @@ class _LoginViewState extends State<LoginView> {
     emailController.dispose();
     passwordController.dispose();
     passwordFocusNode.dispose();
-    scaffoldFocusNode.dispose();
     super.dispose();
   }
 
@@ -45,7 +42,12 @@ class _LoginViewState extends State<LoginView> {
     return ViewModelProvider<LoginViewModel>.withoutConsumer(
       viewModel: LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
         child: PlatformScaffold(
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
