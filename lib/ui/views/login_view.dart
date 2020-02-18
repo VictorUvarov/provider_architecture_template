@@ -7,11 +7,36 @@ import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
 
-class LoginView extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _passwordFocusNode = FocusNode();
+class LoginView extends StatefulWidget {
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  GlobalKey<FormState> formKey;
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  FocusNode passwordFocusNode;
+  FocusNode scaffoldFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    formKey = GlobalKey<FormState>();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordFocusNode = FocusNode();
+    scaffoldFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordFocusNode.dispose();
+    scaffoldFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,19 +51,19 @@ class LoginView extends StatelessWidget {
             title: Text(local.loginViewTitle),
           ),
           body: Form(
-            key: _formKey,
+            key: formKey,
             child: _Container(
               children: <Widget>[
                 _EmailTextField(
-                  formKey: _formKey,
-                  controller: _emailController,
-                  nextFocusNode: _passwordFocusNode,
+                  formKey: formKey,
+                  controller: emailController,
+                  nextFocusNode: passwordFocusNode,
                 ),
                 UIHelper.verticalSpaceMedium(),
                 _PasswordTextField(
-                  formKey: _formKey,
-                  controller: _passwordController,
-                  currentFocusNode: _passwordFocusNode,
+                  formKey: formKey,
+                  controller: passwordController,
+                  currentFocusNode: passwordFocusNode,
                 ),
                 UIHelper.verticalSpaceMedium(),
                 _SignInButton(),
