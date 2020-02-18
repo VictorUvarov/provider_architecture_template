@@ -35,7 +35,6 @@ class LoginViewModel extends BaseViewModel with Validators {
     _log.d('password:$password');
     _password = password;
     _canSubmitPassword = validatePassword(password) == null;
-    notifyListeners();
   }
 
   Future<void> login() async {
