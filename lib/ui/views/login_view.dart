@@ -97,7 +97,7 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
       onFieldSubmitted: (_) => nextFocusNode.requestFocus(),
       onChanged: (email) {
         model.setEmail(email);
-        formKey?.currentState?.validate();
+        formKey.currentState?.validate();
       },
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
@@ -139,7 +139,7 @@ class _PasswordTextField extends ProviderWidget<LoginViewModel> {
       textInputAction: TextInputAction.send,
       onChanged: (password) {
         model.setPassword(password);
-        formKey?.currentState?.validate();
+        formKey.currentState?.validate();
       },
       onFieldSubmitted: (_) => model.login(),
       decoration: InputDecoration(
