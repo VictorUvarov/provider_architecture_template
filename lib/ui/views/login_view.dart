@@ -13,7 +13,6 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  GlobalKey<FormState> formKey;
   TextEditingController emailController;
   TextEditingController passwordController;
   FocusNode passwordFocusNode;
@@ -21,7 +20,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   void initState() {
     super.initState();
-    formKey = GlobalKey<FormState>();
     emailController = TextEditingController();
     passwordController = TextEditingController();
     passwordFocusNode = FocusNode();
@@ -39,7 +37,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<LoginViewModel>.withoutConsumer(
+    return ViewModelProvider<LoginViewModel>.withConsumer(
       viewModel: LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
         onTap: () {
@@ -52,25 +50,31 @@ class _LoginViewState extends State<LoginView> {
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
           ),
-          body: Form(
-            key: formKey,
-            child: _Container(
-              children: <Widget>[
-                _EmailTextField(
-                  formKey: formKey,
-                  controller: emailController,
-                  nextFocusNode: passwordFocusNode,
-                ),
-                UIHelper.verticalSpaceMedium(),
-                _PasswordTextField(
-                  formKey: formKey,
-                  controller: passwordController,
-                  currentFocusNode: passwordFocusNode,
-                ),
-                UIHelper.verticalSpaceMedium(),
-                _SignInButton(),
-              ],
-            ),
+          body: _Container(
+            children: <Widget>[
+              _InputField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                prefixIcon: Icons.mail,
+                labelText: local.emailHintText,
+                nextFocus: passwordFocusNode,
+                message: model.emailErrorMessage,
+                onChanged: model.setEmail,
+              ),
+              UIHelper.verticalSpaceMedium(),
+              _InputField(
+                controller: passwordController,
+                currentFocus: passwordFocusNode,
+                prefixIcon: Icons.lock,
+                labelText: local.passwordHintText,
+                message: model.passwordErrorMessage,
+                obscureText: true,
+                onChanged: model.setPassword,
+                onEditComplete: model.login,
+              ),
+              UIHelper.verticalSpaceMedium(),
+              _SignInButton(),
+            ],
           ),
         ),
       ),
@@ -101,87 +105,6 @@ class _Container extends ProviderWidget<LoginViewModel> {
   }
 }
 
-class _EmailTextField extends ProviderWidget<LoginViewModel> {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController controller;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
-
-  _EmailTextField({
-    this.formKey,
-    @required this.controller,
-    this.currentFocusNode,
-    this.nextFocusNode,
-  });
-
-  @override
-  Widget build(BuildContext context, LoginViewModel model) {
-    final local = AppLocalizations.of(context);
-
-    return TextFormField(
-      controller: controller,
-      validator: model.validateEmail,
-      onFieldSubmitted: (_) => nextFocusNode.requestFocus(),
-      onChanged: (email) {
-        model.setEmail(email);
-        formKey.currentState?.validate();
-      },
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: local.emailHintText,
-        contentPadding: const EdgeInsets.all(8),
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PasswordTextField extends ProviderWidget<LoginViewModel> {
-  final GlobalKey<FormState> formKey;
-  final TextEditingController controller;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
-
-  _PasswordTextField({
-    this.formKey,
-    @required this.controller,
-    this.currentFocusNode,
-    this.nextFocusNode,
-  });
-
-  @override
-  Widget build(BuildContext context, LoginViewModel model) {
-    final local = AppLocalizations.of(context);
-
-    return TextFormField(
-      controller: controller,
-      validator: model.validatePassword,
-      focusNode: currentFocusNode,
-      obscureText: true,
-      textInputAction: TextInputAction.send,
-      onChanged: (password) {
-        model.setPassword(password);
-        formKey.currentState?.validate();
-      },
-      onFieldSubmitted: (_) => model.login(),
-      decoration: InputDecoration(
-        hintText: local.passwordHintText,
-        contentPadding: const EdgeInsets.all(8),
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _SignInButton extends ProviderWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
@@ -198,5 +121,96 @@ class _SignInButton extends ProviderWidget<LoginViewModel> {
               color: theme.primaryColor,
             ),
           );
+  }
+}
+
+class _InputField extends ProviderWidget<LoginViewModel> {
+  final TextEditingController controller;
+  final FocusNode currentFocus;
+  final TextInputType keyboardType;
+  final IconData prefixIcon;
+  final String labelText;
+  final FocusNode nextFocus;
+  final String message;
+  final bool obscureText;
+  final Function onChanged;
+  final Function onEditComplete;
+
+  _InputField({
+    Key key,
+    this.controller,
+    this.currentFocus,
+    this.keyboardType,
+    this.prefixIcon,
+    this.labelText,
+    this.nextFocus,
+    this.message,
+    this.obscureText = false,
+    this.onChanged,
+    this.onEditComplete,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, LoginViewModel model) {
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TextFormField(
+          controller: controller,
+          keyboardType: keyboardType,
+          textInputAction:
+              nextFocus == null ? TextInputAction.go : TextInputAction.next,
+          focusNode: currentFocus,
+          obscureText: obscureText,
+          onChanged: onChanged,
+          onEditingComplete: onEditComplete,
+          onFieldSubmitted: (term) {
+            if (nextFocus == null) {
+              currentFocus.unfocus();
+            } else {
+              FocusScope.of(context).requestFocus(nextFocus);
+            }
+          },
+          style: TextStyle(color: Colors.black),
+          textCapitalization: TextCapitalization.none,
+          decoration: InputDecoration(
+            prefixIcon: prefixIcon != null
+                ? Icon(prefixIcon, color: theme.accentColor)
+                : null,
+            border: OutlineInputBorder(),
+            labelText: labelText,
+            labelStyle: TextStyle(
+                color: (controller.text != null && controller.text != '')
+                    ? Colors.black
+                    : Colors.black54),
+          ),
+        ),
+        _FieldErrorMessage(message: message),
+      ],
+    );
+  }
+}
+
+class _FieldErrorMessage extends ProviderWidget<LoginViewModel> {
+  final String message;
+
+  _FieldErrorMessage({Key key, this.message}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, LoginViewModel model) {
+    return message != null
+        ? Container(
+            margin: EdgeInsets.fromLTRB(12, 8, 0, 0),
+            padding: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.redAccent,
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+            ),
+            child: Text(message,
+                style: TextStyle(color: Colors.white, fontSize: 12)),
+          )
+        : Container();
   }
 }

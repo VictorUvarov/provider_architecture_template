@@ -20,6 +20,12 @@ class LoginViewModel extends BaseViewModel with Validators {
   String _password = '';
   String get password => _password;
 
+  String _emailErrorMessage;
+  String get emailErrorMessage => _emailErrorMessage;
+
+  String _passwordErrorMessage;
+  String get passwordErrorMessage => _passwordErrorMessage;
+
   bool _canSubmitEmail = false;
   bool _canSubmitPassword = false;
   bool get canLoginUser => _canSubmitEmail && _canSubmitPassword;
@@ -27,19 +33,29 @@ class LoginViewModel extends BaseViewModel with Validators {
   void setEmail(String email) {
     _log.d('email:$email');
     _email = email;
-    _canSubmitEmail = validateEmail(email) == null;
+    _emailErrorMessage = validateEmail(email);
+    _canSubmitEmail = _emailErrorMessage == null;
     notifyListeners();
   }
 
   void setPassword(String password) {
     _log.d('password:$password');
     _password = password;
-    _canSubmitPassword = validatePassword(password) == null;
+    _passwordErrorMessage = validatePassword(password);
+    _canSubmitPassword = _passwordErrorMessage == null;
+    notifyListeners();
   }
 
   Future<void> login() async {
-    if (!canLoginUser) return;
-    
+    if (!canLoginUser) {
+      _emailErrorMessage = validateEmail(email);
+      _canSubmitEmail = _emailErrorMessage == null;
+      _passwordErrorMessage = validatePassword(password);
+      _canSubmitPassword = _passwordErrorMessage == null;
+      notifyListeners();
+      return;
+    }
+
     _log.d('email:$email password:$password');
     setState(ViewState.Busy);
 
