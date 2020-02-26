@@ -27,42 +27,41 @@ class AppLocalizations {
     return true;
   }
 
-  String _translate(String key) {
+  String translate(String key) {
     return _sentences[key];
   }
 
   // List of available local strings that the app can use
   //  - translated from the corresponding /assets/lang/<local>.json files
-  String get appTitle => _translate('app-title');
+  String get appTitle => translate('app-title');
 
-  String get homeViewTitle => _translate('home-view-title');
-  String get homeViewNoPosts => _translate('home-view-no-posts');
+  String get homeViewTitle => translate('home-view-title');
+  String get homeViewNoPosts => translate('home-view-no-posts');
 
-  String get settingsViewTitle => _translate('settings-view-title');
-  String get settingsViewPermissions => _translate('settings-view-permissions');
+  String get settingsViewTitle => translate('settings-view-title');
+  String get settingsViewPermissions => translate('settings-view-permissions');
   String get settingsViewPermissionsDesc =>
-      _translate('settings-view-permissions-desc');
-  String get settingsViewAppSettings =>
-      _translate('settings-view-app-settings');
+      translate('settings-view-permissions-desc');
+  String get settingsViewAppSettings => translate('settings-view-app-settings');
   String get settingsViewAppSettingsDesc =>
-      _translate('settings-view-app-settings-desc');
+      translate('settings-view-app-settings-desc');
   String get settingsViewNotifications =>
-      _translate('settings-view-notifications');
+      translate('settings-view-notifications');
   String get settingsViewNotificationsDesc =>
-      _translate('settings-view-notifications-desc');
-  String get settingsViewLocation => _translate('settings-view-location');
-  String get settingsViewSignOut => _translate('settings-view-sign-out');
+      translate('settings-view-notifications-desc');
+  String get settingsViewLocation => translate('settings-view-location');
+  String get settingsViewSignOut => translate('settings-view-sign-out');
   String get settingsViewSignOutDesc =>
-      _translate('settings-view-sign-out-desc');
+      translate('settings-view-sign-out-desc');
 
-  String get loginViewTitle => _translate('login-view-title');
-  String get loginButtonText => _translate('login-button-text');
+  String get loginViewTitle => translate('login-view-title');
+  String get loginButtonText => translate('login-button-text');
 
-  String get buttonTextCancel => _translate('button-text-cancel');
-  String get buttonTextConfirm => _translate('button-text-confirm');
+  String get buttonTextCancel => translate('button-text-cancel');
+  String get buttonTextConfirm => translate('button-text-confirm');
 
-  String get emailHintText => _translate('email-hint-text');
-  String get passwordHintText => _translate('password-hint-text');
+  String get emailHintText => translate('email-hint-text');
+  String get passwordHintText => translate('password-hint-text');
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

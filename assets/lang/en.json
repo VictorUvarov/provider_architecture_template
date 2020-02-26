@@ -17,5 +17,10 @@
   "button-text-cancel": "Cancel",
   "button-text-confirm": "Confirm",
   "email-hint-text": "Email",
-  "password-hint-text": "Password"
+  "password-hint-text": "Password",
+  "invalid_email": "Invalid email",
+  "invalid_phone_number": "Invalid phone number",
+  "invalid_zip_code": "Invalid zip code",
+  "password_empty": "Password is required",
+  "password_short": "Password must be more than 6 characters"
 }
