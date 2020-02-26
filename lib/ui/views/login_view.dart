@@ -95,7 +95,7 @@ class _Container extends ProviderWidget<LoginViewModel> {
       ignoring: model.state == ViewState.Busy,
       child: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: children,
           ),
@@ -157,7 +157,27 @@ class _InputField extends ProviderWidget<LoginViewModel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextFormField(
+        PlatformTextField(
+          android: (_) => MaterialTextFieldData(
+            decoration: InputDecoration(
+              prefixIcon: prefixIcon != null
+                  ? Icon(prefixIcon, color: theme.accentColor)
+                  : null,
+              border: OutlineInputBorder(),
+              labelText: labelText,
+              labelStyle: TextStyle(
+                  color: (controller.text != null && controller.text != '')
+                      ? Colors.black
+                      : Colors.black54),
+            ),
+          ),
+          ios: (_) => CupertinoTextFieldData(
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            padding: const EdgeInsets.all(12),
+          ),
           controller: controller,
           keyboardType: keyboardType,
           textInputAction:
@@ -166,7 +186,7 @@ class _InputField extends ProviderWidget<LoginViewModel> {
           obscureText: obscureText,
           onChanged: onChanged,
           onEditingComplete: onEditComplete,
-          onFieldSubmitted: (term) {
+          onSubmitted: (term) {
             if (nextFocus == null) {
               currentFocus.unfocus();
             } else {
@@ -175,17 +195,6 @@ class _InputField extends ProviderWidget<LoginViewModel> {
           },
           style: TextStyle(color: Colors.black),
           textCapitalization: TextCapitalization.none,
-          decoration: InputDecoration(
-            prefixIcon: prefixIcon != null
-                ? Icon(prefixIcon, color: theme.accentColor)
-                : null,
-            border: OutlineInputBorder(),
-            labelText: labelText,
-            labelStyle: TextStyle(
-                color: (controller.text != null && controller.text != '')
-                    ? Colors.black
-                    : Colors.black54),
-          ),
         ),
         _FieldErrorMessage(message: message),
       ],
@@ -193,13 +202,13 @@ class _InputField extends ProviderWidget<LoginViewModel> {
   }
 }
 
-class _FieldErrorMessage extends ProviderWidget<LoginViewModel> {
+class _FieldErrorMessage extends StatelessWidget {
   final String message;
 
   _FieldErrorMessage({Key key, this.message}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
+  Widget build(BuildContext context) {
     return message != null
         ? Container(
             margin: EdgeInsets.fromLTRB(12, 8, 0, 0),
