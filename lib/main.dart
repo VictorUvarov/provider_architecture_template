@@ -6,6 +6,7 @@ import 'package:provider_start/core/data_sources/users/users_local_data_source.d
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/managers/core_manager.dart';
 import 'package:provider_start/core/managers/dialog_manager.dart';
+import 'package:provider_start/core/managers/snack_bar_manager.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
@@ -77,7 +78,8 @@ class MyApp extends StatelessWidget {
       key: locator<DialogService>().dialogNavigationKey,
       onGenerateRoute: (settings) => platformPageRoute(
         context: context,
-        builder: (context) => DialogManager(child: widget),
+        builder: (context) =>
+            DialogManager(child: SnackBarManager(child: widget)),
       ),
     );
   }
