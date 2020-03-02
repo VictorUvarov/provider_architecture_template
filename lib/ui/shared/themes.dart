@@ -16,31 +16,8 @@ final darkMaterialTheme = _darkThemeData.copyWith(
 );
 
 final primaryCupertinoTheme = CupertinoThemeData(
-  primaryColor: Colors.blue,
-  brightness: Brightness.light,
-  textTheme: CupertinoTextThemeData(
-    primaryColor: Colors.blue,
-    navTitleTextStyle: TextStyle(
-      color: Colors.blue,
-    ),
-    tabLabelTextStyle: TextStyle(
-      color: Colors.blue,
-    ),
-  ),
-);
-
-final darkCupertinoTheme = CupertinoThemeData(
-  primaryColor: Colors.blue,
-  scaffoldBackgroundColor: Colors.black87,
-  barBackgroundColor: Colors.black12,
-  brightness: Brightness.dark,
-  textTheme: CupertinoTextThemeData(
-    primaryColor: Colors.white,
-    navTitleTextStyle: TextStyle(
-      color: Colors.blue,
-    ),
-    tabLabelTextStyle: TextStyle(
-      color: Colors.blue,
-    ),
+  primaryColor: CupertinoDynamicColor.withBrightness(
+    color: Colors.purple,
+    darkColor: Colors.cyan,
   ),
 );

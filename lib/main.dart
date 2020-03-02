@@ -51,9 +51,6 @@ class MyApp extends StatelessWidget {
           ),
           ios: (_) => CupertinoAppData(
             theme: themes.primaryCupertinoTheme,
-            // TODO: Uncomment when flutter adds dark cupertino support
-            // https://github.com/flutter/flutter/projects/40
-            // darkTheme: darkCupertinoTheme,
           ),
           localizationsDelegates: localizationsDelegates,
           supportedLocales: supportedLocales,

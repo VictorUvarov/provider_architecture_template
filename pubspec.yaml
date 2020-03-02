@@ -40,7 +40,7 @@ dependencies:
   dio: ^3.0.8
 
   # UI Utilities
-  flutter_platform_widgets: ^0.30.1
+  flutter_platform_widgets: ^0.32.4
 
   # UI Widgets
   cupertino_icons: ^0.1.3

@@ -31,7 +31,7 @@ class SettingsViewModel extends BaseViewModel {
     AppSettings.openAppSettings();
   }
 
-  void signOut({
+  Future<void> signOut({
     String title,
     String desc,
     String buttonConfirmText,
