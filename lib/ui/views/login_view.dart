@@ -73,7 +73,10 @@ class _LoginViewState extends State<LoginView> {
                 onEditComplete: model.login,
               ),
               UIHelper.verticalSpaceMedium(),
-              _SignInButton(),
+              _SignInButton(
+                busy: model.state == ViewState.Busy,
+                onPressed: model.login,
+              ),
             ],
           ),
         ),
@@ -105,17 +108,22 @@ class _Container extends ProviderWidget<LoginViewModel> {
   }
 }
 
-class _SignInButton extends ProviderWidget<LoginViewModel> {
+class _SignInButton extends StatelessWidget {
+  final bool busy;
+  final Function onPressed;
+
+  const _SignInButton({Key key, this.busy, this.onPressed}) : super(key: key);
+
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
+  Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return model.state == ViewState.Busy
+    return busy
         ? LoadingAnimation()
         : PlatformButton(
             child: Text(local.loginButtonText),
-            onPressed: model.login,
+            onPressed: onPressed,
             android: (context) => MaterialRaisedButtonData(
               textTheme: ButtonTextTheme.primary,
               color: theme.primaryColor,
