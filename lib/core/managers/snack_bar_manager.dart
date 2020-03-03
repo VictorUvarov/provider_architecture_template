@@ -39,13 +39,12 @@ class _SnackBarManagerState extends State<SnackBarManager> {
     Flushbar(
       // There is also a messageText property for when you want to
       // use a Text widget and not just a simple String
-      // message: 'Hello from a Flushbar',
       message: request.message,
       // Even the button can be styled to your heart's content
       mainButton: FlatButton(
         child: Text(
           request.childtext,
-          // style: TextStyle(color: Theme.of(context).accentColor),
+          style: TextStyle(color: Theme.of(context).accentColor),
         ),
         onPressed: () {},
       ),
