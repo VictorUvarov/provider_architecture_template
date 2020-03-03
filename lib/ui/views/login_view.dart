@@ -51,6 +51,7 @@ class _LoginViewState extends State<LoginView> {
             title: Text(local.loginViewTitle),
           ),
           body: _Container(
+            busy: model.state == ViewState.Busy,
             children: <Widget>[
               _InputField(
                 controller: emailController,
@@ -85,17 +86,18 @@ class _LoginViewState extends State<LoginView> {
   }
 }
 
-class _Container extends ProviderWidget<LoginViewModel> {
+class _Container extends StatelessWidget {
+  final bool busy;
   final List<Widget> children;
 
-  _Container({Key key, @required this.children})
+  _Container({Key key, this.busy, @required this.children})
       : assert(children != null),
         super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
+  Widget build(BuildContext context) {
     return IgnorePointer(
-      ignoring: model.state == ViewState.Busy,
+      ignoring: busy,
       child: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
