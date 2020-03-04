@@ -1,2 +1,2 @@
-/// Model that a dialog in the [DialogManager] returns from the [DialogService]
+/// Model that a SnackBar in the [SnackBarManager] returns from the [SnackBarService]
 abstract class SnackBarResponse {}

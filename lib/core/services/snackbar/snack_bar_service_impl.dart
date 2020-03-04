@@ -5,7 +5,7 @@ import 'package:provider_start/core/models/snack_bar_request/snack_bar_request.d
 import 'package:provider_start/core/models/snack_bar_response/snack_bar_response.dart';
 import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
 
-/// A service that is responsible for returning future dialogs
+/// A service that is responsible for returning future snackbar
 class SnackBarServiceImpl implements SnackBarService {
   final _snackBarNavigationKey = GlobalKey<NavigatorState>();
 

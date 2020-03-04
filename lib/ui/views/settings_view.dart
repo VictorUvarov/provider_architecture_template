@@ -29,8 +29,8 @@ class SettingsView extends StatelessWidget {
           children: <Widget>[
             _AppSettingsListTile(),
             _NotificationsListTile(),
-            _SignOutListTile(),
-            _ShowSnackBarListTile()
+            _ShowSnackBarListTile(),
+            _SignOutListTile()
           ],
         ),
       ),
