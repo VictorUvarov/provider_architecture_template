@@ -46,10 +46,10 @@ class _SnackBarManagerState extends State<SnackBarManager> {
           request.childtext,
           style: TextStyle(color: Theme.of(context).accentColor),
         ),
-        onPressed: () {},
+        onPressed: request.onPressed,
       ),
-      duration: Duration(seconds: 5),
-      backgroundColor: Colors.red,
+      duration: Duration(seconds: request.duration),
+      backgroundColor: Color(request.colorCode),
       // Show it with a cascading operator
     )..show(context);
   }

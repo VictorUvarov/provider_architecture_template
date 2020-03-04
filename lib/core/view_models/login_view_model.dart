@@ -4,19 +4,16 @@ import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/mixins/validators.dart';
-import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_request.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
+
 import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
-
-import '../../locator.dart';
 
 class LoginViewModel extends BaseViewModel with Validators {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
-  final _snackBarService = locator<SnackBarService>();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _passwordFocusNode = FocusNode();
@@ -30,12 +27,6 @@ class LoginViewModel extends BaseViewModel with Validators {
   FocusNode get viewFocusNode => _viewFocusNode;
 
   Future<void> login() async {
-    // Snack bar Sample usage
-    // final alertRequest = ConfirmSnackBarRequest((r) => r
-    //   ..message = "message!"
-    //   ..childtext = "childText!!");
-    // await _snackBarService.showSnackBar(alertRequest);
-
     if (!_formKey.currentState.validate()) return;
 
     setState(ViewState.Busy);

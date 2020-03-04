@@ -30,6 +30,7 @@ class SettingsView extends StatelessWidget {
             _AppSettingsListTile(),
             _NotificationsListTile(),
             _SignOutListTile(),
+            _ShowSnackBarListTile()
           ],
         ),
       ),
@@ -87,6 +88,28 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
         title: local.settingsViewSignOut,
         desc: local.settingsViewSignOutDesc,
         buttonConfirmText: local.buttonTextConfirm,
+      ),
+    );
+  }
+}
+
+class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
+  @override
+  Widget build(BuildContext context, SettingsViewModel model) {
+    final local = AppLocalizations.of(context);
+
+    return ListTile(
+      title: Text(local.settingsViewSnackBar),
+      subtitle: Text(local.settingsViewSnackBarDesc),
+      trailing: PlatformWidget(
+        android: (_) => Icon(Icons.announcement),
+        ios: (_) => Icon(CupertinoIcons.conversation_bubble),
+      ),
+      onTap: () => model.showSnackbar(
+        message: 'some message',
+        childText: 'okay',
+        colorCode: 0xffb74093,
+        duration: 2,
       ),
     );
   }

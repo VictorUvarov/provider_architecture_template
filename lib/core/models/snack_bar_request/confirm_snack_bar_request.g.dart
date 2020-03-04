@@ -11,12 +11,24 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
   final String message;
   @override
   final String childtext;
+  @override
+  final int colorCode;
+  @override
+  final int duration;
+  @override
+  final void Function() onPressed;
 
   factory _$ConfirmSnackBarRequest(
           [void Function(ConfirmSnackBarRequestBuilder) updates]) =>
       (new ConfirmSnackBarRequestBuilder()..update(updates)).build();
 
-  _$ConfirmSnackBarRequest._({this.message, this.childtext}) : super._() {
+  _$ConfirmSnackBarRequest._(
+      {this.message,
+      this.childtext,
+      this.colorCode,
+      this.duration,
+      this.onPressed})
+      : super._() {
     if (message == null) {
       throw new BuiltValueNullFieldError('ConfirmSnackBarRequest', 'message');
     }
@@ -37,21 +49,33 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
+    final dynamic _$dynamicOther = other;
     return other is ConfirmSnackBarRequest &&
         message == other.message &&
-        childtext == other.childtext;
+        childtext == other.childtext &&
+        colorCode == other.colorCode &&
+        duration == other.duration &&
+        onPressed == _$dynamicOther.onPressed;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, message.hashCode), childtext.hashCode));
+    return $jf($jc(
+        $jc(
+            $jc($jc($jc(0, message.hashCode), childtext.hashCode),
+                colorCode.hashCode),
+            duration.hashCode),
+        onPressed.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ConfirmSnackBarRequest')
           ..add('message', message)
-          ..add('childtext', childtext))
+          ..add('childtext', childtext)
+          ..add('colorCode', colorCode)
+          ..add('duration', duration)
+          ..add('onPressed', onPressed))
         .toString();
   }
 }
@@ -68,12 +92,27 @@ class ConfirmSnackBarRequestBuilder
   String get childtext => _$this._childtext;
   set childtext(String childtext) => _$this._childtext = childtext;
 
+  int _colorCode;
+  int get colorCode => _$this._colorCode;
+  set colorCode(int colorCode) => _$this._colorCode = colorCode;
+
+  int _duration;
+  int get duration => _$this._duration;
+  set duration(int duration) => _$this._duration = duration;
+
+  void Function() _onPressed;
+  void Function() get onPressed => _$this._onPressed;
+  set onPressed(void Function() onPressed) => _$this._onPressed = onPressed;
+
   ConfirmSnackBarRequestBuilder();
 
   ConfirmSnackBarRequestBuilder get _$this {
     if (_$v != null) {
       _message = _$v.message;
       _childtext = _$v.childtext;
+      _colorCode = _$v.colorCode;
+      _duration = _$v.duration;
+      _onPressed = _$v.onPressed;
       _$v = null;
     }
     return this;
@@ -95,7 +134,12 @@ class ConfirmSnackBarRequestBuilder
   @override
   _$ConfirmSnackBarRequest build() {
     final _$result = _$v ??
-        new _$ConfirmSnackBarRequest._(message: message, childtext: childtext);
+        new _$ConfirmSnackBarRequest._(
+            message: message,
+            childtext: childtext,
+            colorCode: colorCode,
+            duration: duration,
+            onPressed: onPressed);
     replace(_$result);
     return _$result;
   }
