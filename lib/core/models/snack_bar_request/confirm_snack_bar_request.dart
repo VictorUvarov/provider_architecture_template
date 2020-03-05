@@ -7,7 +7,7 @@ abstract class ConfirmSnackBarRequest extends SnackBarRequest
     implements Built<ConfirmSnackBarRequest, ConfirmSnackBarRequestBuilder> {
   String get message;
 
-  String get childtext;
+  String get childText;
 
   @nullable
   int get colorCode;

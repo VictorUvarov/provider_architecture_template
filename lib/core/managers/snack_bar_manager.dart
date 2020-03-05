@@ -43,7 +43,7 @@ class _SnackBarManagerState extends State<SnackBarManager> {
       // Even the button can be styled to your heart's content
       mainButton: FlatButton(
         child: Text(
-          request.childtext,
+          request.childText,
           style: TextStyle(color: Theme.of(context).accentColor),
         ),
         onPressed: request.onPressed,

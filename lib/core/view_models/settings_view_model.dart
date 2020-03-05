@@ -62,13 +62,19 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   // Snack bar Sample usage
-  void showSnackbar(
-      {String message, String childText, int colorCode, int duration}) async {
-    final alertRequest = ConfirmSnackBarRequest((r) => r
-      ..message = message
-      ..childtext = childText
-      ..colorCode = colorCode
-      ..duration = duration);
+  void showSnackbar({
+    String message,
+    String childText,
+    int colorCode,
+    int duration,
+  }) async {
+    final alertRequest = ConfirmSnackBarRequest(
+      (r) => r
+        ..message = message
+        ..childText = childText
+        ..colorCode = colorCode
+        ..duration = duration,
+    );
     await _snackBarService.showSnackBar(alertRequest);
   }
 }

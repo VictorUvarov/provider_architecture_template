@@ -10,7 +10,7 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
   @override
   final String message;
   @override
-  final String childtext;
+  final String childText;
   @override
   final int colorCode;
   @override
@@ -24,7 +24,7 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
 
   _$ConfirmSnackBarRequest._(
       {this.message,
-      this.childtext,
+      this.childText,
       this.colorCode,
       this.duration,
       this.onPressed})
@@ -32,8 +32,8 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
     if (message == null) {
       throw new BuiltValueNullFieldError('ConfirmSnackBarRequest', 'message');
     }
-    if (childtext == null) {
-      throw new BuiltValueNullFieldError('ConfirmSnackBarRequest', 'childtext');
+    if (childText == null) {
+      throw new BuiltValueNullFieldError('ConfirmSnackBarRequest', 'childText');
     }
   }
 
@@ -52,7 +52,7 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
     final dynamic _$dynamicOther = other;
     return other is ConfirmSnackBarRequest &&
         message == other.message &&
-        childtext == other.childtext &&
+        childText == other.childText &&
         colorCode == other.colorCode &&
         duration == other.duration &&
         onPressed == _$dynamicOther.onPressed;
@@ -62,7 +62,7 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc(0, message.hashCode), childtext.hashCode),
+            $jc($jc($jc(0, message.hashCode), childText.hashCode),
                 colorCode.hashCode),
             duration.hashCode),
         onPressed.hashCode));
@@ -72,7 +72,7 @@ class _$ConfirmSnackBarRequest extends ConfirmSnackBarRequest {
   String toString() {
     return (newBuiltValueToStringHelper('ConfirmSnackBarRequest')
           ..add('message', message)
-          ..add('childtext', childtext)
+          ..add('childText', childText)
           ..add('colorCode', colorCode)
           ..add('duration', duration)
           ..add('onPressed', onPressed))
@@ -88,9 +88,9 @@ class ConfirmSnackBarRequestBuilder
   String get message => _$this._message;
   set message(String message) => _$this._message = message;
 
-  String _childtext;
-  String get childtext => _$this._childtext;
-  set childtext(String childtext) => _$this._childtext = childtext;
+  String _childText;
+  String get childText => _$this._childText;
+  set childText(String childText) => _$this._childText = childText;
 
   int _colorCode;
   int get colorCode => _$this._colorCode;
@@ -109,7 +109,7 @@ class ConfirmSnackBarRequestBuilder
   ConfirmSnackBarRequestBuilder get _$this {
     if (_$v != null) {
       _message = _$v.message;
-      _childtext = _$v.childtext;
+      _childText = _$v.childText;
       _colorCode = _$v.colorCode;
       _duration = _$v.duration;
       _onPressed = _$v.onPressed;
@@ -136,7 +136,7 @@ class ConfirmSnackBarRequestBuilder
     final _$result = _$v ??
         new _$ConfirmSnackBarRequest._(
             message: message,
-            childtext: childtext,
+            childText: childText,
             colorCode: colorCode,
             duration: duration,
             onPressed: onPressed);
