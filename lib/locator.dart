@@ -22,6 +22,8 @@ import 'package:provider_start/core/services/key_storage/key_storage_service.dar
 import 'package:provider_start/core/services/key_storage/key_storage_service_impl.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service_impl.dart';
+import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
+import 'package:provider_start/core/services/snackbar/snack_bar_service_impl.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
 
 GetIt locator = GetIt.instance;
@@ -42,6 +44,7 @@ Future<void> setupLocator({bool test = false}) async {
     () => ConnectivityServiceImpl(),
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
+  locator.registerLazySingleton<SnackBarService>(() => SnackBarServiceImpl());
   locator.registerLazySingleton<AuthService>(() => AuthServiceImpl());
   locator.registerLazySingleton<HttpService>(() => HttpServiceImpl());
 

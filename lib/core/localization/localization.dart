@@ -53,6 +53,9 @@ class AppLocalizations {
   String get settingsViewSignOut => translate('settings-view-sign-out');
   String get settingsViewSignOutDesc =>
       translate('settings-view-sign-out-desc');
+  String get settingsViewSnackBar => translate('settings-view-snack-bar');
+  String get settingsViewSnackBarDesc =>
+      translate('settings-view-snack-bar-desc');
 
   String get loginViewTitle => translate('login-view-title');
   String get loginButtonText => translate('login-button-text');

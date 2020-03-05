@@ -12,6 +12,8 @@
   "settings-view-location": "Ubicación actual",
   "settings-view-sign-out": "Desconectar",
   "settings-view-sign-out-desc": "Salir de la aplicación",
+  "settings-view-snack-bar": "Snackbar notificación",
+  "settings-view-snack-bar-desc": "nos muestra la notificación snackbar",
   "login-view-title": "Iniciar Sesión",
   "login-button-text": "Iniciar",
   "button-text-cancel": "Cancelar",
@@ -24,3 +26,4 @@
   "password_empty": "se requiere contraseña",
   "password_short": "La contraseña debe tener más de 6 caracteres"
 }
+
