@@ -1,3 +1,5 @@
+import 'package:provider_start/core/constant/validator_keys.dart';
+
 /// Class of validation functions that the app will use
 ///   - This class should be used as a mixin using the `with` keyword
 class Validators {
@@ -9,30 +11,30 @@ class Validators {
 
   String validateEmail(String value) {
     if (!emailRegExp.hasMatch(value.trim())) {
-      return 'Invalid email';
+      return ValidatorKeys.invalid_email;
     }
     return null;
   }
 
   String validatePhoneNumber(String value) {
     if (!phoneNumberRegExp.hasMatch(value.trim())) {
-      return 'Invalid phone number';
+      return ValidatorKeys.invalid_phone_number;
     }
     return null;
   }
 
   String validateZip(String value) {
     if (!zipCodeRegExp.hasMatch(value.trim())) {
-      return 'Invalid zip code';
+      return ValidatorKeys.invalid_zip_code;
     }
     return null;
   }
 
   String validatePassword(String value) {
     if (value.trim().isEmpty) {
-      return 'Password is required';
+      return ValidatorKeys.password_empty;
     } else if (value.length <= 6) {
-      return 'Password should be more than 6 characters';
+      return ValidatorKeys.password_short;
     }
     return null;
   }

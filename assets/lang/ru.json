@@ -12,10 +12,18 @@
   "settings-view-location": "Текущее местоположение",
   "settings-view-sign-out": "выход",
   "settings-view-sign-out-desc": "Выйти из приложения",
+  "settings-view-snack-bar": "Снэк-бар",
+  "settings-view-snack-bar-desc": "показывает уведомление нам закусочная",
   "login-view-title": "Авторизоваться",
   "login-button-text": "Авторизоваться",
   "button-text-cancel": "Отмена",
   "button-text-confirm": "подтвердить",
   "email-hint-text": "электронное письмо",
-  "password-hint-text": "пароль"
+  "password-hint-text": "пароль",
+  "invalid_email": "Неверный адрес электронной почты",
+  "invalid_phone_number": "Неправильный номер телефона",
+  "invalid_zip_code": "Неверный почтовый индекс",
+  "password_empty": "Необходим пароль",
+  "password_short": "Пароль должен быть более 6 символов"
 }
+

@@ -52,6 +52,7 @@ class _LoginViewState extends State<LoginView> {
         child: PlatformScaffold(
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
+            ios: (_) => CupertinoNavigationBarData(previousPageTitle: ''),
           ),
           body: Form(
             key: formKey,
@@ -114,7 +115,11 @@ class _SignInButton extends StatelessWidget {
   final bool busy;
   final Function onPressed;
 
-  const _SignInButton({Key key, this.busy, this.onPressed}) : super(key: key);
+  const _SignInButton({
+    Key key,
+    this.busy,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

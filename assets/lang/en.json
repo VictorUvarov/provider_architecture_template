@@ -12,10 +12,18 @@
   "settings-view-location": "Current location",
   "settings-view-sign-out": "Sign out",
   "settings-view-sign-out-desc": "Sign out of the app",
+  "settings-view-snack-bar": "Snack Bar",
+  "settings-view-snack-bar-desc": "Show Snack Bar",
   "login-view-title": "Login",
   "login-button-text": "Login",
   "button-text-cancel": "Cancel",
   "button-text-confirm": "Confirm",
   "email-hint-text": "Email",
-  "password-hint-text": "Password"
+  "password-hint-text": "Password",
+  "invalid_email": "Invalid email",
+  "invalid_phone_number": "Invalid phone number",
+  "invalid_zip_code": "Invalid zip code",
+  "password_empty": "Password is required",
+  "password_short": "Password must be more than 6 characters"
 }
+

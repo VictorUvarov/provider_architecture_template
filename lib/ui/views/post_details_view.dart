@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
@@ -30,7 +31,13 @@ class PostDetailsView extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(post.description),
+            PlatformWidget(
+              android: (_) => Text(post.description),
+              ios: (_) => Text(
+                post.description,
+                style: CupertinoTheme.of(context).textTheme.textStyle,
+              ),
+            ),
             UIHelper.verticalSpaceLarge(),
             _UserDetails(),
           ],
@@ -51,15 +58,40 @@ class _UserDetails extends ProviderWidget<PostDetailsViewModel> {
       return Icon(Icons.error_outline);
     }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Text(model.user.username),
-        UIHelper.verticalSpaceMedium(),
-        Text(model.user.name),
-        UIHelper.verticalSpaceMedium(),
-        Text(model.user.website),
-      ],
+    return PlatformWidget(
+      android: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(model.user.username),
+          UIHelper.verticalSpaceMedium(),
+          Text(model.user.name),
+          UIHelper.verticalSpaceMedium(),
+          Text(model.user.website),
+        ],
+      ),
+      ios: (_) {
+        final style = CupertinoTheme.of(context).textTheme.textStyle;
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              model.user.username,
+              style: style,
+            ),
+            UIHelper.verticalSpaceMedium(),
+            Text(
+              model.user.name,
+              style: style,
+            ),
+            UIHelper.verticalSpaceMedium(),
+            Text(
+              model.user.website,
+              style: style,
+            ),
+          ],
+        );
+      },
     );
   }
 }

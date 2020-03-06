@@ -63,6 +63,7 @@ Filled Stacks Links:
 - [x] custom fonts
 - [x] custom app icons
 - [x] custom native splash screen
+- [x] snack bar service
 - [ ] responsive views
 - [ ] unit tests
 

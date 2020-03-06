@@ -29,7 +29,8 @@ class SettingsView extends StatelessWidget {
           children: <Widget>[
             _AppSettingsListTile(),
             _NotificationsListTile(),
-            _SignOutListTile(),
+            _ShowSnackBarListTile(),
+            _SignOutListTile()
           ],
         ),
       ),
@@ -42,14 +43,32 @@ class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
-    return ListTile(
-      title: Text(local.settingsViewAppSettings),
-      subtitle: Text(local.settingsViewAppSettingsDesc),
-      trailing: PlatformWidget(
-        android: (_) => Icon(Icons.launch),
-        ios: (_) => Icon(CupertinoIcons.share_up),
+    return PlatformWidget(
+      android: (_) => ListTile(
+        title: Text(local.settingsViewAppSettings),
+        subtitle: Text(local.settingsViewAppSettingsDesc),
+        trailing: PlatformWidget(
+          android: (_) => Icon(Icons.launch),
+          ios: (_) => Icon(CupertinoIcons.share_up),
+        ),
+        onTap: model.openAppSettings,
       ),
-      onTap: model.openAppSettings,
+      ios: (_) => CupertinoButton(
+        onPressed: model.openAppSettings,
+        child: Row(
+          children: <Widget>[
+            Text(
+              local.settingsViewAppSettings,
+              style: CupertinoTheme.of(context).textTheme.textStyle,
+            ),
+            Spacer(),
+            PlatformWidget(
+              android: (_) => Icon(Icons.launch),
+              ios: (_) => Icon(CupertinoIcons.share_up),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -59,13 +78,31 @@ class _NotificationsListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
-    return ListTile(
-      onTap: model.toggleNotificationsEnabled,
-      title: Text(local.settingsViewNotifications),
-      subtitle: Text(local.settingsViewNotificationsDesc),
-      trailing: Switch.adaptive(
-        value: model.notificationsEnabled,
-        onChanged: (_) => model.toggleNotificationsEnabled(),
+    return PlatformWidget(
+      android: (_) => ListTile(
+        onTap: model.toggleNotificationsEnabled,
+        title: Text(local.settingsViewNotifications),
+        subtitle: Text(local.settingsViewNotificationsDesc),
+        trailing: Switch.adaptive(
+          value: model.notificationsEnabled,
+          onChanged: (_) => model.toggleNotificationsEnabled(),
+        ),
+      ),
+      ios: (_) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: <Widget>[
+            Text(
+              local.settingsViewNotifications,
+              style: CupertinoTheme.of(context).textTheme.textStyle,
+            ),
+            Spacer(),
+            Switch.adaptive(
+              value: model.notificationsEnabled,
+              onChanged: (_) => model.toggleNotificationsEnabled(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,17 +113,61 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
-    return ListTile(
-      title: Text(local.settingsViewSignOut),
-      subtitle: Text(local.settingsViewSignOutDesc),
-      trailing: PlatformWidget(
-        android: (_) => Icon(Icons.exit_to_app),
-        ios: (_) => Icon(CupertinoIcons.right_chevron),
+    return PlatformWidget(
+      android: (_) => ListTile(
+        title: Text(local.settingsViewSignOut),
+        subtitle: Text(local.settingsViewSignOutDesc),
+        trailing: PlatformWidget(
+          android: (_) => Icon(Icons.exit_to_app),
+          ios: (_) => Icon(CupertinoIcons.right_chevron),
+        ),
+        onTap: () => model.signOut(
+          title: local.settingsViewSignOut,
+          desc: local.settingsViewSignOutDesc,
+          buttonConfirmText: local.buttonTextConfirm,
+        ),
       ),
-      onTap: () => model.signOut(
-        title: local.settingsViewSignOut,
-        desc: local.settingsViewSignOutDesc,
-        buttonConfirmText: local.buttonTextConfirm,
+      ios: (_) => CupertinoButton(
+        onPressed: () => model.signOut(
+          title: local.settingsViewSignOut,
+          desc: local.settingsViewSignOutDesc,
+          buttonConfirmText: local.buttonTextConfirm,
+        ),
+        child: Row(
+          children: <Widget>[
+            Text(
+              local.settingsViewSignOut,
+              style: CupertinoTheme.of(context).textTheme.textStyle,
+            ),
+            Spacer(),
+            PlatformWidget(
+              android: (_) => Icon(Icons.exit_to_app),
+              ios: (_) => Icon(CupertinoIcons.right_chevron),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
+  @override
+  Widget build(BuildContext context, SettingsViewModel model) {
+    final local = AppLocalizations.of(context);
+
+    return ListTile(
+      title: Text(local.settingsViewSnackBar),
+      subtitle: Text(local.settingsViewSnackBarDesc),
+      trailing: PlatformWidget(
+        android: (_) => Icon(Icons.announcement),
+        ios: (_) => Icon(CupertinoIcons.conversation_bubble),
+      ),
+      onTap: () => model.showSnackbar(
+        message: 'some message',
+        childText: 'okay',
+        colorCode: 0xffb74093,
+        duration: 2,
       ),
     );
   }

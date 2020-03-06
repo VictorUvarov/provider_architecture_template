@@ -17,20 +17,46 @@ class PostTile extends StatelessWidget {
     return ViewModelProvider<PostTileViewModel>.withoutConsumer(
       viewModel: PostTileViewModel(),
       onModelReady: (model) => model.init(post),
-      builder: (context, model, child) => Card(
-        child: ListTile(
-          title: Text(model.post.title),
-          subtitle: Text(
-            model.post.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+      builder: (context, model, child) => PlatformWidget(
+        android: (_) => Card(
+          child: ListTile(
+            title: Text(model.post.title),
+            subtitle: Text(
+              model.post.description,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            isThreeLine: true,
+            trailing: PlatformWidget(
+              android: (_) => Icon(Icons.arrow_forward),
+              ios: (_) => Icon(CupertinoIcons.forward),
+            ),
+            onTap: model.showPostDetails,
           ),
-          isThreeLine: true,
-          trailing: PlatformWidget(
-            android: (_) => Icon(Icons.arrow_forward),
-            ios: (_) => Icon(CupertinoIcons.forward),
+        ),
+        ios: (_) => Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: CupertinoTheme.of(context).primaryColor,
+            ),
+            borderRadius: BorderRadius.circular(8),
           ),
-          onTap: model.showPostDetails,
+          child: CupertinoButton(
+            onPressed: model.showPostDetails,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(model.post.title),
+                Text(
+                  model.post.description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: CupertinoTheme.of(context).textTheme.textStyle,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

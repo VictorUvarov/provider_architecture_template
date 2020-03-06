@@ -5,6 +5,8 @@ import 'package:provider_start/core/models/alert_request/confirm_alert_request.d
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
+import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_request.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
@@ -16,6 +18,7 @@ class SettingsViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final _keyStorageService = locator<KeyStorageService>();
+  final _snackBarService = locator<SnackBarService>();
 
   bool _notificationsEnabled = false;
   bool get notificationsEnabled => _notificationsEnabled;
@@ -31,7 +34,7 @@ class SettingsViewModel extends BaseViewModel {
     AppSettings.openAppSettings();
   }
 
-  void signOut({
+  Future<void> signOut({
     String title,
     String desc,
     String buttonConfirmText,
@@ -56,5 +59,22 @@ class SettingsViewModel extends BaseViewModel {
     _notificationsEnabled = !_notificationsEnabled;
     _keyStorageService.hasNotificationsEnabled = _notificationsEnabled;
     notifyListeners();
+  }
+
+  // Snack bar Sample usage
+  void showSnackbar({
+    String message,
+    String childText,
+    int colorCode,
+    int duration,
+  }) async {
+    final alertRequest = ConfirmSnackBarRequest(
+      (r) => r
+        ..message = message
+        ..childText = childText
+        ..colorCode = colorCode
+        ..duration = duration,
+    );
+    await _snackBarService.showSnackBar(alertRequest);
   }
 }
