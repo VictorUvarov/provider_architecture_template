@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/widgets/cupertino/cupertino_text_form_field.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
 
 class LoginView extends StatefulWidget {
@@ -13,6 +14,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  final formKey = GlobalKey<FormState>();
+
   TextEditingController emailController;
   TextEditingController passwordController;
   FocusNode passwordFocusNode;
@@ -50,59 +53,56 @@ class _LoginViewState extends State<LoginView> {
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
           ),
-          body: _Container(
-            busy: model.state == ViewState.Busy,
-            children: <Widget>[
-              _InputField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                prefixIcon: Icons.mail,
-                labelText: local.emailHintText,
-                nextFocus: passwordFocusNode,
-                message: model.emailErrorMessage,
-                onChanged: model.setEmail,
-              ),
-              UIHelper.verticalSpaceMedium(),
-              _InputField(
-                controller: passwordController,
-                currentFocus: passwordFocusNode,
-                prefixIcon: Icons.lock,
-                labelText: local.passwordHintText,
-                message: model.passwordErrorMessage,
-                obscureText: true,
-                onChanged: model.setPassword,
-                onEditComplete: model.login,
-              ),
-              UIHelper.verticalSpaceMedium(),
-              _SignInButton(
-                busy: model.state == ViewState.Busy,
-                onPressed: model.login,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+          body: Form(
+            key: formKey,
+            child: IgnorePointer(
+              ignoring: model.busy,
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      _EmailTextField(
+                        controller: emailController,
+                        onFieldSubmitted: (_) =>
+                            passwordFocusNode.requestFocus(),
+                        validator: (_) => local.translate(
+                          model.validateEmail(emailController.text),
+                        ),
+                      ),
+                      UIHelper.verticalSpaceMedium(),
+                      _PasswordTextField(
+                        controller: passwordController,
+                        focusNode: passwordFocusNode,
+                        onFieldSubmitted: (_) {
+                          if (!formKey.currentState.validate()) return;
 
-class _Container extends StatelessWidget {
-  final bool busy;
-  final List<Widget> children;
+                          model.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        },
+                        validator: (_) => local.translate(
+                          model.validatePassword(passwordController.text),
+                        ),
+                      ),
+                      UIHelper.verticalSpaceMedium(),
+                      _SignInButton(
+                        busy: model.busy,
+                        onPressed: () {
+                          if (!formKey.currentState.validate()) return;
 
-  _Container({Key key, this.busy, @required this.children})
-      : assert(children != null),
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IgnorePointer(
-      ignoring: busy,
-      child: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: children,
+                          model.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -134,102 +134,114 @@ class _SignInButton extends StatelessWidget {
   }
 }
 
-class _InputField extends ProviderWidget<LoginViewModel> {
+class _EmailTextField extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode currentFocus;
-  final TextInputType keyboardType;
-  final IconData prefixIcon;
-  final String labelText;
-  final FocusNode nextFocus;
-  final String message;
-  final bool obscureText;
-  final Function onChanged;
-  final Function onEditComplete;
+  final Function onFieldSubmitted;
+  final Function validator;
 
-  _InputField({
+  const _EmailTextField({
     Key key,
     this.controller,
-    this.currentFocus,
-    this.keyboardType,
-    this.prefixIcon,
-    this.labelText,
-    this.nextFocus,
-    this.message,
-    this.obscureText = false,
-    this.onChanged,
-    this.onEditComplete,
+    this.onFieldSubmitted,
+    this.validator,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
-    final theme = Theme.of(context);
+  Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        PlatformTextField(
-          android: (_) => MaterialTextFieldData(
-            decoration: InputDecoration(
-              prefixIcon: prefixIcon != null
-                  ? Icon(prefixIcon, color: theme.accentColor)
-                  : null,
-              border: OutlineInputBorder(),
-              labelText: labelText,
-              labelStyle: TextStyle(
-                  color: (controller.text != null && controller.text != '')
-                      ? Colors.black
-                      : Colors.black54),
+    return PlatformWidget(
+      android: (_) => TextFormField(
+        controller: controller,
+        validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.email),
+          hintText: local.emailHintText,
+          contentPadding: const EdgeInsets.all(8),
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
             ),
           ),
-          ios: (_) => CupertinoTextFieldData(
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-            ),
-            padding: const EdgeInsets.all(12),
-          ),
-          controller: controller,
-          keyboardType: keyboardType,
-          textInputAction:
-              nextFocus == null ? TextInputAction.go : TextInputAction.next,
-          focusNode: currentFocus,
-          obscureText: obscureText,
-          onChanged: onChanged,
-          onEditingComplete: onEditComplete,
-          onSubmitted: (term) {
-            if (nextFocus == null) {
-              currentFocus.unfocus();
-            } else {
-              FocusScope.of(context).requestFocus(nextFocus);
-            }
-          },
-          style: TextStyle(color: Colors.black),
-          textCapitalization: TextCapitalization.none,
         ),
-        _FieldErrorMessage(message: message),
-      ],
+      ),
+      ios: (_) => CupertinoTextFormField(
+        controller: controller,
+        validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
+        placeholder: local.emailHintText,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        prefix: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Icon(CupertinoIcons.mail),
+        ),
+        decoration: BoxDecoration(
+          color: CupertinoColors.systemGrey6,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
 }
 
-class _FieldErrorMessage extends StatelessWidget {
-  final String message;
+class _PasswordTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final Function onFieldSubmitted;
+  final Function validator;
 
-  _FieldErrorMessage({Key key, this.message}) : super(key: key);
+  const _PasswordTextField({
+    Key key,
+    this.controller,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.validator,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return message != null
-        ? Container(
-            margin: EdgeInsets.fromLTRB(12, 8, 0, 0),
-            padding: EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-              borderRadius: BorderRadius.all(Radius.circular(4)),
+    final local = AppLocalizations.of(context);
+
+    return PlatformWidget(
+      android: (_) => TextFormField(
+        controller: controller,
+        validator: validator,
+        focusNode: focusNode,
+        obscureText: true,
+        textInputAction: TextInputAction.send,
+        onFieldSubmitted: onFieldSubmitted,
+        decoration: InputDecoration(
+          hintText: local.passwordHintText,
+          prefixIcon: Icon(Icons.lock),
+          contentPadding: const EdgeInsets.all(8),
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
             ),
-            child: Text(message,
-                style: TextStyle(color: Colors.white, fontSize: 12)),
-          )
-        : Container();
+          ),
+        ),
+      ),
+      ios: (_) => CupertinoTextFormField(
+        validator: validator,
+        controller: controller,
+        focusNode: focusNode,
+        placeholder: local.passwordHintText,
+        obscureText: true,
+        onFieldSubmitted: onFieldSubmitted,
+        textInputAction: TextInputAction.send,
+        prefix: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Icon(CupertinoIcons.padlock),
+        ),
+        decoration: BoxDecoration(
+          color: CupertinoColors.systemGrey6,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
   }
 }

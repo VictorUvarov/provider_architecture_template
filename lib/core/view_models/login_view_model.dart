@@ -14,48 +14,9 @@ class LoginViewModel extends BaseViewModel with Validators {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
 
-  String _email = '';
-  String get email => _email;
+  bool get busy => state == ViewState.Busy;
 
-  String _password = '';
-  String get password => _password;
-
-  String _emailErrorMessage;
-  String get emailErrorMessage => _emailErrorMessage;
-
-  String _passwordErrorMessage;
-  String get passwordErrorMessage => _passwordErrorMessage;
-
-  bool _canSubmitEmail = false;
-  bool _canSubmitPassword = false;
-  bool get canLoginUser => _canSubmitEmail && _canSubmitPassword;
-
-  void setEmail(String email) {
-    _log.d('email:$email');
-    _email = email;
-    _emailErrorMessage = validateEmail(email);
-    _canSubmitEmail = _emailErrorMessage == null;
-    notifyListeners();
-  }
-
-  void setPassword(String password) {
-    _log.d('password:$password');
-    _password = password;
-    _passwordErrorMessage = validatePassword(password);
-    _canSubmitPassword = _passwordErrorMessage == null;
-    notifyListeners();
-  }
-
-  Future<void> login() async {
-    if (!canLoginUser) {
-      _emailErrorMessage = validateEmail(email);
-      _canSubmitEmail = _emailErrorMessage == null;
-      _passwordErrorMessage = validatePassword(password);
-      _canSubmitPassword = _passwordErrorMessage == null;
-      notifyListeners();
-      return;
-    }
-
+  Future<void> login(String email, String password) async {
     _log.d('email:$email password:$password');
     setState(ViewState.Busy);
 
