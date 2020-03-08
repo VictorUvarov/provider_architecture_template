@@ -2,37 +2,107 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
 import 'package:provider_start/ui/widgets/cupertino/cupertino_text_form_field.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  @override
+  _LoginViewState createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  final formKey = GlobalKey<FormState>();
+
+  TextEditingController emailController;
+  TextEditingController passwordController;
+  FocusNode passwordFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    passwordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<LoginViewModel>.withoutConsumer(
+    return ViewModelProvider<LoginViewModel>.withConsumer(
       viewModel: LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(model.viewFocusNode),
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
         child: PlatformScaffold(
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
             ios: (_) => CupertinoNavigationBarData(previousPageTitle: ''),
           ),
           body: Form(
-            key: model.formKey,
-            child: _Container(
-              children: <Widget>[
-                _EmailTextField(),
-                UIHelper.verticalSpaceMedium(),
-                _PasswordTextField(),
-                UIHelper.verticalSpaceMedium(),
-                _SignInButton(),
-              ],
+            key: formKey,
+            child: IgnorePointer(
+              ignoring: model.busy,
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: <Widget>[
+                      _EmailTextField(
+                        controller: emailController,
+                        onFieldSubmitted: (_) =>
+                            passwordFocusNode.requestFocus(),
+                        validator: (_) => local.translate(
+                          model.validateEmail(emailController.text),
+                        ),
+                      ),
+                      UIHelper.verticalSpaceMedium(),
+                      _PasswordTextField(
+                        controller: passwordController,
+                        focusNode: passwordFocusNode,
+                        onFieldSubmitted: (_) {
+                          if (!formKey.currentState.validate()) return;
+
+                          model.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        },
+                        validator: (_) => local.translate(
+                          model.validatePassword(passwordController.text),
+                        ),
+                      ),
+                      UIHelper.verticalSpaceMedium(),
+                      _SignInButton(
+                        busy: model.busy,
+                        onPressed: () {
+                          if (!formKey.currentState.validate()) return;
+
+                          model.login(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -41,41 +111,55 @@ class LoginView extends StatelessWidget {
   }
 }
 
-class _Container extends ProviderWidget<LoginViewModel> {
-  final List<Widget> children;
+class _SignInButton extends StatelessWidget {
+  final bool busy;
+  final Function onPressed;
 
-  _Container({Key key, @required this.children})
-      : assert(children != null),
-        super(key: key);
+  const _SignInButton({
+    Key key,
+    this.busy,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
-    return IgnorePointer(
-      ignoring: model.state == ViewState.Busy,
-      child: Center(
-        child: ListView(
-          padding: const EdgeInsets.all(12),
-          shrinkWrap: true,
-          children: children,
-        ),
-      ),
-    );
+  Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    return busy
+        ? LoadingAnimation()
+        : PlatformButton(
+            child: Text(local.loginButtonText),
+            onPressed: onPressed,
+            android: (context) => MaterialRaisedButtonData(
+              textTheme: ButtonTextTheme.primary,
+              color: theme.primaryColor,
+            ),
+          );
   }
 }
 
-class _EmailTextField extends ProviderWidget<LoginViewModel> {
+class _EmailTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final Function onFieldSubmitted;
+  final Function validator;
+
+  const _EmailTextField({
+    Key key,
+    this.controller,
+    this.onFieldSubmitted,
+    this.validator,
+  }) : super(key: key);
+
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
+  Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
       android: (_) => TextFormField(
-        controller: model.emailController,
-        validator: (value) {
-          final key = model.validateEmail(value);
-          return local.translate(key);
-        },
-        onFieldSubmitted: (_) => model.passwordFocusNode.requestFocus(),
+        controller: controller,
+        validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
@@ -90,13 +174,9 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
         ),
       ),
       ios: (_) => CupertinoTextFormField(
-        validator: (value) {
-          final email = model.emailController.text;
-          final key = model.validateEmail(email);
-          return local.translate(key);
-        },
-        onFieldSubmitted: (_) => model.passwordFocusNode.requestFocus(),
-        controller: model.emailController,
+        controller: controller,
+        validator: validator,
+        onFieldSubmitted: onFieldSubmitted,
         placeholder: local.emailHintText,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
@@ -113,22 +193,32 @@ class _EmailTextField extends ProviderWidget<LoginViewModel> {
   }
 }
 
-class _PasswordTextField extends ProviderWidget<LoginViewModel> {
+class _PasswordTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final Function onFieldSubmitted;
+  final Function validator;
+
+  const _PasswordTextField({
+    Key key,
+    this.controller,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.validator,
+  }) : super(key: key);
+
   @override
-  Widget build(BuildContext context, LoginViewModel model) {
+  Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
       android: (_) => TextFormField(
-        controller: model.passwordController,
-        validator: (value) {
-          final key = model.validatePassword(value);
-          return local.translate(key);
-        },
-        focusNode: model.passwordFocusNode,
+        controller: controller,
+        validator: validator,
+        focusNode: focusNode,
         obscureText: true,
         textInputAction: TextInputAction.send,
-        onFieldSubmitted: (_) => model.login(),
+        onFieldSubmitted: onFieldSubmitted,
         decoration: InputDecoration(
           hintText: local.passwordHintText,
           prefixIcon: Icon(Icons.lock),
@@ -141,16 +231,12 @@ class _PasswordTextField extends ProviderWidget<LoginViewModel> {
         ),
       ),
       ios: (_) => CupertinoTextFormField(
-        validator: (value) {
-          final password = model.passwordController.text;
-          final key = model.validatePassword(password);
-          return local.translate(key);
-        },
-        controller: model.passwordController,
-        focusNode: model.passwordFocusNode,
+        validator: validator,
+        controller: controller,
+        focusNode: focusNode,
         placeholder: local.passwordHintText,
         obscureText: true,
-        onFieldSubmitted: (_) => model.login(),
+        onFieldSubmitted: onFieldSubmitted,
         textInputAction: TextInputAction.send,
         prefix: Padding(
           padding: const EdgeInsets.all(4),
@@ -158,30 +244,6 @@ class _PasswordTextField extends ProviderWidget<LoginViewModel> {
         ),
         decoration: BoxDecoration(
           color: CupertinoColors.systemGrey6,
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    );
-  }
-}
-
-class _SignInButton extends ProviderWidget<LoginViewModel> {
-  @override
-  Widget build(BuildContext context, LoginViewModel model) {
-    final local = AppLocalizations.of(context);
-    final theme = Theme.of(context);
-
-    if (model.state == ViewState.Busy) {
-      return LoadingAnimation();
-    }
-
-    return PlatformButton(
-      child: Text(local.loginButtonText),
-      onPressed: model.login,
-      android: (_) => MaterialRaisedButtonData(
-        textTheme: ButtonTextTheme.primary,
-        color: theme.primaryColor,
-        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),

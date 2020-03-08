@@ -10,5 +10,5 @@ abstract class NavigationService {
 
   Future<dynamic> popAllAndPushNamed(String routeName, {Object arguments});
 
-  bool pop({dynamic returnValue});
+  void pop({dynamic returnValue});
 }
