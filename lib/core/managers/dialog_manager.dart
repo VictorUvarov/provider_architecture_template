@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/alert_request/alert_request.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
@@ -39,12 +40,14 @@ class _DialogManagerState extends State<DialogManager> {
   }
 
   void _showConfirmAlert(ConfirmAlertRequest request) {
+    final local = AppLocalizations.of(context);
+
     showDialog(
       context: context,
       builder: (context) => ConfirmDialog(
-        title: request.title,
-        description: request.description,
-        buttonTitle: request.buttonTitle,
+        title: local.translate(request.title),
+        description: local.translate(request.description),
+        buttonTitle: local.translate(request.buttonTitle),
         onConfirmed: () => _dialogService.dialogComplete(
           ConfirmAlertResponse((a) => a..confirmed = true),
         ),

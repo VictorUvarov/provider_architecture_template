@@ -6,10 +6,7 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/settings_view_model.dart';
 
 /// An example settings view that uses platform adaptive widgets
-/// and builds widgets using the `functional_widget` package,
-/// which avoids the inefficiencies that comes with writing
-/// functions that return Widgets. e.g. Widget buildWidget();
-///   - To add/change a functional_widget look at README.md - installation section
+/// and builds widgets using the `provider_architecture` package,
 class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -121,18 +118,10 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
           android: (_) => Icon(Icons.exit_to_app),
           ios: (_) => Icon(CupertinoIcons.right_chevron),
         ),
-        onTap: () => model.signOut(
-          title: local.settingsViewSignOut,
-          desc: local.settingsViewSignOutDesc,
-          buttonConfirmText: local.buttonTextConfirm,
-        ),
+        onTap: model.signOut,
       ),
       ios: (_) => CupertinoButton(
-        onPressed: () => model.signOut(
-          title: local.settingsViewSignOut,
-          desc: local.settingsViewSignOutDesc,
-          buttonConfirmText: local.buttonTextConfirm,
-        ),
+        onPressed: model.signOut,
         child: Row(
           children: <Widget>[
             Text(
@@ -156,18 +145,25 @@ class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
-    return ListTile(
-      title: Text(local.settingsViewSnackBar),
-      subtitle: Text(local.settingsViewSnackBarDesc),
-      trailing: PlatformWidget(
-        android: (_) => Icon(Icons.announcement),
-        ios: (_) => Icon(CupertinoIcons.conversation_bubble),
+    return PlatformWidget(
+      android: (_) => ListTile(
+        title: Text(local.settingsViewSnackBar),
+        subtitle: Text(local.settingsViewSnackBarDesc),
+        trailing: Icon(Icons.announcement),
+        onTap: model.showSnackbar,
       ),
-      onTap: () => model.showSnackbar(
-        message: 'some message',
-        childText: 'okay',
-        colorCode: 0xffb74093,
-        duration: 2,
+      ios: (_) => CupertinoButton(
+        onPressed: model.showSnackbar,
+        child: Row(
+          children: <Widget>[
+            Text(
+              local.settingsViewSnackBar,
+              style: CupertinoTheme.of(context).textTheme.textStyle,
+            ),
+            Spacer(),
+            Icon(CupertinoIcons.conversation_bubble),
+          ],
+        ),
       ),
     );
   }

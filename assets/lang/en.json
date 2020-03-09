@@ -15,15 +15,16 @@
   "settings-view-snack-bar": "Snack Bar",
   "settings-view-snack-bar-desc": "Show Snack Bar",
   "login-view-title": "Login",
-  "login-button-text": "Login",
-  "button-text-cancel": "Cancel",
-  "button-text-confirm": "Confirm",
-  "email-hint-text": "Email",
-  "password-hint-text": "Password",
-  "invalid_email": "Invalid email",
-  "invalid_phone_number": "Invalid phone number",
-  "invalid_zip_code": "Invalid zip code",
-  "password_empty": "Password is required",
-  "password_short": "Password must be more than 6 characters"
+  "login-button": "Login",
+  "button-cancel": "Cancel",
+  "button-confirm": "Confirm",
+  "email-hint": "Email",
+  "password-hint": "Password",
+  "invalid-email": "Invalid email",
+  "invalid-phone-number": "Invalid phone number",
+  "invalid-zip-code": "Invalid zip code",
+  "password-empty": "Password is required",
+  "password-short": "Password must be more than 6 characters",
+  "snackbar-message": "SnackBar message",
+  "snackbar-action": "Action"
 }
-

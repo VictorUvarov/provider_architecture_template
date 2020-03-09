@@ -15,15 +15,16 @@
   "settings-view-snack-bar": "Snackbar notificación",
   "settings-view-snack-bar-desc": "nos muestra la notificación snackbar",
   "login-view-title": "Iniciar Sesión",
-  "login-button-text": "Iniciar",
-  "button-text-cancel": "Cancelar",
-  "button-text-confirm": "Confirmar",
-  "email-hint-text": "correo electrónico",
-  "password-hint-text": "contraseña",
-  "invalid_email": "Email inválido",
-  "invalid_phone_number": "Numero de telefono invalido",
-  "invalid_zip_code": "Código postal no válido",
-  "password_empty": "se requiere contraseña",
-  "password_short": "La contraseña debe tener más de 6 caracteres"
+  "login-button": "Iniciar",
+  "button-cancel": "Cancelar",
+  "button-confirm": "Confirmar",
+  "email-hint": "correo electrónico",
+  "password-hint": "contraseña",
+  "invalid-email": "Email inválido",
+  "invalid-phone-number": "Numero de telefono invalido",
+  "invalid-zip-code": "Código postal no válido",
+  "password-empty": "se requiere contraseña",
+  "password-short": "La contraseña debe tener más de 6 caracteres",
+  "snackbar-message": "Mensaje de SnackBar",
+  "snackbar-action": "Acción"
 }
-

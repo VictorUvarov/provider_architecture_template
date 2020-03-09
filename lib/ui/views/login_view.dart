@@ -129,7 +129,7 @@ class _SignInButton extends StatelessWidget {
     return busy
         ? LoadingAnimation()
         : PlatformButton(
-            child: Text(local.loginButtonText),
+            child: Text(local.loginButton),
             onPressed: onPressed,
             android: (context) => MaterialRaisedButtonData(
               textTheme: ButtonTextTheme.primary,
@@ -164,7 +164,7 @@ class _EmailTextField extends StatelessWidget {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.email),
-          hintText: local.emailHintText,
+          hintText: local.emailHint,
           contentPadding: const EdgeInsets.all(8),
           border: OutlineInputBorder(
             borderRadius: const BorderRadius.all(
@@ -177,7 +177,7 @@ class _EmailTextField extends StatelessWidget {
         controller: controller,
         validator: validator,
         onFieldSubmitted: onFieldSubmitted,
-        placeholder: local.emailHintText,
+        placeholder: local.emailHint,
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.emailAddress,
         prefix: Padding(
@@ -220,7 +220,7 @@ class _PasswordTextField extends StatelessWidget {
         textInputAction: TextInputAction.send,
         onFieldSubmitted: onFieldSubmitted,
         decoration: InputDecoration(
-          hintText: local.passwordHintText,
+          hintText: local.passwordHint,
           prefixIcon: Icon(Icons.lock),
           contentPadding: const EdgeInsets.all(8),
           border: OutlineInputBorder(
@@ -234,7 +234,7 @@ class _PasswordTextField extends StatelessWidget {
         validator: validator,
         controller: controller,
         focusNode: focusNode,
-        placeholder: local.passwordHintText,
+        placeholder: local.passwordHint,
         obscureText: true,
         onFieldSubmitted: onFieldSubmitted,
         textInputAction: TextInputAction.send,

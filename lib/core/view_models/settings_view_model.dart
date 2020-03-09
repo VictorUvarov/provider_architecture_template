@@ -1,4 +1,5 @@
 import 'package:app_settings/app_settings.dart';
+import 'package:provider_start/core/constant/local_keys.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
@@ -34,16 +35,12 @@ class SettingsViewModel extends BaseViewModel {
     AppSettings.openAppSettings();
   }
 
-  Future<void> signOut({
-    String title,
-    String desc,
-    String buttonConfirmText,
-  }) async {
+  Future<void> signOut() async {
     final alertRequest = ConfirmAlertRequest(
       (r) => r
-        ..title = title
-        ..description = desc
-        ..buttonTitle = buttonConfirmText,
+        ..title = LocalKeys.settings_view_sign_out
+        ..description = LocalKeys.settings_view_sign_out_desc
+        ..buttonTitle = LocalKeys.button_confirm,
     );
     final ConfirmAlertResponse dialogResult =
         await _dialogService.showDialog(alertRequest);
@@ -62,19 +59,12 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   // Snack bar Sample usage
-  void showSnackbar({
-    String message,
-    String childText,
-    int colorCode,
-    int duration,
-  }) async {
-    final alertRequest = ConfirmSnackBarRequest(
+  Future<void> showSnackbar() async {
+    final request = ConfirmSnackBarRequest(
       (r) => r
-        ..message = message
-        ..childText = childText
-        ..colorCode = colorCode
-        ..duration = duration,
+        ..message = LocalKeys.snackbar_message
+        ..buttonText = LocalKeys.snackbar_action,
     );
-    await _snackBarService.showSnackBar(alertRequest);
+    await _snackBarService.showSnackBar(request);
   }
 }

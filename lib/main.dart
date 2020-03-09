@@ -75,8 +75,11 @@ class MyApp extends StatelessWidget {
       key: locator<DialogService>().dialogNavigationKey,
       onGenerateRoute: (settings) => platformPageRoute(
         context: context,
-        builder: (context) =>
-            DialogManager(child: SnackBarManager(child: widget)),
+        builder: (context) => DialogManager(
+          child: SnackBarManager(
+            child: widget,
+          ),
+        ),
       ),
     );
   }
