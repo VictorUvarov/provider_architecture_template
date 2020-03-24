@@ -12,10 +12,13 @@ class BaseViewModel extends ChangeNotifier {
 
   void setState(ViewState viewState) {
     _state = viewState;
-
-    if (_disposed) return;
-
     notifyListeners();
+  }
+
+  @override
+  void notifyListeners() {
+    if (_disposed) return;
+    super.notifyListeners();
   }
 
   @override
