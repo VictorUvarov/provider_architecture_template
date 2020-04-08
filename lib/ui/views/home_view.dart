@@ -6,6 +6,7 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/home_view_model.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
 import 'package:provider_start/ui/widgets/post_tile.dart';
+import 'package:provider_start/ui/widgets/state_responsive.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -22,19 +23,33 @@ class HomeView extends StatelessWidget {
             transitionBetweenRoutes: false,
           ),
         ),
-        body: _Posts(),
+        body: _Body(),
       ),
     );
   }
 }
 
-class _NoPosts extends StatelessWidget {
+class _Body extends ProviderWidget<HomeViewModel> {
   @override
-  Widget build(BuildContext context) {
-    final local = AppLocalizations.of(context);
+  Widget build(BuildContext context, HomeViewModel model) {
+    return StateResponsive(
+      state: model.state,
+      idleWidget: _Posts(),
+      busyWidget: _LoadingAnimation(),
+      noDataAvailableWidget: _NoPosts(),
+    );
+  }
+}
 
-    return Center(
-      child: Text(local.homeViewNoPosts),
+class _Posts extends ProviderWidget<HomeViewModel> {
+  @override
+  Widget build(BuildContext context, HomeViewModel model) {
+    return ListView.builder(
+      itemCount: model.posts.length,
+      itemBuilder: (context, index) => PostTile(
+        key: Key('${model.posts[index].id}'),
+        post: model.posts[index],
+      ),
     );
   }
 }
@@ -48,23 +63,13 @@ class _LoadingAnimation extends StatelessWidget {
   }
 }
 
-class _Posts extends ProviderWidget<HomeViewModel> {
+class _NoPosts extends StatelessWidget {
   @override
-  Widget build(BuildContext context, HomeViewModel model) {
-    if (model.state == ViewState.Busy) {
-      return _LoadingAnimation();
-    }
+  Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context);
 
-    if (model.posts.isEmpty) {
-      return _NoPosts();
-    }
-
-    return ListView.builder(
-      itemCount: model.posts.length,
-      itemBuilder: (context, index) => PostTile(
-        key: Key('${model.posts[index].id}'),
-        post: model.posts[index],
-      ),
+    return Center(
+      child: Text(local.homeViewNoPosts),
     );
   }
 }
