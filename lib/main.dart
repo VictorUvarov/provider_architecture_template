@@ -10,6 +10,7 @@ import 'package:provider_start/core/managers/snack_bar_manager.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/provider_setup.dart';
@@ -76,8 +77,14 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) => platformPageRoute(
         context: context,
         builder: (context) => DialogManager(
-          child: SnackBarManager(
-            child: widget,
+          child: Navigator(
+            key: locator<SnackBarService>().snackBarNavigationKey,
+            onGenerateRoute: (settings) => platformPageRoute(
+              context: context,
+              builder: (context) => SnackBarManager(
+                child: widget,
+              ),
+            ),
           ),
         ),
       ),

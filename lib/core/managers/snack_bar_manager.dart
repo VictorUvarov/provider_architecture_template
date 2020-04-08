@@ -2,6 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_request.dart';
 import 'package:provider_start/core/models/snack_bar_request/snack_bar_request.dart';
+import 'package:provider_start/core/models/snack_bar_response/confirm_snack_bar_response.dart';
 import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
 import 'package:provider_start/locator.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,14 @@ class _SnackBarManagerState extends State<SnackBarManager> {
           local.translate(request.buttonText),
           style: TextStyle(color: Theme.of(context).accentColor),
         ),
-        onPressed: request.onPressed,
+        onPressed: () {
+          _snackBarService.snackBarComplete(
+            ConfirmSnackBarResponse((a) => a..confirmed = true),
+          );
+          if (request.onPressed != null) {
+            request.onPressed();
+          }
+        },
       ),
       // Show it with a cascading operator
     )..show(context);
