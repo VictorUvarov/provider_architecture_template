@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get/get.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
 
 /// An example settings view that uses platform adaptive widgets
 /// and builds widgets using the `provider_architecture` package,
@@ -121,7 +123,15 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
         onTap: model.signOut,
       ),
       ios: (_) => CupertinoButton(
-        onPressed: model.signOut,
+        onPressed: () => Get.dialog(ConfirmDialog(
+          title: local.settingsViewSignOut,
+          description: local.settingsViewSignOutDesc,
+          onConfirmed: () {
+            Get.back();
+            model.signOut();
+          },
+          onDenied: () => Get.back(),
+        )),
         child: Row(
           children: <Widget>[
             Text(
@@ -145,15 +155,20 @@ class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
+    final onTap = () => Get.snackbar(
+          local.settingsViewSnackBar,
+          local.settingsViewSnackBarDesc,
+        );
+
     return PlatformWidget(
       android: (_) => ListTile(
         title: Text(local.settingsViewSnackBar),
         subtitle: Text(local.settingsViewSnackBarDesc),
         trailing: Icon(Icons.announcement),
-        onTap: model.showSnackbar,
+        onTap: onTap,
       ),
       ios: (_) => CupertinoButton(
-        onPressed: model.showSnackbar,
+        onPressed: onTap,
         child: Row(
           children: <Widget>[
             Text(

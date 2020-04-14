@@ -1,12 +1,9 @@
+import 'package:get/get.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/view_models/base_view_model.dart';
-import 'package:provider_start/locator.dart';
 
 class PostTileViewModel extends BaseViewModel {
-  final _navigationService = locator<NavigationService>();
-
   Post _post;
   Post get post => _post;
 
@@ -14,7 +11,7 @@ class PostTileViewModel extends BaseViewModel {
     _post = post;
   }
 
-  void showPostDetails() {
-    _navigationService.pushNamed(ViewRoutes.post_details, arguments: _post);
+  Future<void> showPostDetails() async {
+    await Get.toNamed(ViewRoutes.post_details, arguments: _post);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/ui/views/login_view.dart';
@@ -13,15 +13,22 @@ import 'package:provider_start/ui/views/start_up_view.dart';
 ///   - Routes can also require parameters. e.g. `PostDetailView(post: post)`
 class Router {
   static Route<dynamic> generateRoute(
-    BuildContext context,
     RouteSettings settings,
   ) {
-    return platformPageRoute(
-      context: context,
-      settings: RouteSettings(name: settings.name),
-      builder: (context) => _generateView(settings),
-      fullscreenDialog: _fullScreenDialogs.contains(settings.name),
-    );
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.iOS:
+        return MaterialPageRoute(
+          settings: RouteSettings(name: settings.name),
+          builder: (context) => _generateView(settings),
+          fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+        );
+      default:
+        return MaterialPageRoute(
+          settings: RouteSettings(name: settings.name),
+          builder: (context) => _generateView(settings),
+          fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+        );
+    }
   }
 
   static Widget _generateView(RouteSettings settings) {

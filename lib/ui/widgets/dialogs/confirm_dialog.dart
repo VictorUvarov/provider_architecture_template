@@ -24,36 +24,28 @@ class ConfirmDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return WillPopScope(
-      onWillPop: () async {
-        if (onDenied != null) {
-          onDenied();
-        }
-        return false;
-      },
-      child: PlatformAlertDialog(
-        title: Text(title),
-        content: Text(description),
-        actions: <Widget>[
-          PlatformDialogAction(
-            child: Text(local.buttonCancel),
-            onPressed: () {
-              if (onDenied != null) {
-                onDenied();
-              }
-            },
-          ),
-          PlatformDialogAction(
-            ios: (_) => CupertinoDialogActionData(isDestructiveAction: true),
-            child: Text(buttonTitle ?? local.buttonCancel),
-            onPressed: () {
-              if (onDenied != null) {
-                onConfirmed();
-              }
-            },
-          ),
-        ],
-      ),
+    return PlatformAlertDialog(
+      title: Text(title),
+      content: Text(description),
+      actions: <Widget>[
+        PlatformDialogAction(
+          child: Text(local.buttonCancel),
+          onPressed: () {
+            if (onDenied != null) {
+              onDenied();
+            }
+          },
+        ),
+        PlatformDialogAction(
+          ios: (_) => CupertinoDialogActionData(isDestructiveAction: true),
+          child: Text(buttonTitle ?? local.buttonConfirm),
+          onPressed: () {
+            if (onDenied != null) {
+              onConfirmed();
+            }
+          },
+        ),
+      ],
     );
   }
 }
