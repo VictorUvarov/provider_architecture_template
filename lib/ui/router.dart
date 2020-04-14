@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/ui/views/login_view.dart';
@@ -15,19 +16,17 @@ class Router {
   static Route<dynamic> generateRoute(
     RouteSettings settings,
   ) {
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.iOS:
-        return MaterialPageRoute(
-          settings: RouteSettings(name: settings.name),
-          builder: (context) => _generateView(settings),
-          fullscreenDialog: _fullScreenDialogs.contains(settings.name),
-        );
-      default:
-        return MaterialPageRoute(
-          settings: RouteSettings(name: settings.name),
-          builder: (context) => _generateView(settings),
-          fullscreenDialog: _fullScreenDialogs.contains(settings.name),
-        );
+    if (GetPlatform.isIOS) {
+      return GetRoute(
+        page: _generateView(settings),
+        fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+        transition: Transition.cupertino,
+      );
+    } else {
+      return GetRoute(
+        page: _generateView(settings),
+        fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+      );
     }
   }
 

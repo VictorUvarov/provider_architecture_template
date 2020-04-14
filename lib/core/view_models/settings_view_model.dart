@@ -1,7 +1,4 @@
 import 'package:app_settings/app_settings.dart';
-import 'package:get/get.dart';
-import 'package:pedantic/pedantic.dart';
-import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
@@ -30,7 +27,6 @@ class SettingsViewModel extends BaseViewModel {
   Future<void> signOut() async {
     Logger.d('User has signed out');
     await _authService.signOut();
-    unawaited(Get.offAllNamed(ViewRoutes.login));
   }
 
   void toggleNotificationsEnabled() {

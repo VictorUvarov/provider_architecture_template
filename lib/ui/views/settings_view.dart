@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider_architecture/provider_architecture.dart';
+import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/settings_view_model.dart';
 import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
@@ -126,9 +127,10 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
         onPressed: () => Get.dialog(ConfirmDialog(
           title: local.settingsViewSignOut,
           description: local.settingsViewSignOutDesc,
-          onConfirmed: () {
+          onConfirmed: () async {
             Get.back();
-            model.signOut();
+            await model.signOut();
+            await Get.offAllNamed(ViewRoutes.login);
           },
           onDenied: () => Get.back(),
         )),
@@ -155,10 +157,20 @@ class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
 
-    final onTap = () => Get.snackbar(
-          local.settingsViewSnackBar,
-          local.settingsViewSnackBarDesc,
-        );
+    final onTap = () {
+      Get.snackbar(
+        local.settingsViewSnackBar,
+        local.settingsViewSnackBarDesc,
+        icon: Icon(
+          Icons.check_circle_outline,
+          color: Colors.green,
+        ),
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.black.withOpacity(0.7),
+        margin: const EdgeInsets.all(8),
+      );
+    };
 
     return PlatformWidget(
       android: (_) => ListTile(

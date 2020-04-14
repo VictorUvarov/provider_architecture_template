@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
@@ -18,7 +17,7 @@ class LoginViewModel extends BaseViewModel with Validators {
 
     try {
       await _authService.signInWithEmailAndPassword(email, password);
-      unawaited(Get.offNamed(ViewRoutes.splash));
+      await Get.offNamed(ViewRoutes.splash);
     } on AuthException {
       setState(ViewState.Error);
     }
