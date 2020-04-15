@@ -12,13 +12,23 @@ class HomeViewModel extends BaseViewModel {
   List<Post> get posts => _posts;
 
   Future<void> init() async {
+    await _attemptFetchPosts();
+  }
+
+  Future<void> _attemptFetchPosts() async {
     setState(ViewState.Busy);
     try {
       final fetchedPosts = await _postsRepository.fetchPosts();
       _posts = fetchedPosts.take(20).toList();
+      _checkIfAvailableData();
     } on RepositoryException {
       setState(ViewState.Error);
     }
-    setState(ViewState.Idle);
+  }
+
+  void _checkIfAvailableData() {
+    (_posts.isEmpty)
+        ? setState(ViewState.NoDataAvailable)
+        : setState(ViewState.Idle);
   }
 }
