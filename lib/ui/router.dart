@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/post/post.dart';
@@ -16,37 +15,26 @@ class Router {
   static Route<dynamic> generateRoute(
     RouteSettings settings,
   ) {
-    if (GetPlatform.isIOS) {
-      return GetRoute(
-        page: _generateView(settings),
-        fullscreenDialog: _fullScreenDialogs.contains(settings.name),
-        transition: Transition.cupertino,
-      );
-    } else {
-      return GetRoute(
-        page: _generateView(settings),
-        fullscreenDialog: _fullScreenDialogs.contains(settings.name),
-      );
-    }
+    return GetRoute(
+      page: _generateView(settings),
+      fullscreenDialog: _fullScreenDialogs.contains(settings.name),
+      transition: Transition.cupertino,
+    );
   }
 
   static Widget _generateView(RouteSettings settings) {
     switch (settings.name) {
-
-      // Tab Views
       case ViewRoutes.main:
         return MainView();
       case ViewRoutes.login:
         return LoginView();
-
       case ViewRoutes.splash:
         return StartUpView();
       case ViewRoutes.post_details:
         final post = settings.arguments as Post;
         return PostDetailsView(post: post);
-
       default:
-        return Scaffold(
+        return PlatformScaffold(
           body: Center(
             child: Text('No route defined for ${settings.name}'),
           ),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/core/extensions/build_context_ext.dart';
 import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
 
 /// An example settings view that uses platform adaptive widgets
@@ -130,7 +130,6 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
           onConfirmed: () async {
             Get.back();
             await model.signOut();
-            await Get.offAllNamed(ViewRoutes.login);
           },
           onDenied: () => Get.back(),
         )),
@@ -158,6 +157,9 @@ class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     final onTap = () {
+      final textColor = context.isDark ? Colors.black : Colors.white;
+      final bgColor = context.isDark ? Colors.white : Colors.black;
+
       Get.snackbar(
         local.settingsViewSnackBar,
         local.settingsViewSnackBarDesc,
@@ -165,9 +167,9 @@ class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
           Icons.check_circle_outline,
           color: Colors.green,
         ),
-        colorText: Colors.white,
+        colorText: textColor,
         snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.black.withOpacity(0.7),
+        backgroundColor: bgColor.withOpacity(0.7),
         margin: const EdgeInsets.all(8),
       );
     };
