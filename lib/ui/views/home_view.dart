@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/home_view_model.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
@@ -13,7 +12,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<HomeViewModel>.withoutConsumer(
+    return ViewModelProvider<HomeViewModel>.withConsumer(
       viewModel: HomeViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
@@ -23,20 +22,13 @@ class HomeView extends StatelessWidget {
             transitionBetweenRoutes: false,
           ),
         ),
-        body: _Body(),
+        body: StateResponsive(
+          state: model.state,
+          idleWidget: _Posts(),
+          busyWidget: _LoadingAnimation(),
+          noDataAvailableWidget: _NoPosts(),
+        ),
       ),
-    );
-  }
-}
-
-class _Body extends ProviderWidget<HomeViewModel> {
-  @override
-  Widget build(BuildContext context, HomeViewModel model) {
-    return StateResponsive(
-      state: model.state,
-      idleWidget: _Posts(),
-      busyWidget: _LoadingAnimation(),
-      noDataAvailableWidget: _NoPosts(),
     );
   }
 }
