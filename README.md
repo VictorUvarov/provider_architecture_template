@@ -49,7 +49,6 @@ Filled Stacks Links:
 - [x] validation mixin for forms
 - [x] json serialization
 - [x] auth service example
-- [x] dialog service
 - [x] connectivity service
 - [x] hardware info service
 - [x] http service
@@ -63,9 +62,10 @@ Filled Stacks Links:
 - [x] custom fonts
 - [x] custom app icons
 - [x] custom native splash screen
-- [x] snack bar service
+- [x] unit tests
+- [ ] widget tests
+- [ ] integration tests
 - [ ] responsive views
-- [ ] unit tests
 
 ### Geolocator branch
 
