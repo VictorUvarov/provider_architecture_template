@@ -45,7 +45,7 @@ class ConfirmDialog extends StatelessWidget {
           ),
           PlatformDialogAction(
             ios: (_) => CupertinoDialogActionData(isDestructiveAction: true),
-            child: Text(buttonTitle ?? local.buttonCancel),
+            child: Text(buttonTitle ?? local.buttonConfirm),
             onPressed: () {
               if (onDenied != null) {
                 onConfirmed();

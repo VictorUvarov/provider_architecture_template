@@ -1,38 +1,59 @@
 import 'dart:async';
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:get/get.dart';
+import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/alert_request/alert_request.dart';
+import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/alert_response.dart';
+import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
 
 /// A service that is responsible for returning future dialogs
 class DialogServiceImpl implements DialogService {
-  final _dialogNavigationKey = GlobalKey<NavigatorState>();
-
-  @override
-  GlobalKey<NavigatorState> get dialogNavigationKey => _dialogNavigationKey;
-
-  Function(AlertRequest) _showDialogListener;
   Completer<AlertResponse> _dialogCompleter;
 
   @override
-  void registerDialogListener(Function(AlertRequest) showDialogListener) {
-    _showDialogListener = showDialogListener;
-  }
-
-  @override
-  Future<AlertResponse> showDialog(AlertRequest alertRequest) {
+  Future<AlertResponse> showDialog(AlertRequest request) {
     _dialogCompleter = Completer<AlertResponse>();
 
-    _showDialogListener(alertRequest);
+    if (request is ConfirmAlertRequest) {
+      _showConfirmAlert(request);
+    }
 
     return _dialogCompleter.future;
   }
 
   @override
-  void dialogComplete(AlertResponse response) {
-    _dialogNavigationKey.currentState.pop();
+  void completeDialog(AlertResponse response) {
+    locator<NavigationService>().pop();
     _dialogCompleter.complete(response);
     _dialogCompleter = null;
+  }
+
+  void _showConfirmAlert(ConfirmAlertRequest request) {
+    final local = AppLocalizations.of(Get.overlayContext);
+
+    showPlatformDialog(
+      context: Get.overlayContext,
+      builder: (context) => ConfirmDialog(
+        title: local.translate(request.title),
+        description: local.translate(request.description),
+        buttonTitle: local.translate(request.buttonTitle),
+        onConfirmed: () {
+          if (!_dialogCompleter.isCompleted) {
+            completeDialog(ConfirmAlertResponse((a) => a..confirmed = true));
+          }
+        },
+        onDenied: () {
+          if (!_dialogCompleter.isCompleted) {
+            completeDialog(ConfirmAlertResponse((a) => a..confirmed = false));
+          }
+        },
+      ),
+    );
   }
 }
