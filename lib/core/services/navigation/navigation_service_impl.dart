@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
+import 'package:get/get.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 
 class NavigationServiceImpl implements NavigationService {
-  final _navigatorKey = GlobalKey<NavigatorState>();
   @override
-  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
+  GlobalKey<NavigatorState> get navigatorKey => Get.key;
 
   @override
   Future<dynamic> pushNamed(String routeName, {Object arguments}) {
