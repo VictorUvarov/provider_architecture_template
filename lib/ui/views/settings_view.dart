@@ -13,7 +13,7 @@ class SettingsView extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return ViewModelProvider<SettingsViewModel>.withoutConsumer(
-      viewModel: SettingsViewModel(),
+      viewModelBuilder: () => SettingsViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(

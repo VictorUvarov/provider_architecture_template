@@ -22,7 +22,7 @@ class MainView extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return ViewModelProvider<MainViewModel>.withConsumer(
-      viewModel: MainViewModel(),
+      viewModelBuilder: () => MainViewModel(),
       builder: (context, model, child) => PlatformScaffold(
         body: LazyIndexedStack(
           reuse: true,

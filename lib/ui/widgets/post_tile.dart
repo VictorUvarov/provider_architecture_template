@@ -15,7 +15,7 @@ class PostTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<PostTileViewModel>.withoutConsumer(
-      viewModel: PostTileViewModel(),
+      viewModelBuilder: () => PostTileViewModel(),
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformWidget(
         android: (_) => Card(

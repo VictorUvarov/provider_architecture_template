@@ -23,39 +23,39 @@ dependencies:
     sdk: flutter
 
   # Utilities
-  provider_architecture: ^1.0.5
-  shared_preferences: ^0.5.6
-  connectivity: ^0.4.6+2
-  app_settings: ^3.0.0+1
-  device_info: ^0.4.1+4
-  path_provider: ^1.5.1
-  hive_flutter: ^0.3.0+1
-  built_value: ^7.0.4
-  http_parser: ^3.1.3
-  provider: ^4.0.1
-  get_it: ^3.1.0
+  provider_architecture: ^1.1.1+1
+  shared_preferences: ^0.5.7
+  connectivity: ^0.4.8+2
+  app_settings: ^4.0.0
+  device_info: ^0.4.2+2
+  path_provider: ^1.6.7
+  hive_flutter: ^0.3.0+2
+  built_value: ^7.1.0
+  http_parser: ^3.1.4
+  provider: ^4.0.5+1
+  get_it: ^4.0.2
   mime: ^0.9.6+3
-  hive: ^1.3.0
+  hive: ^1.4.1+1
   get: ^1.17.3
-  dio: ^3.0.8
+  dio: ^3.0.9
 
   # UI Utilities
-  flutter_platform_widgets: ^0.32.4
+  flutter_platform_widgets: ^0.32.5
 
   # UI Widgets
   cupertino_icons: ^0.1.3
-  flare_flutter: ^2.0.1
+  flare_flutter: ^2.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.7.4
-  built_value_generator: ^7.0.4
-  hive_generator: ^0.7.0
-  build_runner: ^1.7.2
-  pedantic: ^1.8.0
-  logger: ^0.8.2
+  flutter_launcher_icons: ^0.7.5
+  built_value_generator: ^7.1.0
+  hive_generator: ^0.7.0+2
+  build_runner: ^1.9.0
+  pedantic: ^1.8.0+1
+  logger: ^0.9.1
   mockito: ^4.1.1
 
 flutter_icons:

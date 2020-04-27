@@ -41,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
     final local = AppLocalizations.of(context);
 
     return ViewModelProvider<LoginViewModel>.withConsumer(
-      viewModel: LoginViewModel(),
+      viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);

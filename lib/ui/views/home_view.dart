@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return ViewModelProvider<HomeViewModel>.withConsumer(
-      viewModel: HomeViewModel(),
+      viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(

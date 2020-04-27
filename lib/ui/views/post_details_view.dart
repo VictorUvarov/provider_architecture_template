@@ -18,7 +18,7 @@ class PostDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<PostDetailsViewModel>.withConsumer(
-      viewModel: PostDetailsViewModel(),
+      viewModelBuilder: () => PostDetailsViewModel(),
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(

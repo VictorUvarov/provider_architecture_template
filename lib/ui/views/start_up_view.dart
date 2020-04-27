@@ -8,7 +8,7 @@ class StartUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<StartUpViewModel>.withConsumer(
-      viewModel: StartUpViewModel(),
+      viewModelBuilder: () => StartUpViewModel(),
       onModelReady: (model) => model.handleStartUpLogic(),
       builder: (context, model, child) => PlatformScaffold(
         body: Center(
