@@ -38,6 +38,7 @@ dependencies:
   hive: ^1.4.1+1
   get: ^1.17.3
   dio: ^3.0.9
+  logger: ^0.9.1
 
   # UI Utilities
   flutter_platform_widgets: ^0.32.5
@@ -55,8 +56,10 @@ dev_dependencies:
   hive_generator: ^0.7.0+2
   build_runner: ^1.9.0
   pedantic: ^1.8.0+1
-  logger: ^0.9.1
   mockito: ^4.1.1
+
+dependency_overrides:
+  path: 1.7.0
 
 flutter_icons:
   android: "launcher_icon"
