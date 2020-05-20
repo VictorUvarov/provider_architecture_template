@@ -26,6 +26,6 @@ jobs:
       - run: dart --version
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter test
+      - run: flutter test --no-pub
       - run: flutter format lib/** --set-exit-if-changed
       - run: flutter analyze --no-pub
