@@ -28,4 +28,4 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter format lib/** --set-exit-if-changed
-      - run: flutter analyze
+      - run: flutter analyze --no-pub
