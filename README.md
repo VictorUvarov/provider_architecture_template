@@ -17,13 +17,13 @@ Filled Stacks Links:
 
 ## Setup
 
-Generate your platform specific folders
+Generate your platform specific folders with kotlin/swift
 
 ```bash
 flutter create .
 ```
 
-or
+or generate your platform specific folders with objc/java
 
 ```bash
 flutter create -i objc -a java .
