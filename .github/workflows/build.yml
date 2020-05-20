@@ -12,8 +12,10 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b 1.17.1 _flutter
-      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "1.17.1"
+          channel: "stable"
       - run: flutter pub get
       - run: flutter build ios --no-codesign
       - run: git diff --exit-code
@@ -25,8 +27,10 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: "12.x"
-      - run: git clone https://github.com/flutter/flutter.git --depth 1 -b 1.17.1 _flutter
-      - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "1.17.1"
+          channel: "stable"
       - run: flutter pub get
       - run: flutter build appbundle
       - run: git diff --exit-code
