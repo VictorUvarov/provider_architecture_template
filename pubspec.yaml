@@ -24,15 +24,13 @@ dependencies:
 
   # Utilities
   provider_architecture: ^1.1.1+1
-  shared_preferences: ^0.5.7
-  connectivity: ^0.4.8+2
+  shared_preferences: ^0.5.7+2
+  connectivity: ^0.4.8+6
   app_settings: ^4.0.0
-  device_info: ^0.4.2+2
-  path_provider: ^1.6.7
+  device_info: ^0.4.2+4
+  path_provider: ^1.6.8
   hive_flutter: ^0.3.0+2
   built_value: ^7.1.0
-  http_parser: ^3.1.4
-  provider: ^4.0.5+1
   get_it: ^4.0.2
   mime: ^0.9.6+3
   hive: ^1.4.1+1
@@ -40,7 +38,7 @@ dependencies:
   dio: ^3.0.9
 
   # UI Utilities
-  flutter_platform_widgets: ^0.32.5
+  flutter_platform_widgets: ^0.41.0
 
   # UI Widgets
   cupertino_icons: ^0.1.3
@@ -56,8 +54,8 @@ dev_dependencies:
   flutter_launcher_icons: ^0.7.5
   built_value_generator: ^7.1.0
   hive_generator: ^0.7.0+2
-  build_runner: ^1.9.0
-  pedantic: ^1.8.0+1
+  build_runner: ^1.10.0
+  pedantic: ^1.9.0
   logger: ^0.9.1
   mockito: ^4.1.1
 
