@@ -27,5 +27,5 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk
-      - run: flutter build ios
+      - run: flutter format lib/** --set-exit-if-changed
+      - run: flutter analyze
