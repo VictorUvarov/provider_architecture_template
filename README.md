@@ -15,9 +15,34 @@ Filled Stacks Links:
 - [Filled Stacks YouTube](https://www.youtube.com/channel/UC2d0BYlqQCdF9lJfydl_02Q)
 - [Filled Stacks Slack](https://filledstacks.slack.com/join/shared_invite/enQtNjY0NTQ3MTYwMzEwLTJjZmU0ODRhOTA5ZGE3MTUxOTUzODdlNzFjMDg0ZGU4ZDQzMzVlMDQ0MzYxZWNhOWViOGI1NjZiZDE1YTQ3NGM)
 
+## Setup
+
+Generate your platform specific folders
+
+```bash
+flutter create .
+```
+
+Since this project uses 3 locales add this to your info.plist
+
+```plist
+<key>CFBundleLocalizations</key>
+<array>
+    <string>es</string>
+    <string>ru</string>
+    <string>en</string>
+</array>
+```
+
+Generate the launcher icon (optional)
+
+```bash
+flutter pub get flutter && pub run flutter_launcher_icons:main
+```
+
 ## Folder structure
 
-```shell
+```bash
 .
 ├── core
 │   ├── constant
