@@ -13,7 +13,7 @@ import 'package:provider_start/ui/views/start_up_view.dart';
 ///   - Routes can also require parameters. e.g. `PostDetailView(post: post)`
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    return GetRoute(
+    return GetRouteBase(
       settings: RouteSettings(name: settings.name),
       page: _generateView(settings),
       fullscreenDialog: _fullScreenDialogs.contains(settings.name),
