@@ -23,6 +23,12 @@ Generate your platform specific folders
 flutter create .
 ```
 
+or
+
+```bash
+flutter create -i objc -a java .
+```
+
 Since this project uses 3 locales add this to your info.plist
 
 ```plist
