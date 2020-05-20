@@ -47,6 +47,7 @@ dependencies:
 
 dependency_overrides:
   dartx: ^0.4.1
+  path: 1.7.0
 
 dev_dependencies:
   flutter_test:
@@ -57,12 +58,8 @@ dev_dependencies:
   hive_generator: ^0.7.0+2
   build_runner: ^1.10.0
   pedantic: ^1.9.0
-  logger: ^0.9.1
   mockito: ^4.1.1
-
-dependency_overrides:
-  path: 1.7.0
-
+  
 flutter_icons:
   android: "launcher_icon"
   ios: true
