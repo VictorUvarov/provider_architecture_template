@@ -15,9 +15,7 @@ jobs:
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b 1.17.1 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
       - run: flutter pub get
-        working-directory: ./client/app
       - run: flutter build ios --no-codesign
-        working-directory: ./client/app
       - run: git diff --exit-code
   buildandroid:
     name: Build Android app
@@ -30,7 +28,5 @@ jobs:
       - run: git clone https://github.com/flutter/flutter.git --depth 1 -b 1.17.1 _flutter
       - run: echo "::add-path::$GITHUB_WORKSPACE/_flutter/bin"
       - run: flutter pub get
-        working-directory: ./client/app
       - run: flutter build appbundle
-        working-directory: ./client/app
       - run: git diff --exit-code
