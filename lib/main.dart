@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       providers: providers,
       child: CoreManager(
         child: PlatformApp(
+          debugShowCheckedModeBanner: false,
           android: (_) => MaterialAppData(
             theme: themes.primaryMaterialTheme,
             darkTheme: themes.darkMaterialTheme,

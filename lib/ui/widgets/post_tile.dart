@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
 import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/view_models/widgets/post_tile_view_model.dart';
+import 'package:stacked/stacked.dart';
 
 class PostTile extends StatelessWidget {
   final Post post;
@@ -14,7 +14,7 @@ class PostTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<PostTileViewModel>.withoutConsumer(
+    return ViewModelBuilder<PostTileViewModel>.nonReactive(
       viewModelBuilder: () => PostTileViewModel(),
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformWidget(
@@ -37,10 +37,14 @@ class PostTile extends StatelessWidget {
         ios: (_) => Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            border: Border.all(
-              color: CupertinoTheme.of(context).primaryColor,
-            ),
+            color: CupertinoTheme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 2,
+                color: Colors.grey,
+              ),
+            ],
           ),
           child: CupertinoButton(
             onPressed: model.showPostDetails,
