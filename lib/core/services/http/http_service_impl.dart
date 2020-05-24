@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:provider_start/core/constant/api_routes.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
@@ -19,10 +18,10 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    Logger.d('Sending GET to ${ApiRoutes.base_url}/$route');
+    Logger.d('Sending GET to $route');
 
     try {
-      final fullRoute = '${ApiRoutes.base_url}/$route';
+      final fullRoute = '$route';
       response = await _dio.get(
         fullRoute,
         options: Options(
@@ -44,10 +43,10 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    Logger.d('Sending $body to ${ApiRoutes.base_url}/$route');
+    Logger.d('Sending $body to $route');
 
     try {
-      final fullRoute = '${ApiRoutes.base_url}/$route';
+      final fullRoute = '$route';
       response = await _dio.post(
         fullRoute,
         data: body,

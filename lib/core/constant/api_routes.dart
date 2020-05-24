@@ -3,10 +3,10 @@ class ApiRoutes {
   ApiRoutes._();
 
   static const base_url = 'https://jsonplaceholder.typicode.com';
-  static const posts = 'posts';
-  static const comments = 'comments';
-  static const albums = 'albums';
-  static const photos = 'photos';
-  static const todos = 'todos';
-  static const users = 'users';
+  static const posts = '${base_url}/posts';
+  static const comments = '${base_url}/comments';
+  static const albums = '${base_url}/albums';
+  static const photos = '${base_url}/photos';
+  static const todos = '${base_url}/todos';
+  static const users = '${base_url}/users';
 }
