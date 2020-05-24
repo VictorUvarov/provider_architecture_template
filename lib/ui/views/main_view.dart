@@ -5,6 +5,7 @@ import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/view_models/main_view_model.dart';
 import 'package:provider_start/ui/views/home_view.dart';
 import 'package:provider_start/ui/views/settings_view.dart';
+import 'package:provider_start/ui/widgets/animation/fade_in.dart';
 import 'package:provider_start/ui/widgets/lazy_index_stack.dart';
 import 'package:stacked/stacked.dart';
 
@@ -12,9 +13,9 @@ import 'package:stacked/stacked.dart';
 /// navigation bar item is tapped
 ///   - can be replaced with a [TabView]
 class MainView extends StatelessWidget {
-  final _views = [
-    HomeView(),
-    SettingsView(),
+  final _views = <Widget>[
+    FadeIn(child: HomeView()),
+    FadeIn(child: SettingsView()),
   ];
 
   @override
