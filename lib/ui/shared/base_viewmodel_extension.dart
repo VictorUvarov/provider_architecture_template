@@ -11,6 +11,9 @@ class BaseViewModelExt extends BaseViewModel {
 
   bool _disposed = false;
 
+  @override
+  bool get isBusy => _state == ViewState.Busy;
+
   void setState(ViewState viewState) {
     _state = viewState;
     notifyListeners();
