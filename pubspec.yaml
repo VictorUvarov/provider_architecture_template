@@ -42,7 +42,7 @@ dependencies:
   stacked_services: ^0.3.1
 
   # UI Utilities
-  flutter_platform_widgets: ^0.41.0
+  flutter_platform_widgets: ^0.32.5
 
   # UI Widgets
   cupertino_icons: ^0.1.3
