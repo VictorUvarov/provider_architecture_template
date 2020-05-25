@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/view_models/post_details_view_model.dart';
-import 'package:provider_start/ui/shared/ui_helper.dart';
-import 'package:provider_start/ui/widgets/loading_animation.dart';
-import 'package:provider_start/ui/widgets/state_responsive.dart';
+import 'package:stacked/stacked.dart';
+
+import '../../../core/models/post/post.dart';
+import '../../shared/ui_helper.dart';
+import '../../widgets/loading_animation.dart';
+import '../../widgets/state_responsive.dart';
+import 'post_details_viewmodel.dart';
 
 class PostDetailsView extends StatelessWidget {
   final Post post;
@@ -17,7 +18,7 @@ class PostDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<PostDetailsViewModel>.withConsumer(
+    return ViewModelBuilder<PostDetailsViewModel>.reactive(
       viewModelBuilder: () => PostDetailsViewModel(),
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformScaffold(
@@ -47,7 +48,7 @@ class PostDetailsView extends StatelessWidget {
   }
 }
 
-class _AdditionalInfo extends ProviderWidget<PostDetailsViewModel> {
+class _AdditionalInfo extends ViewModelWidget<PostDetailsViewModel> {
   @override
   Widget build(BuildContext context, PostDetailsViewModel model) {
     return StateResponsive(
@@ -59,7 +60,7 @@ class _AdditionalInfo extends ProviderWidget<PostDetailsViewModel> {
   }
 }
 
-class _UserDetails extends ProviderWidget<PostDetailsViewModel> {
+class _UserDetails extends ViewModelWidget<PostDetailsViewModel> {
   @override
   Widget build(BuildContext context, PostDetailsViewModel model) {
     return PlatformWidget(

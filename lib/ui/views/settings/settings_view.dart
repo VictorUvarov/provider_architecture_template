@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:stacked/stacked.dart';
+
+import '../../../core/localization/localization.dart';
+import 'settings_viewmodel.dart';
 
 /// An example settings view that uses platform adaptive widgets
 /// and builds widgets using the `provider_architecture` package,
@@ -12,7 +13,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<SettingsViewModel>.withoutConsumer(
+    return ViewModelBuilder<SettingsViewModel>.nonReactive(
       viewModelBuilder: () => SettingsViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
@@ -35,7 +36,7 @@ class SettingsView extends StatelessWidget {
   }
 }
 
-class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
+class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -70,7 +71,7 @@ class _AppSettingsListTile extends ProviderWidget<SettingsViewModel> {
   }
 }
 
-class _NotificationsListTile extends ProviderWidget<SettingsViewModel> {
+class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -105,7 +106,7 @@ class _NotificationsListTile extends ProviderWidget<SettingsViewModel> {
   }
 }
 
-class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
+class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -140,7 +141,7 @@ class _SignOutListTile extends ProviderWidget<SettingsViewModel> {
   }
 }
 
-class _ShowSnackBarListTile extends ProviderWidget<SettingsViewModel> {
+class _ShowSnackBarListTile extends ViewModelWidget<SettingsViewModel> {
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);

@@ -23,7 +23,6 @@ dependencies:
     sdk: flutter
 
   # Utilities
-  provider_architecture: ^1.1.1+1
   shared_preferences: ^0.5.7+2
   connectivity: ^0.4.8+6
   app_settings: ^4.0.0

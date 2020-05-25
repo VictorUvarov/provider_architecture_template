@@ -1,11 +1,11 @@
-import 'package:provider_start/core/enums/view_state.dart';
-import 'package:provider_start/core/exceptions/repository_exception.dart';
-import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
-import 'package:provider_start/core/view_models/base_view_model.dart';
-import 'package:provider_start/locator.dart';
+import '../../../core/enums/view_state.dart';
+import '../../../core/exceptions/repository_exception.dart';
+import '../../../core/models/post/post.dart';
+import '../../../core/repositories/posts_repository/posts_repository.dart';
+import '../../../locator.dart';
+import '../../shared/base_viewmodel_extension.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModelExt {
   final _postsRepository = locator<PostsRepository>();
 
   List<Post> _posts = [];

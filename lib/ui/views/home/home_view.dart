@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/home_view_model.dart';
-import 'package:provider_start/ui/widgets/loading_animation.dart';
-import 'package:provider_start/ui/widgets/post_tile.dart';
-import 'package:provider_start/ui/widgets/state_responsive.dart';
+import 'package:stacked/stacked.dart';
+
+import '../../../core/localization/localization.dart';
+import '../../widgets/loading_animation.dart';
+import '../../widgets/post_tile/post_tile.dart';
+import '../../widgets/state_responsive.dart';
+import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<HomeViewModel>.withConsumer(
+    return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => PlatformScaffold(
@@ -33,7 +34,7 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class _Posts extends ProviderWidget<HomeViewModel> {
+class _Posts extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel model) {
     return ListView.builder(

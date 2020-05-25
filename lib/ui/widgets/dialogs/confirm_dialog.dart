@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_start/core/localization/localization.dart';
+
+import '../../../core/localization/localization.dart';
 
 class ConfirmDialog extends StatelessWidget {
   final VoidCallback onDenied;

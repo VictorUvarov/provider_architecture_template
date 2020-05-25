@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:provider_architecture/provider_architecture.dart';
-import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/login_view_model.dart';
-import 'package:provider_start/ui/shared/ui_helper.dart';
-import 'package:provider_start/ui/widgets/cupertino/cupertino_text_form_field.dart';
-import 'package:provider_start/ui/widgets/loading_animation.dart';
+import 'package:stacked/stacked.dart';
+
+import '../../../core/localization/localization.dart';
+import '../../shared/ui_helper.dart';
+import '../../widgets/cupertino/cupertino_text_form_field.dart';
+import '../../widgets/loading_animation.dart';
+import 'login_viewmodel.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -40,7 +41,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelProvider<LoginViewModel>.withConsumer(
+    return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
         onTap: () {
@@ -57,7 +58,7 @@ class _LoginViewState extends State<LoginView> {
           body: Form(
             key: formKey,
             child: IgnorePointer(
-              ignoring: model.busy,
+              ignoring: model.isBusy,
               child: Center(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
@@ -89,7 +90,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       UIHelper.verticalSpaceMedium(),
                       _SignInButton(
-                        busy: model.busy,
+                        busy: model.isBusy,
                         onPressed: () {
                           if (!formKey.currentState.validate()) return;
 

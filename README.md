@@ -62,7 +62,7 @@ flutter pub get flutter && pub run flutter_launcher_icons:main
 │   ├── repositories
 │   ├── services
 │   ├── utils
-│   └── view_models
+│   └── viewmodels
 └── ui
     ├── shared
     ├── views
