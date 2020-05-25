@@ -1,7 +1,7 @@
-import 'package:provider_start/core/exceptions/auth_exception.dart';
-import 'package:provider_start/core/models/user/user.dart';
-import 'package:provider_start/core/services/auth/auth_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
+import '../../exceptions/auth_exception.dart';
+import '../../models/user/user.dart';
+import '../../utils/logger.dart';
+import 'auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
   User _currentUser;

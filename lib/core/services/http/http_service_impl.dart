@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:provider_start/core/constant/api_routes.dart';
-import 'package:provider_start/core/exceptions/network_exception.dart';
-import 'package:provider_start/core/services/http/http_service.dart';
-import 'package:provider_start/core/utils/file_helper.dart';
-import 'package:provider_start/core/utils/logger.dart';
-import 'package:provider_start/core/utils/network_utils.dart' as network_utils;
-import 'package:provider_start/locator.dart';
+
+import '../../../locator.dart';
+import '../../constant/api_routes.dart';
+import '../../exceptions/network_exception.dart';
+import '../../utils/file_helper.dart';
+import '../../utils/logger.dart';
+import '../../utils/network_utils.dart' as network_utils;
+import 'http_service.dart';
 
 /// Helper service that abstracts away common HTTP Requests
 class HttpServiceImpl implements HttpService {

@@ -1,7 +1,8 @@
-import 'package:intl/intl.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider_start/core/localization/localization.dart';
+import 'package:intl/intl.dart';
+
+import 'core/localization/localization.dart';
 
 /// List of languages codes that the app will support
 /// https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes

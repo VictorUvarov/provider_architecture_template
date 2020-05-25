@@ -1,8 +1,8 @@
 import "package:flutter/foundation.dart";
 import 'package:logger/logger.dart' as debug_logger;
+import 'package:mockito/mockito.dart';
 import 'package:provider_start/core/utils/simple_log_printer.dart'
     as debug_logger_util;
-import 'package:mockito/mockito.dart';
 
 /// Run this before starting app
 void setupLogger({bool test = false}) {

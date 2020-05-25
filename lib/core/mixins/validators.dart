@@ -1,4 +1,4 @@
-import 'package:provider_start/core/constant/local_keys.dart';
+import '../constant/local_keys.dart';
 
 /// Class of validation functions that the app will use
 ///   - This class should be used as a mixin using the `with` keyword

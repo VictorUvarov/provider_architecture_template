@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
-import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/models/alert_request/alert_request.dart';
-import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
-import 'package:provider_start/core/models/alert_response/alert_response.dart';
-import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
-import 'package:provider_start/core/services/dialog/dialog_service.dart';
-import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/locator.dart';
-import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
+
+import '../../../locator.dart';
+import '../../../ui/widgets/dialogs/confirm_dialog.dart';
+import '../../localization/localization.dart';
+import '../../models/alert_request/alert_request.dart';
+import '../../models/alert_request/confirm_alert_request.dart';
+import '../../models/alert_response/alert_response.dart';
+import '../../models/alert_response/confirm_alert_response.dart';
+import '../navigation/navigation_service.dart';
+import 'dialog_service.dart';
 
 /// A service that is responsible for returning future dialogs
 class DialogServiceImpl implements DialogService {

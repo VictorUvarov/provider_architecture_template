@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider_start/core/managers/lifecycle_manager.dart';
+
+import 'lifecycle_manager.dart';
 
 /// A Widget that will wrap all the managers into one widget
 ///   - to add another manager just wrap the widget

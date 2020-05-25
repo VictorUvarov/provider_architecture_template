@@ -1,8 +1,9 @@
 import 'dart:convert' as convert;
 
 import 'package:dio/dio.dart';
-import 'package:provider_start/core/exceptions/network_exception.dart';
-import 'package:provider_start/core/utils/logger.dart';
+
+import '../exceptions/network_exception.dart';
+import 'logger.dart';
 
 void checkForNetworkExceptions(Response response) {
   if (response.statusCode != 200) {

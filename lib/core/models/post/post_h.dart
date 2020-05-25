@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:provider_start/core/models/post/post.dart';
+
+import 'post.dart';
 
 part 'post_h.g.dart';
 

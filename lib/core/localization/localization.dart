@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:provider_start/core/constant/local_keys.dart';
-import 'package:provider_start/local_setup.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../local_setup.dart';
+import '../constant/local_keys.dart';
 
 class AppLocalizations {
   final Locale locale;

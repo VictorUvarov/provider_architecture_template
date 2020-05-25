@@ -1,6 +1,7 @@
-import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../utils/logger.dart';
+import 'key_storage_service.dart';
 
 /// Service that is responsible for storing/retrieving data in/from
 /// local storage using the [SharedPreferences] package.
