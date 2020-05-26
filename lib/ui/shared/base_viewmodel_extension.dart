@@ -1,6 +1,6 @@
 import 'package:stacked/stacked.dart';
 
-import '../../core/enums/view_state.dart';
+import 'package:provider_start/core/enums/view_state.dart';
 
 /// Class for view models to extend from. Keeps track
 /// of [ViewState] and exposes a function to change the

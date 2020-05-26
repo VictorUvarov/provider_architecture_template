@@ -1,19 +1,19 @@
 import 'package:app_settings/app_settings.dart';
 
-import '../../../core/constant/local_keys.dart';
-import '../../../core/constant/view_routes.dart';
-import '../../../core/enums/view_state.dart';
-import '../../../core/models/alert_request/confirm_alert_request.dart';
-import '../../../core/models/alert_response/confirm_alert_response.dart';
-import '../../../core/models/snack_bar_request/confirm_snack_bar_request.dart';
-import '../../../core/services/auth/auth_service.dart';
-import '../../../core/services/dialog/dialog_service.dart';
-import '../../../core/services/key_storage/key_storage_service.dart';
-import '../../../core/services/navigation/navigation_service.dart';
-import '../../../core/services/snackbar/snack_bar_service.dart';
-import '../../../core/utils/logger.dart';
-import '../../../locator.dart';
-import '../../shared/base_viewmodel_extension.dart';
+import 'package:provider_start/core/constant/local_keys.dart';
+import 'package:provider_start/core/constant/view_routes.dart';
+import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
+import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
+import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_request.dart';
+import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/dialog/dialog_service.dart';
+import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/shared/base_viewmodel_extension.dart';
 
 class SettingsViewModel extends BaseViewModelExt {
   final _dialogService = locator<DialogService>();

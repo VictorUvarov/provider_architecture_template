@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/localization/localization.dart';
-import 'settings_viewmodel.dart';
+import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/ui/views/settings/settings_viewmodel.dart';
 
 /// An example settings view that uses platform adaptive widgets
 /// and builds widgets using the `provider_architecture` package,

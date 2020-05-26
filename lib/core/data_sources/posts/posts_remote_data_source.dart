@@ -1,7 +1,7 @@
-import '../../../locator.dart';
-import '../../constant/api_routes.dart';
-import '../../models/post/post.dart';
-import '../../services/http/http_service.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/core/constant/api_routes.dart';
+import 'package:provider_start/core/models/post/post.dart';
+import 'package:provider_start/core/services/http/http_service.dart';
 
 abstract class PostsRemoteDataSource {
   Future<List<Post>> fetchPosts();

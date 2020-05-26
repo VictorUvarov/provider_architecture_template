@@ -1,10 +1,10 @@
-import '../../../core/enums/view_state.dart';
-import '../../../core/exceptions/repository_exception.dart';
-import '../../../core/models/post/post.dart';
-import '../../../core/models/user/user.dart';
-import '../../../core/repositories/users_repository/users_repository.dart';
-import '../../../locator.dart';
-import '../../shared/base_viewmodel_extension.dart';
+import 'package:provider_start/core/enums/view_state.dart';
+import 'package:provider_start/core/exceptions/repository_exception.dart';
+import 'package:provider_start/core/models/post/post.dart';
+import 'package:provider_start/core/models/user/user.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/shared/base_viewmodel_extension.dart';
 
 class PostDetailsViewModel extends BaseViewModelExt {
   final _usersRepository = locator<UsersRepository>();

@@ -1,4 +1,4 @@
-import '../../shared/base_viewmodel_extension.dart';
+import 'package:provider_start/ui/shared/base_viewmodel_extension.dart';
 
 class MainViewModel extends BaseViewModelExt {
   int _index = 0;

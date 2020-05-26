@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import '../../../locator.dart';
-import '../../data_sources/posts/posts_local_data_source.dart';
-import '../../data_sources/posts/posts_remote_data_source.dart';
-import '../../exceptions/cache_exception.dart';
-import '../../exceptions/network_exception.dart';
-import '../../exceptions/repository_exception.dart';
-import '../../models/post/post.dart';
-import '../../services/connectivity/connectivity_service.dart';
-import '../../utils/logger.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
+import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.dart';
+import 'package:provider_start/core/exceptions/cache_exception.dart';
+import 'package:provider_start/core/exceptions/network_exception.dart';
+import 'package:provider_start/core/exceptions/repository_exception.dart';
+import 'package:provider_start/core/models/post/post.dart';
+import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
+import 'package:provider_start/core/utils/logger.dart';
 import 'posts_repository.dart';
 
 class PostsRepositoryImpl implements PostsRepository {

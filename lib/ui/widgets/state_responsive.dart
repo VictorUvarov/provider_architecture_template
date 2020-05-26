@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import '../../core/enums/view_state.dart';
+import 'package:provider_start/core/enums/view_state.dart';
 
 class StateResponsive extends StatelessWidget {
   final ViewState state;

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import 'user.dart';
+import 'package:provider_start/core/models/user/user.dart';
 
 part 'user_h.g.dart';
 

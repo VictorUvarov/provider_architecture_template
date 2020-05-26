@@ -1,4 +1,4 @@
-import '../../models/user/user.dart';
+import 'package:provider_start/core/models/user/user.dart';
 
 abstract class UsersRepository {
   /// - throws `RepositoryException` if fetch fails

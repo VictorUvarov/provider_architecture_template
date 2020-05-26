@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/localization/localization.dart';
-import '../../widgets/lazy_index_stack.dart';
-import '../home/home_view.dart';
-import '../settings/settings_view.dart';
-import 'main_viewmodel.dart';
+import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/ui/widgets/lazy_index_stack.dart';
+import 'package:provider_start/ui/views/home/home_view.dart';
+import 'package:provider_start/ui/views/settings/settings_view.dart';
+import 'package:provider_start/ui/views/main/main_viewmodel.dart';
 
 /// Main view container that handles rendering pages according to which bottom
 /// navigation bar item is tapped

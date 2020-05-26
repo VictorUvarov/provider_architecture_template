@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/models/post/post.dart';
-import 'post_tile_viewmodel.dart';
+import 'package:provider_start/core/models/post/post.dart';
+import 'package:provider_start/ui/widgets/post_tile/post_tile_viewmodel.dart';
 
 class PostTile extends StatelessWidget {
   final Post post;

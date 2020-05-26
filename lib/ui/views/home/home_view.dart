@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../core/localization/localization.dart';
-import '../../widgets/loading_animation.dart';
-import '../../widgets/post_tile/post_tile.dart';
-import '../../widgets/state_responsive.dart';
-import 'home_viewmodel.dart';
+import 'package:provider_start/core/localization/localization.dart';
+import 'package:provider_start/ui/widgets/loading_animation.dart';
+import 'package:provider_start/ui/widgets/post_tile/post_tile.dart';
+import 'package:provider_start/ui/widgets/state_responsive.dart';
+import 'package:provider_start/ui/views/home/home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   @override

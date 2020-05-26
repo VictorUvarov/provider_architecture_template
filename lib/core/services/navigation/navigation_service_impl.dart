@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart' show GlobalKey, NavigatorState;
 import 'package:get/get.dart';
 
-import 'navigation_service.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
 
 class NavigationServiceImpl implements NavigationService {
   @override
