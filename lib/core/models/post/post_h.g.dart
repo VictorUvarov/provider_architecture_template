@@ -37,4 +37,14 @@ class PostHAdapter extends TypeAdapter<PostH> {
       ..writeByte(3)
       ..write(obj.userId);
   }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PostHAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
