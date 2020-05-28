@@ -1,10 +1,10 @@
 # provider_start
 
-A production ready flutter application template for the provider architecture.
+A production ready flutter application template for the stacked architecture with immutable state.
 
 ## Inspiration
 
-- This project is a starting point for a Flutter application using the provider architecture.
+- This project is a starting point for a Flutter application using the stacked architecture.
 - This project heavily uses the flutter tutorials and snippets of the filled stacks YouTube channel.
 - Feel free to send in Pull Requests to improve the application.
 
@@ -61,8 +61,8 @@ flutter pub get flutter && pub run flutter_launcher_icons:main
 │   ├── models
 │   ├── repositories
 │   ├── services
-│   ├── utils
-│   └── view_models
+│   └── utils
+├── state
 └── ui
     ├── shared
     ├── views
@@ -95,8 +95,10 @@ flutter pub get flutter && pub run flutter_launcher_icons:main
 - [x] custom app icons
 - [x] custom native splash screen
 - [x] snack bar service
+- [x] unit tests
+- [ ] widget tests
+- [ ] integration tests
 - [ ] responsive views
-- [ ] unit tests
 
 ### Geolocator branch
 
