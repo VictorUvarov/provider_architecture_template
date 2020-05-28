@@ -167,8 +167,7 @@ class CupertinoTextFormField extends FormField<String> {
           enabled: enabled,
           builder: (FormFieldState<String> field) {
             final _CupertinoTextFormFieldState state = field;
-            final BoxDecoration effectiveDecoration =
-                decoration ?? const BoxDecoration();
+            final effectiveDecoration = decoration ?? const BoxDecoration();
             void onChangedHandler(String value) {
               if (onChanged != null) {
                 onChanged(value);

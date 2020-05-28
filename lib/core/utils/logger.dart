@@ -1,4 +1,4 @@
-import "package:flutter/foundation.dart";
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart' as debug_logger;
 import 'package:provider_start/core/utils/simple_log_printer.dart'
     as debug_logger_util;
@@ -19,14 +19,14 @@ void setupLogger({bool test = false}) {
 
 class _MockClient extends Mock implements _LoggerClient {
   @override
-  log({LogLevel level, String message, e, StackTrace s}) {}
+  void log({LogLevel level, String message, e, StackTrace s}) {}
 }
 
 class Logger {
   static _LoggerClient _client;
 
   /// Debug level logs
-  static d(
+  static void d(
     String message, {
     dynamic e,
     StackTrace s,
@@ -40,7 +40,7 @@ class Logger {
   }
 
   // Warning level logs
-  static w(
+  static void w(
     String message, {
     dynamic e,
     StackTrace s,
@@ -56,7 +56,7 @@ class Logger {
   /// Error level logs
   /// Requires a current StackTrace to report correctly on Crashlytics
   /// Always reports as non-fatal to Crashlytics
-  static e(
+  static void e(
     String message, {
     dynamic e,
     StackTrace s,
@@ -69,7 +69,7 @@ class Logger {
     );
   }
 
-  static useClient(_LoggerClient client) {
+  static void useClient(_LoggerClient client) {
     _client = client;
   }
 }
@@ -77,7 +77,7 @@ class Logger {
 enum LogLevel { debug, warning, error }
 
 abstract class _LoggerClient {
-  log({
+  void log({
     LogLevel level,
     String message,
     dynamic e,
@@ -87,10 +87,10 @@ abstract class _LoggerClient {
 
 /// Debug logger that just prints to console
 class _DebugLoggerClient implements _LoggerClient {
-  debug_logger.Logger _logger = debug_logger_util.getLogger();
+  final debug_logger.Logger _logger = debug_logger_util.getLogger();
 
   @override
-  log({
+  void log({
     LogLevel level,
     String message,
     dynamic e,

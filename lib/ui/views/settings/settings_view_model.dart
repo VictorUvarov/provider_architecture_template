@@ -1,7 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/local_keys.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
-import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
@@ -11,23 +10,21 @@ import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_r
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
-import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/state/base_view_model.dart';
+import 'package:provider_start/ui/views/settings/settings_view_state.dart';
 
-class SettingsViewModel extends BaseViewModel {
+class SettingsViewModel extends BaseViewModel<SettingsViewState> {
   final _dialogService = locator<DialogService>();
   final _navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
   final _keyStorageService = locator<KeyStorageService>();
   final _snackBarService = locator<SnackBarService>();
 
-  bool _notificationsEnabled = false;
-  bool get notificationsEnabled => _notificationsEnabled;
-
   Future<void> init() async {
-    setState(ViewState.Busy);
-    _notificationsEnabled = _keyStorageService.hasNotificationsEnabled;
-    setState(ViewState.Idle);
+    setState(SettingsViewState.loading());
+    var notificationsEnabled = _keyStorageService.hasNotificationsEnabled;
+    setState(SettingsViewState.loaded(notificationsEnabled));
   }
 
   void openAppSettings() {
@@ -53,9 +50,9 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   void toggleNotificationsEnabled() {
-    _notificationsEnabled = !_notificationsEnabled;
-    _keyStorageService.hasNotificationsEnabled = _notificationsEnabled;
-    notifyListeners();
+    var enabled = !_keyStorageService.hasNotificationsEnabled;
+    setState(SettingsViewState.loaded(enabled));
+    _keyStorageService.hasNotificationsEnabled = enabled;
   }
 
   // Snack bar Sample usage

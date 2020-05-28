@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/views/login/login_view_model.dart';
 import 'package:provider_start/ui/widgets/cupertino/cupertino_text_form_field.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
-import 'package:stacked/stacked.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -40,73 +40,77 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
-      builder: (context, model, child) => GestureDetector(
-        onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
-          }
-        },
-        child: PlatformScaffold(
-          appBar: PlatformAppBar(
-            title: Text(local.loginViewTitle),
-            ios: (_) => CupertinoNavigationBarData(previousPageTitle: ''),
-          ),
-          body: Form(
-            key: formKey,
-            child: IgnorePointer(
-              ignoring: model.busy,
-              child: Center(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: <Widget>[
-                      _EmailTextField(
-                        controller: emailController,
-                        onFieldSubmitted: (_) =>
-                            passwordFocusNode.requestFocus(),
-                        validator: (_) => local.translate(
-                          model.validateEmail(emailController.text),
-                        ),
-                      ),
-                      UIHelper.verticalSpaceMedium(),
-                      _PasswordTextField(
-                        controller: passwordController,
-                        focusNode: passwordFocusNode,
-                        onFieldSubmitted: (_) {
-                          if (!formKey.currentState.validate()) return;
+    return ChangeNotifierProvider<LoginViewModel>.value(
+      value: LoginViewModel(),
+      builder: (context, child) {
+        final model = context.watch<LoginViewModel>();
 
-                          model.login(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                        },
-                        validator: (_) => local.translate(
-                          model.validatePassword(passwordController.text),
+        return GestureDetector(
+          onTap: () {
+            var currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: PlatformScaffold(
+            appBar: PlatformAppBar(
+              title: Text(local.loginViewTitle),
+              ios: (_) => CupertinoNavigationBarData(previousPageTitle: ''),
+            ),
+            body: Form(
+              key: formKey,
+              child: IgnorePointer(
+                ignoring: model.state.isLoading,
+                child: Center(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: <Widget>[
+                        _EmailTextField(
+                          controller: emailController,
+                          onFieldSubmitted: (_) =>
+                              passwordFocusNode.requestFocus(),
+                          validator: (_) => local.translate(
+                            model.validateEmail(emailController.text),
+                          ),
                         ),
-                      ),
-                      UIHelper.verticalSpaceMedium(),
-                      _SignInButton(
-                        busy: model.busy,
-                        onPressed: () {
-                          if (!formKey.currentState.validate()) return;
+                        UIHelper.verticalSpaceMedium(),
+                        _PasswordTextField(
+                          controller: passwordController,
+                          focusNode: passwordFocusNode,
+                          onFieldSubmitted: (_) {
+                            if (!formKey.currentState.validate()) return;
 
-                          model.login(
-                            emailController.text,
-                            passwordController.text,
-                          );
-                        },
-                      ),
-                    ],
+                            model.login(
+                              emailController.text,
+                              passwordController.text,
+                            );
+                          },
+                          validator: (_) => local.translate(
+                            model.validatePassword(passwordController.text),
+                          ),
+                        ),
+                        UIHelper.verticalSpaceMedium(),
+                        _SignInButton(
+                          busy: model.state.isLoading,
+                          onPressed: () {
+                            if (!formKey.currentState.validate()) return;
+
+                            model.login(
+                              emailController.text,
+                              passwordController.text,
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

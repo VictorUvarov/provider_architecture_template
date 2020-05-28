@@ -20,6 +20,7 @@ class KeyStorageServiceImpl implements KeyStorageService {
 
   @override
   bool get hasNotificationsEnabled => _getFromDisk(notifications_key) ?? false;
+  @override
   set hasNotificationsEnabled(bool value) =>
       _saveToDisk(notifications_key, value);
 

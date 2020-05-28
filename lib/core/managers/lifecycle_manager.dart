@@ -10,6 +10,7 @@ class LifeCycleManager extends StatefulWidget {
 
   const LifeCycleManager({Key key, this.child}) : super(key: key);
 
+  @override
   _LifeCycleManagerState createState() => _LifeCycleManagerState();
 }
 

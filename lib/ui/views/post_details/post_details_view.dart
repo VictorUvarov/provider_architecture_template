@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/view_models/post_details_view_model.dart';
+import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/views/post_details/post_details_view_model.dart';
 import 'package:provider_start/ui/widgets/loading_animation.dart';
-import 'package:provider_start/ui/widgets/state_responsive.dart';
 import 'package:stacked/stacked.dart';
 
 class PostDetailsView extends StatelessWidget {
@@ -18,8 +18,7 @@ class PostDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<PostDetailsViewModel>.reactive(
-      viewModelBuilder: () => PostDetailsViewModel(),
-      onModelReady: (model) => model.init(post),
+      viewModelBuilder: () => PostDetailsViewModel()..init(post),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(
@@ -39,7 +38,13 @@ class PostDetailsView extends StatelessWidget {
               ),
             ),
             UIHelper.verticalSpaceLarge(),
-            _AdditionalInfo(),
+            model.state.match(
+              loading: () => _LoadingAnimation(),
+              loaded: (user) => _UserDetails(
+                user: user,
+              ),
+              error: (message) => _ErrorIcon(),
+            ),
           ],
         ),
       ),
@@ -47,30 +52,26 @@ class PostDetailsView extends StatelessWidget {
   }
 }
 
-class _AdditionalInfo extends ViewModelWidget<PostDetailsViewModel> {
-  @override
-  Widget build(BuildContext context, PostDetailsViewModel model) {
-    return StateResponsive(
-      state: model.state,
-      idleWidget: _UserDetails(),
-      busyWidget: _LoadingAnimation(),
-      errorWidget: _ErrorIcon(),
-    );
-  }
-}
+class _UserDetails extends StatelessWidget {
+  final User user;
 
-class _UserDetails extends ViewModelWidget<PostDetailsViewModel> {
+  const _UserDetails({
+    Key key,
+    @required this.user,
+  })  : assert(user != null),
+        super(key: key);
+
   @override
-  Widget build(BuildContext context, PostDetailsViewModel model) {
+  Widget build(BuildContext context) {
     return PlatformWidget(
       android: (_) => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text(model.user.username),
+          Text(user.username),
           UIHelper.verticalSpaceMedium(),
-          Text(model.user.name),
+          Text(user.name),
           UIHelper.verticalSpaceMedium(),
-          Text(model.user.website),
+          Text(user.website),
         ],
       ),
       ios: (_) {
@@ -80,17 +81,17 @@ class _UserDetails extends ViewModelWidget<PostDetailsViewModel> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              model.user.username,
+              user.username,
               style: style,
             ),
             UIHelper.verticalSpaceMedium(),
             Text(
-              model.user.name,
+              user.name,
               style: style,
             ),
             UIHelper.verticalSpaceMedium(),
             Text(
-              model.user.website,
+              user.website,
               style: style,
             ),
           ],

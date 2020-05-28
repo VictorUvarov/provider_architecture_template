@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/ui/views/settings/settings_view_model.dart';
+import 'package:provider_start/ui/widgets/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 
 /// An example settings view that uses platform adaptive widgets
@@ -12,9 +13,8 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context);
 
-    return ViewModelBuilder<SettingsViewModel>.nonReactive(
-      viewModelBuilder: () => SettingsViewModel(),
-      onModelReady: (model) => model.init(),
+    return ViewModelBuilder<SettingsViewModel>.reactive(
+      viewModelBuilder: () => SettingsViewModel()..init(),
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.settingsViewTitle),
@@ -22,20 +22,58 @@ class SettingsView extends StatelessWidget {
             transitionBetweenRoutes: false,
           ),
         ),
-        body: ListView(
-          children: <Widget>[
-            _AppSettingsListTile(),
-            _NotificationsListTile(),
-            _ShowSnackBarListTile(),
-            _SignOutListTile()
-          ],
+        body: model.state.match(
+          loading: () => _LoadingProfile(),
+          error: (message) => _ErrorUI(
+            message: message,
+          ),
+          loaded: (notificationsEnabled) => ListView(
+            children: <Widget>[
+              _AppSettingsListTile(),
+              _NotificationsListTile(
+                enabled: notificationsEnabled,
+              ),
+              _ShowSnackBarListTile(),
+              _SignOutListTile()
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+class _LoadingProfile extends StatelessWidget {
+  const _LoadingProfile({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: LoadingAnimation(),
+    );
+  }
+}
+
+class _ErrorUI extends StatelessWidget {
+  final String message;
+
+  const _ErrorUI({
+    Key key,
+    @required this.message,
+  })  : assert(message != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(message),
+    );
+  }
+}
+
 class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
+  _AppSettingsListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -71,6 +109,14 @@ class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
+  final bool enabled;
+
+  const _NotificationsListTile({
+    Key key,
+    @required this.enabled,
+  })  : assert(enabled != null),
+        super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -81,7 +127,7 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
         title: Text(local.settingsViewNotifications),
         subtitle: Text(local.settingsViewNotificationsDesc),
         trailing: Switch.adaptive(
-          value: model.notificationsEnabled,
+          value: enabled,
           onChanged: (_) => model.toggleNotificationsEnabled(),
         ),
       ),
@@ -95,7 +141,7 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
             ),
             Spacer(),
             Switch.adaptive(
-              value: model.notificationsEnabled,
+              value: enabled,
               onChanged: (_) => model.toggleNotificationsEnabled(),
             ),
           ],
@@ -106,6 +152,8 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
+  _SignOutListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -141,6 +189,8 @@ class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _ShowSnackBarListTile extends ViewModelWidget<SettingsViewModel> {
+  _ShowSnackBarListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);

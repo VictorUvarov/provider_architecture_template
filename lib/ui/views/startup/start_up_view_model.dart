@@ -5,10 +5,11 @@ import 'package:provider_start/core/data_sources/users/users_local_data_source.d
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/state/base_view_model.dart';
+import 'package:provider_start/ui/views/startup/start_up_view_state.dart';
 
-class StartUpViewModel extends BaseViewModel {
+class StartUpViewModel extends BaseViewModel<StartupViewState> {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
   final postsLocalDataSource = locator<PostsLocalDataSource>();

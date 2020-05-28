@@ -15,7 +15,7 @@ class PostsRemoteDataSourceImpl implements PostsRemoteDataSource {
     final postsJsonData =
         await httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
 
-    final List<Post> posts =
+    final posts =
         postsJsonData.map<Post>((postMap) => Post.fromMap(postMap)).toList();
 
     return posts;

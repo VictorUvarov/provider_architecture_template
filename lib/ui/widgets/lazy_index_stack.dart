@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
 
+/// An indexed stack that lazily loads its children.
+/// Used in the MainView to avoid loading the other views
+/// that the user has not clicked on.
 class LazyIndexedStack extends StatefulWidget {
   final AlignmentGeometry alignment;
   final TextDirection textDirection;
@@ -40,7 +43,7 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
   void initState() {
     _loaded = [];
     _children = [];
-    for (int i = 0; i < widget.itemCount; ++i) {
+    for (var i = 0; i < widget.itemCount; ++i) {
       if (i == widget.index) {
         _children.add(widget.itemBuilder(context, i));
         _loaded.add(true);
@@ -54,7 +57,7 @@ class _LazyIndexedStackState extends State<LazyIndexedStack> {
 
   @override
   void didUpdateWidget(LazyIndexedStack oldWidget) {
-    for (int i = 0; i < widget.itemCount; ++i) {
+    for (var i = 0; i < widget.itemCount; ++i) {
       if (i == widget.index) {
         if (!_loaded[i]) {
           _children[i] = widget.itemBuilder(context, i);
