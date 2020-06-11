@@ -1,7 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/local_keys.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
-import 'package:provider_start/core/enums/view_state.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
@@ -11,8 +10,8 @@ import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_r
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
-import 'package:provider_start/core/view_models/base_view_model.dart';
 import 'package:provider_start/locator.dart';
+import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
@@ -25,9 +24,8 @@ class SettingsViewModel extends BaseViewModel {
   bool get notificationsEnabled => _notificationsEnabled;
 
   Future<void> init() async {
-    setState(ViewState.Busy);
     _notificationsEnabled = _keyStorageService.hasNotificationsEnabled;
-    setState(ViewState.Idle);
+    notifyListeners();
   }
 
   void openAppSettings() {

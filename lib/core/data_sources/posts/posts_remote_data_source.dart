@@ -12,10 +12,10 @@ class PostsRemoteDataSourceImpl implements PostsRemoteDataSource {
 
   @override
   Future<List<Post>> fetchPosts() async {
-    final postsJsonData =
+    var postsJsonData =
         await httpService.getHttp(ApiRoutes.posts) as List<dynamic>;
 
-    final List<Post> posts =
+    var posts =
         postsJsonData.map<Post>((postMap) => Post.fromMap(postMap)).toList();
 
     return posts;

@@ -2,10 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/models/post/post.dart';
-import 'package:provider_start/core/view_models/post_details_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
-import 'package:provider_start/ui/widgets/loading_animation.dart';
-import 'package:provider_start/ui/widgets/state_responsive.dart';
+import 'package:provider_start/ui/widgets/stateful/post_details/post_details_view_model.dart';
+import 'package:provider_start/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 
 class PostDetailsView extends StatelessWidget {
@@ -50,12 +49,13 @@ class PostDetailsView extends StatelessWidget {
 class _AdditionalInfo extends ViewModelWidget<PostDetailsViewModel> {
   @override
   Widget build(BuildContext context, PostDetailsViewModel model) {
-    return StateResponsive(
-      state: model.state,
-      idleWidget: _UserDetails(),
-      busyWidget: _LoadingAnimation(),
-      errorWidget: _ErrorIcon(),
-    );
+    if (model.isBusy) {
+      return _LoadingAnimation();
+    }
+    if (model.error) {
+      return _ErrorIcon();
+    }
+    return _UserDetails();
   }
 }
 

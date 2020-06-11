@@ -51,21 +51,20 @@ flutter pub get flutter && pub run flutter_launcher_icons:main
 ```bash
 .
 ├── core
-│   ├── constant
-│   ├── data_sources
-│   ├── enums
-│   ├── exceptions
-│   ├── localization
-│   ├── managers
-│   ├── mixins
-│   ├── models
-│   ├── repositories
-│   ├── services
-│   ├── utils
-│   └── view_models
+│   ├── constant
+│   ├── data_sources
+│   ├── enums
+│   ├── exceptions
+│   ├── localization
+│   ├── managers
+│   ├── mixins
+│   ├── models
+│   ├── repositories
+│   ├── services
+│   └── utils
 └── ui
     ├── shared
-    ├── views
+    ├── views & viewModels
     └── widgets
 ```
 

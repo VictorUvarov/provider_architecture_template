@@ -1,4 +1,4 @@
-import 'package:provider_start/core/view_models/base_view_model.dart';
+import 'package:stacked/stacked.dart';
 
 class MainViewModel extends BaseViewModel {
   int _index = 0;

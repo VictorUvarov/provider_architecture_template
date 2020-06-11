@@ -58,7 +58,7 @@ class UserH extends HiveObject {
   }
 
   Map<String, dynamic> toMap() {
-    final Map<String, dynamic> map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
     map['username'] = username;

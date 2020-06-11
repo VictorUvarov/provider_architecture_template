@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/login_view_model.dart';
 import 'package:provider_start/ui/shared/ui_helper.dart';
+import 'package:provider_start/ui/views/login/login_view_model.dart';
 import 'package:provider_start/ui/widgets/cupertino/cupertino_text_form_field.dart';
-import 'package:provider_start/ui/widgets/loading_animation.dart';
+import 'package:provider_start/ui/widgets/stateless/loading_animation.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatefulWidget {
@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => GestureDetector(
         onTap: () {
-          FocusScopeNode currentFocus = FocusScope.of(context);
+          var currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
@@ -57,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
           body: Form(
             key: formKey,
             child: IgnorePointer(
-              ignoring: model.busy,
+              ignoring: model.isBusy,
               child: Center(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(20),
@@ -89,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       UIHelper.verticalSpaceMedium(),
                       _SignInButton(
-                        busy: model.busy,
+                        busy: model.isBusy,
                         onPressed: () {
                           if (!formKey.currentState.validate()) return;
 

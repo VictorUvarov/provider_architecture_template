@@ -13,8 +13,8 @@ void main() {
   HttpService httpService;
 
   final mockPostsJson = [
-    {"userId": 1, "id": 1, "title": "Post 1", "body": "Post 1 body"},
-    {"userId": 1, "id": 2, "title": "Post 2", "body": "Post 2 body"},
+    {'userId': 1, 'id': 1, 'title': 'Post 1', 'body': 'Post 1 body'},
+    {'userId': 1, 'id': 2, 'title': 'Post 2', 'body': 'Post 2 body'},
   ];
 
   setUp(() async {

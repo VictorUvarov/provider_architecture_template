@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/main_view_model.dart';
-import 'package:provider_start/ui/views/home_view.dart';
-import 'package:provider_start/ui/views/settings_view.dart';
+import 'package:provider_start/ui/views/main/main_view_model.dart';
+import 'package:provider_start/ui/views/settings/settings_view.dart';
+import 'package:provider_start/ui/views/home/home_view.dart';
 import 'package:provider_start/ui/widgets/animation/fade_in.dart';
-import 'package:provider_start/ui/widgets/lazy_index_stack.dart';
+import 'package:provider_start/ui/widgets/stateful/lazy_index_stack.dart';
 import 'package:stacked/stacked.dart';
 
 /// Main view container that handles rendering pages according to which bottom
