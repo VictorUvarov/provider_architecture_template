@@ -77,10 +77,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/animations
-    - assets/fonts
-    - assets/images
-    - assets/lang
+    - assets/animations/
+    - assets/fonts/
+    - assets/images/
+    - assets/lang/
 
   fonts:
     - family: Open Sans
