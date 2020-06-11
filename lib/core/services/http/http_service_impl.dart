@@ -73,7 +73,7 @@ class HttpServiceImpl implements HttpService {
     Map<String, dynamic> body,
     List<File> files,
   ) async {
-    int index = 0;
+    var index = 0;
 
     final formData = FormData.fromMap(body);
     files?.forEach((file) async {

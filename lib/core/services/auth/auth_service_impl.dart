@@ -5,6 +5,7 @@ import 'package:provider_start/core/utils/logger.dart';
 
 class AuthServiceImpl implements AuthService {
   User _currentUser;
+  @override
   User get currentUser => _currentUser;
 
   @override

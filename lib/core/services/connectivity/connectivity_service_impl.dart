@@ -17,6 +17,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
   Stream<ConnectivityStatus> get connectivity$ =>
       _connectivityResultController.stream;
 
+  @override
   bool get serviceStopped => _serviceStopped;
 
   ConnectivityServiceImpl() {
@@ -24,6 +25,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
         _connectivity.onConnectivityChanged.listen(_emitConnectivity);
   }
 
+  @override
   Future<bool> get isConnected async {
     final result = await _connectivity.checkConnectivity();
 

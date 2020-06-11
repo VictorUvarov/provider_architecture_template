@@ -11,7 +11,7 @@ import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/shared/themes.dart' as themes;
 import 'package:provider_start/local_setup.dart';
-import 'package:provider_start/ui/views/start_up_view.dart';
+import 'package:provider_start/ui/views/startup/start_up_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:provider_start/core/localization/localization.dart';
-import 'package:provider_start/core/view_models/settings_view_model.dart';
+import 'package:provider_start/ui/views/settings/settings_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 /// An example settings view that uses platform adaptive widgets
@@ -36,6 +36,8 @@ class SettingsView extends StatelessWidget {
 }
 
 class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
+  const _AppSettingsListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -71,6 +73,8 @@ class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
+  const _NotificationsListTile({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -106,6 +110,8 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
+  const _SignOutListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
@@ -141,6 +147,8 @@ class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
 }
 
 class _ShowSnackBarListTile extends ViewModelWidget<SettingsViewModel> {
+  const _ShowSnackBarListTile({Key key}) : super(key: key, reactive: false);
+
   @override
   Widget build(BuildContext context, SettingsViewModel model) {
     final local = AppLocalizations.of(context);
