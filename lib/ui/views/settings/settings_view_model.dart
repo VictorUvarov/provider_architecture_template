@@ -1,8 +1,8 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:provider_start/core/constant/local_keys.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
+import 'package:provider_start/core/services/app_settings/app_settings_service.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
@@ -19,6 +19,7 @@ class SettingsViewModel extends BaseViewModel {
   final _authService = locator<AuthService>();
   final _keyStorageService = locator<KeyStorageService>();
   final _snackBarService = locator<SnackBarService>();
+  final _appSettingsService = locator<AppSettingsService>();
 
   bool _notificationsEnabled = false;
   bool get notificationsEnabled => _notificationsEnabled;
@@ -28,9 +29,9 @@ class SettingsViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void openAppSettings() {
+  Future<void> openAppSettings() async {
     Logger.d('User has opened app settings');
-    AppSettings.openAppSettings();
+    await _appSettingsService.openAppSettings();
   }
 
   Future<void> signOut() async {

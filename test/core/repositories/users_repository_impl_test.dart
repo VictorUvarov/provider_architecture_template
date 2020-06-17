@@ -5,11 +5,12 @@ import 'package:provider_start/core/data_sources/users/users_remote_data_source.
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
-import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
+
+import '../../data/mocks.dart';
 
 class MockUsersLocalDataSource extends Mock implements UsersLocalDataSource {}
 
@@ -22,17 +23,6 @@ void main() {
   UsersRemoteDataSource usersRemoteDataSource;
   UsersLocalDataSource usersLocalDataSource;
   ConnectivityService connectivityService;
-
-  final mockUID = 1;
-  final mockUser = User(
-    (u) => u
-      ..id = 1
-      ..name = 'Barrack Obama'
-      ..username = 'Barrack'
-      ..phone = '1112223333'
-      ..email = 'barrackobama@gmail.com'
-      ..website = 'barrackobama.com',
-  );
 
   setUp(() async {
     setupLogger(test: true);

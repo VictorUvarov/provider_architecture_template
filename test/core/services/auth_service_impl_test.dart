@@ -1,24 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/locator.dart';
+
+import '../../data/mocks.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
 void main() {
   AuthService authService;
-
-  final mockEmail = 'email@gmail.com';
-  final mockPassword = 'password';
-  final mockDisplayName = 'Barrack Obama';
-
-  final mockUser = User(
-    (u) => u
-      ..id = 1
-      ..email = mockEmail
-      ..username = mockDisplayName,
-  );
 
   setUp(() async {
     await setupLocator(test: true);

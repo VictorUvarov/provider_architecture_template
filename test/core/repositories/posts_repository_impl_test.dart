@@ -5,11 +5,12 @@ import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.
 import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
-import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
+
+import '../../data/mocks.dart';
 
 class MockPostsLocalDataSource extends Mock implements PostsLocalDataSource {}
 
@@ -22,15 +23,6 @@ void main() {
   PostsRemoteDataSource postsRemoteDataSource;
   PostsLocalDataSource postsLocalDataSource;
   ConnectivityService connectivityService;
-
-  final mockPost = Post(
-    (p) => p
-      ..id = 1
-      ..title = 'title'
-      ..description = 'desc'
-      ..userId = 1,
-  );
-  final mockPosts = [mockPost, mockPost];
 
   setUp(() async {
     setupLogger(test: true);
