@@ -6,7 +6,7 @@ import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/ui/views/home/home_view_model.dart';
 
-import '../../data/mocks.dart';
+import '../../../data/mocks.dart';
 
 class MockPostsRepository extends Mock implements PostsRepository {}
 

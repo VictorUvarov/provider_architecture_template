@@ -1,0 +1,62 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider_start/core/constant/view_routes.dart';
+import 'package:provider_start/core/services/navigation/navigation_service.dart';
+import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/widgets/stateful/post_tile/post_tile_view_model.dart';
+
+import '../../../data/mocks.dart';
+
+class MockNavigationService extends Mock implements NavigationService {}
+
+void main() {
+  NavigationService mockNavigationService;
+  PostTileViewModel postTileViewModel;
+
+  setUp(() {
+    mockNavigationService = MockNavigationService();
+
+    locator.allowReassignment = true;
+    locator.registerSingleton(mockNavigationService);
+
+    postTileViewModel = PostTileViewModel();
+  });
+
+  group('init', () {
+    test(
+      'when init() is called post is assigned to the view models post',
+      () {
+        // arrange
+
+        // act
+        postTileViewModel.init(mockPost1);
+
+        // assert
+        expect(postTileViewModel.post, mockPost1);
+      },
+    );
+  });
+
+  group('showPostDetails()', () {
+    test(
+      'when called post is passed to post details view',
+      () {
+        // arrange
+        postTileViewModel.init(mockPost1);
+        when(mockNavigationService.pushNamed(
+          ViewRoutes.post_details,
+          arguments: mockPost1,
+        )).thenAnswer((realInvocation) async => Null);
+
+        // act
+        postTileViewModel.showPostDetails();
+
+        // assert
+        verify(mockNavigationService.pushNamed(
+          ViewRoutes.post_details,
+          arguments: mockPost1,
+        )).called(1);
+      },
+    );
+  });
+}
