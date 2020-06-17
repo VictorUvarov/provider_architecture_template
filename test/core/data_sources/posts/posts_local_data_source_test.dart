@@ -4,10 +4,11 @@ import 'package:hive/hive.dart';
 import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
-import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/models/post/post_h.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
 import 'package:provider_start/locator.dart';
+
+import '../../../data/mocks.dart';
 
 class MockHive extends Mock implements HiveInterface {}
 
@@ -22,20 +23,6 @@ void main() {
   MockBox<PostH> postsBox;
 
   final fakePath = '/foo/bars';
-
-  final mockPost1 = Post(
-    (p) => p
-      ..id = 1
-      ..title = 'title'
-      ..description = 'desc'
-      ..userId = 1,
-  );
-  final mockPost2 = mockPost1.rebuild(
-    (p) => p
-      ..id = 2
-      ..userId = 2,
-  );
-  final mockPosts = [mockPost1, mockPost2];
 
   setUp(() async {
     await setupLocator(test: true);

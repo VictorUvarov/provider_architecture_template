@@ -4,10 +4,11 @@ import 'package:hive/hive.dart';
 import 'package:provider_start/core/constant/local_storage_keys.dart';
 import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
 import 'package:provider_start/core/exceptions/cache_exception.dart';
-import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/models/user/user_h.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
 import 'package:provider_start/locator.dart';
+
+import '../../../data/mocks.dart';
 
 class MockHive extends Mock implements HiveInterface {}
 
@@ -22,16 +23,6 @@ void main() {
   MockBox<UserH> usersBox;
 
   final fakePath = 'users/';
-
-  final mockUser = User(
-    (p) => p
-      ..id = 1
-      ..username = 'James420'
-      ..email = 'Jamesbond@gmail.com'
-      ..name = 'James Bond'
-      ..phone = '1112223333'
-      ..website = 'Jamesbond.dev',
-  );
 
   setUp(() async {
     await setupLocator(test: true);

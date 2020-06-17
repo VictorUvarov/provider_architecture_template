@@ -6,16 +6,13 @@ import 'package:provider_start/core/models/post/post.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/locator.dart';
 
+import '../../../data/mocks.dart';
+
 class MockHttpService extends Mock implements HttpService {}
 
 void main() {
   PostsRemoteDataSource postsRemoteDataSource;
   HttpService httpService;
-
-  final mockPostsJson = [
-    {'userId': 1, 'id': 1, 'title': 'Post 1', 'body': 'Post 1 body'},
-    {'userId': 1, 'id': 2, 'title': 'Post 2', 'body': 'Post 2 body'},
-  ];
 
   setUp(() async {
     await setupLocator(test: true);

@@ -4,6 +4,8 @@ import 'package:provider_start/core/data_sources/posts/posts_local_data_source.d
 import 'package:provider_start/core/data_sources/posts/posts_remote_data_source.dart';
 import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
 import 'package:provider_start/core/data_sources/users/users_remote_data_source.dart';
+import 'package:provider_start/core/services/app_settings/app_settings_service.dart';
+import 'package:provider_start/core/services/app_settings/app_settings_service_impl.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/services/http/http_service_impl.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
@@ -42,6 +44,9 @@ Future<void> setupLocator({bool test = false}) async {
   );
   locator.registerLazySingleton<ConnectivityService>(
     () => ConnectivityServiceImpl(),
+  );
+  locator.registerLazySingleton<AppSettingsService>(
+    () => AppSettingsServiceImpl(),
   );
   locator.registerLazySingleton<DialogService>(() => DialogServiceImpl());
   locator.registerLazySingleton<SnackBarService>(() => SnackBarServiceImpl());

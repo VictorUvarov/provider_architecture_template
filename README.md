@@ -94,8 +94,10 @@ flutter pub get flutter && pub run flutter_launcher_icons:main
 - [x] custom app icons
 - [x] custom native splash screen
 - [x] snack bar service
+- [x] unit tests
+- [x] view model tests
+- [ ] widget tests
 - [ ] responsive views
-- [ ] unit tests
 
 ### Geolocator branch
 
