@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
+import 'package:provider_start/core/services/auth/auth_service_impl.dart';
 import 'package:provider_start/locator.dart';
 
 import '../../data/mocks.dart';
@@ -10,10 +11,10 @@ class MockAuthService extends Mock implements AuthService {}
 void main() {
   AuthService authService;
 
-  setUp(() async {
-    await setupLocator(test: true);
+  setUp(() {
     locator.allowReassignment = true;
 
+    locator.registerSingleton<AuthService>(AuthServiceImpl());
     authService = locator<AuthService>();
   });
 

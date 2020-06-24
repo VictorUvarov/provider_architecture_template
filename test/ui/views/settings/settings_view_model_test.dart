@@ -41,8 +41,9 @@ void main() {
 
   setUp(() {
     setupLogger(test: true);
-    setupLocator(test: true);
+
     locator.allowReassignment = true;
+
     mockKeyStorageService = MockKeyStorageService();
     mockKeyAppSettingsService = MockKeyAppSettingsService();
     mockSnackBarService = MockSnackBarService();

@@ -14,9 +14,9 @@ void main() {
   PostTileViewModel postTileViewModel;
 
   setUp(() {
-    mockNavigationService = MockNavigationService();
-
     locator.allowReassignment = true;
+
+    mockNavigationService = MockNavigationService();
     locator.registerSingleton(mockNavigationService);
 
     postTileViewModel = PostTileViewModel();

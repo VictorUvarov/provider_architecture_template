@@ -34,7 +34,7 @@ GetIt locator = GetIt.instance;
 ///   - Sets up singletons that can be called from anywhere
 /// in the app by using locator<Service>() call.
 ///   - Also sets up factor methods for view models.
-Future<void> setupLocator({bool test = false}) async {
+Future<void> setupLocator() async {
   // Services
   locator.registerLazySingleton<NavigationService>(
     () => NavigationServiceImpl(),
@@ -71,9 +71,7 @@ Future<void> setupLocator({bool test = false}) async {
   locator.registerLazySingleton<PostsRepository>(() => PostsRepositoryImpl());
   locator.registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl());
 
-  if (!test) {
-    await _setupSharedPreferences();
-  }
+  await _setupSharedPreferences();
 
   // Utils
   locator.registerLazySingleton<FileHelper>(() => FileHelperImpl());

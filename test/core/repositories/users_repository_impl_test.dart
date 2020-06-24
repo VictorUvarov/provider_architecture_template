@@ -6,6 +6,7 @@ import 'package:provider_start/core/exceptions/cache_exception.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/repositories/users_repository/users_repository.dart';
+import 'package:provider_start/core/repositories/users_repository/users_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
@@ -24,10 +25,9 @@ void main() {
   UsersLocalDataSource usersLocalDataSource;
   ConnectivityService connectivityService;
 
-  setUp(() async {
+  setUp(() {
     setupLogger(test: true);
 
-    await setupLocator(test: true);
     locator.allowReassignment = true;
 
     usersRemoteDataSource = MockUsersRemoteDataSource();
@@ -38,6 +38,7 @@ void main() {
     locator.registerSingleton<UsersLocalDataSource>(usersLocalDataSource);
     locator.registerSingleton<ConnectivityService>(connectivityService);
 
+    locator.registerSingleton<UsersRepository>(UsersRepositoryImpl());
     repository = locator<UsersRepository>();
   });
 
