@@ -15,9 +15,9 @@ void main() {
   HomeViewModel homeViewModel;
 
   setUp(() {
-    setupLogger();
-    setupLocator(test: true);
+    setupLogger(test: true);
     locator.allowReassignment = true;
+
     postsRepository = MockPostsRepository();
     locator.registerSingleton(postsRepository);
 

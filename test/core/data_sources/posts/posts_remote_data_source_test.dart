@@ -14,13 +14,14 @@ void main() {
   PostsRemoteDataSource postsRemoteDataSource;
   HttpService httpService;
 
-  setUp(() async {
-    await setupLocator(test: true);
+  setUp(() {
     locator.allowReassignment = true;
 
     locator.registerSingleton<HttpService>(MockHttpService());
     httpService = locator<HttpService>();
 
+    locator
+        .registerSingleton<PostsRemoteDataSource>(PostsRemoteDataSourceImpl());
     postsRemoteDataSource = locator<PostsRemoteDataSource>();
   });
 

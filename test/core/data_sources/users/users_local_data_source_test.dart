@@ -24,8 +24,7 @@ void main() {
 
   final fakePath = 'users/';
 
-  setUp(() async {
-    await setupLocator(test: true);
+  setUp(() {
     locator.allowReassignment = true;
 
     locator.registerSingleton<FileHelper>(MockFileHelper());
@@ -34,6 +33,7 @@ void main() {
     locator.registerSingleton<HiveInterface>(MockHive());
     hive = locator<HiveInterface>();
 
+    locator.registerSingleton<UsersLocalDataSource>(UsersLocalDataSourceImpl());
     usersLocalDataSource = locator<UsersLocalDataSource>();
 
     usersBox = MockBox<UserH>();
