@@ -9,7 +9,6 @@ import 'package:provider_start/core/repositories/posts_repository/posts_reposito
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
 import 'package:provider_start/locator.dart';
-import 'package:provider_start/logger.dart';
 
 import '../../data/mocks.dart';
 
