@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:get/get.dart';
+import 'package:logging/logging.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/models/alert_request/alert_request.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
@@ -14,6 +15,8 @@ import 'package:provider_start/ui/widgets/dialogs/confirm_dialog.dart';
 
 /// A service that is responsible for returning future dialogs
 class DialogServiceImpl implements DialogService {
+  final _log = Logger('DialogServiceImpl');
+
   Completer<AlertResponse> _dialogCompleter;
 
   @override
@@ -21,6 +24,7 @@ class DialogServiceImpl implements DialogService {
     _dialogCompleter = Completer<AlertResponse>();
 
     if (request is ConfirmAlertRequest) {
+      _log.finer('showConfirmAlert');
       _showConfirmAlert(request);
     }
 

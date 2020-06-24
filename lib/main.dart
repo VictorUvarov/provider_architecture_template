@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -5,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:provider_start/core/localization/localization.dart';
 import 'package:provider_start/core/managers/core_manager.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/logger.dart';
 import 'package:provider_start/provider_setup.dart';
 import 'package:provider_start/ui/router.dart';
 import 'package:provider_start/ui/shared/themes.dart' as themes;
@@ -19,7 +21,12 @@ void main() async {
   setupLogger();
   await setupLocator();
 
-  runApp(MyApp());
+  runZoned(
+    () => runApp(MyApp()),
+    onError: (e) {
+      // Log to crashlytics
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

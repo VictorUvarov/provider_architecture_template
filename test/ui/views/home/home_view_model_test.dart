@@ -2,8 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/logger.dart';
 import 'package:provider_start/ui/views/home/home_view_model.dart';
 
 import '../../../data/mocks.dart';
@@ -15,7 +15,6 @@ void main() {
   HomeViewModel homeViewModel;
 
   setUp(() {
-    setupLogger(test: true);
     locator.allowReassignment = true;
 
     postsRepository = MockPostsRepository();
