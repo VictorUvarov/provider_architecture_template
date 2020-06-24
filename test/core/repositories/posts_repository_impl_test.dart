@@ -8,7 +8,6 @@ import 'package:provider_start/core/exceptions/repository_exception.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository.dart';
 import 'package:provider_start/core/repositories/posts_repository/posts_repository_impl.dart';
 import 'package:provider_start/core/services/connectivity/connectivity_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 
 import '../../data/mocks.dart';
@@ -26,8 +25,6 @@ void main() {
   ConnectivityService connectivityService;
 
   setUp(() {
-    setupLogger(test: true);
-
     locator.allowReassignment = true;
 
     postsRemoteDataSource = MockPostsRemoteDataSource();

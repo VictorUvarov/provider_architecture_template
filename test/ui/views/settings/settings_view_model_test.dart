@@ -11,7 +11,6 @@ import 'package:provider_start/core/services/dialog/dialog_service.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/ui/views/settings/settings_view_model.dart';
 
@@ -40,8 +39,6 @@ void main() {
   ConfirmAlertResponse alertResponse;
 
   setUp(() {
-    setupLogger(test: true);
-
     locator.allowReassignment = true;
 
     mockKeyStorageService = MockKeyStorageService();

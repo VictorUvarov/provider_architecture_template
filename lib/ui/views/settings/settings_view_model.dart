@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:provider_start/core/constant/local_keys.dart';
 import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
@@ -9,7 +10,6 @@ import 'package:provider_start/core/services/snackbar/snack_bar_service.dart';
 import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_request.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/locator.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,6 +20,7 @@ class SettingsViewModel extends BaseViewModel {
   final _keyStorageService = locator<KeyStorageService>();
   final _snackBarService = locator<SnackBarService>();
   final _appSettingsService = locator<AppSettingsService>();
+  final _log = Logger('SettingsViewModel');
 
   bool _notificationsEnabled = false;
   bool get notificationsEnabled => _notificationsEnabled;
@@ -30,7 +31,7 @@ class SettingsViewModel extends BaseViewModel {
   }
 
   Future<void> openAppSettings() async {
-    Logger.d('User has opened app settings');
+    _log.fine('User has opened app settings');
     await _appSettingsService.openAppSettings();
   }
 
@@ -45,7 +46,7 @@ class SettingsViewModel extends BaseViewModel {
         await _dialogService.showDialog(alertRequest);
 
     if (dialogResult.confirmed) {
-      Logger.d('User has signed out');
+      _log.fine('User has signed out');
       await _authService.signOut();
       await _navigationService.popAllAndPushNamed(ViewRoutes.login);
     }

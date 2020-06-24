@@ -1,9 +1,11 @@
+import 'package:logging/logging.dart';
 import 'package:provider_start/core/exceptions/auth_exception.dart';
 import 'package:provider_start/core/models/user/user.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 
 class AuthServiceImpl implements AuthService {
+  final _log = Logger('AuthServiceImpl');
+
   User _currentUser;
   @override
   User get currentUser => _currentUser;
@@ -26,7 +28,7 @@ class AuthServiceImpl implements AuthService {
           ..username = displayName,
       );
     } on Exception {
-      Logger.e('AuthService: Error signing up');
+      _log.severe('AuthService: Error signing up');
       throw AuthException('Error signing up');
     }
   }
@@ -48,7 +50,7 @@ class AuthServiceImpl implements AuthService {
           ..username = 'Barrack Obama',
       );
     } on Exception {
-      Logger.e('AuthService: Error signing in');
+      _log.severe('AuthService: Error signing in');
       throw AuthException('Error signing in');
     }
   }

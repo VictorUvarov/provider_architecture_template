@@ -1,8 +1,8 @@
 import 'dart:convert' as convert;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
-import 'package:provider_start/core/utils/logger.dart';
 
 void checkForNetworkExceptions(Response response) {
   if (response.statusCode != 200) {
@@ -12,7 +12,7 @@ void checkForNetworkExceptions(Response response) {
 
 void showLoadingProgress(received, total) {
   if (total != -1) {
-    Logger.d('${(received / total * 100).toStringAsFixed(0)}%');
+    debugPrint('${(received / total * 100).toStringAsFixed(0)}%');
   }
 }
 
@@ -21,7 +21,7 @@ dynamic decodeResponseBodyToJson(String body) {
     final data = convert.jsonDecode(body);
     return data;
   } on FormatException catch (e) {
-    Logger.e('Network Utils: Failed to decode response body ${e.message}');
+    debugPrint('Network Utils: Failed to decode response body ${e.message}');
     throw NetworkException(e.message);
   }
 }

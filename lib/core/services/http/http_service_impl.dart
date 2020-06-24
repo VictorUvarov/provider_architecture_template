@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:logging/logging.dart';
 import 'package:provider_start/core/exceptions/network_exception.dart';
 import 'package:provider_start/core/services/http/http_service.dart';
 import 'package:provider_start/core/utils/file_helper.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:provider_start/core/utils/network_utils.dart' as network_utils;
 import 'package:provider_start/locator.dart';
 
@@ -12,13 +12,14 @@ import 'package:provider_start/locator.dart';
 class HttpServiceImpl implements HttpService {
   final _fileHelper = locator<FileHelper>();
 
+  final _log = Logger('HttpServiceImpl');
   final _dio = Dio();
 
   @override
   Future<dynamic> getHttp(String route) async {
     Response response;
 
-    Logger.d('Sending GET to $route');
+    _log.fine('Sending GET to $route');
 
     try {
       final fullRoute = '$route';
@@ -29,7 +30,7 @@ class HttpServiceImpl implements HttpService {
         ),
       );
     } on DioError catch (e) {
-      Logger.e('HttpService: Failed to GET ${e.message}');
+      _log.severe('HttpService: Failed to GET ${e.message}');
       throw NetworkException(e.message);
     }
 
@@ -43,7 +44,7 @@ class HttpServiceImpl implements HttpService {
   Future<dynamic> postHttp(String route, dynamic body) async {
     Response response;
 
-    Logger.d('Sending $body to $route');
+    _log.fine('Sending $body to $route');
 
     try {
       final fullRoute = '$route';
@@ -57,7 +58,7 @@ class HttpServiceImpl implements HttpService {
         ),
       );
     } on DioError catch (e) {
-      Logger.e('HttpService: Failed to POST ${e.message}');
+      _log.severe('HttpService: Failed to POST ${e.message}');
       throw NetworkException(e.message);
     }
 
@@ -100,7 +101,7 @@ class HttpServiceImpl implements HttpService {
         onReceiveProgress: network_utils.showLoadingProgress,
       );
     } on DioError catch (e) {
-      Logger.e('HttpService: Failed to download file ${e.message}');
+      _log.severe('HttpService: Failed to download file ${e.message}');
       throw NetworkException(e.message);
     }
 

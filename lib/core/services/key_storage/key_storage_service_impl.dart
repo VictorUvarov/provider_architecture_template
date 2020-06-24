@@ -1,10 +1,12 @@
+import 'package:logging/logging.dart';
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
-import 'package:provider_start/core/utils/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Service that is responsible for storing/retrieving data in/from
 /// local storage using the [SharedPreferences] package.
 class KeyStorageServiceImpl implements KeyStorageService {
+  final _log = Logger('KeyStorageServiceImpl');
+
   static const notifications_key = 'notifications_key';
 
   static KeyStorageServiceImpl _instance;
@@ -27,13 +29,13 @@ class KeyStorageServiceImpl implements KeyStorageService {
   dynamic _getFromDisk(String key) {
     final value = _preferences.get(key);
 
-    Logger.d('LocalStorageService: (Fetching) key: $key value: $value');
+    _log.finest('LocalStorageService: (Fetching) key: $key value: $value');
 
     return value;
   }
 
   void _saveToDisk<T>(String key, T content) {
-    Logger.d('LocalStorageService: (Saving) key: $key value: $content');
+    _log.finest('LocalStorageService: (Saving) key: $key value: $content');
 
     if (content is String) {
       _preferences.setString(key, content);
