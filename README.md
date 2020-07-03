@@ -43,7 +43,7 @@ Since this project uses 3 locales add this to your info.plist
 Generate the launcher icon (optional)
 
 ```bash
-flutter pub get flutter && pub run flutter_launcher_icons:main
+flutter pub get && pub run flutter_launcher_icons:main
 ```
 
 ## Folder structure
