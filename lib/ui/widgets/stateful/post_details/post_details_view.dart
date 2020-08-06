@@ -52,7 +52,7 @@ class _AdditionalInfo extends ViewModelWidget<PostDetailsViewModel> {
     if (model.isBusy) {
       return _LoadingAnimation();
     }
-    if (model.error) {
+    if (model.usererror) {
       return _ErrorIcon();
     }
     return _UserDetails();

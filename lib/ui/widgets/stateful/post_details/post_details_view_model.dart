@@ -13,8 +13,8 @@ class PostDetailsViewModel extends BaseViewModel {
   User _user;
   User get user => _user;
 
-  bool _error = false;
-  bool get error => _error;
+  bool _usererror = false;
+  bool get usererror => _usererror;
 
   Future<void> init(Post post) async {
     setBusy(true);
@@ -23,7 +23,7 @@ class PostDetailsViewModel extends BaseViewModel {
     } on RepositoryException catch (e) {
       _log.shout(e.message);
 
-      _error = true;
+      _usererror = true;
       notifyListeners();
     }
     setBusy(false);
