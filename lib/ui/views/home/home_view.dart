@@ -17,7 +17,7 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.homeViewTitle),
-          ios: (_) => CupertinoNavigationBarData(
+          cupertino: (_, __) => CupertinoNavigationBarData(
             transitionBetweenRoutes: false,
           ),
         ),

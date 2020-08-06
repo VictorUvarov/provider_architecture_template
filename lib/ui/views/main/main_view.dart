@@ -36,15 +36,15 @@ class MainView extends StatelessWidget {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: PlatformWidget(
-                android: (_) => Icon(Icons.home),
-                ios: (_) => Icon(CupertinoIcons.home),
+                material: (_, __) => Icon(Icons.home),
+                cupertino: (_, __) => Icon(CupertinoIcons.home),
               ),
               title: Text(local.homeViewTitle),
             ),
             BottomNavigationBarItem(
               icon: PlatformWidget(
-                android: (_) => Icon(Icons.settings),
-                ios: (_) => Icon(CupertinoIcons.settings),
+                material: (_, __) => Icon(Icons.settings),
+                cupertino: (_, __) => Icon(CupertinoIcons.settings),
               ),
               title: Text(local.settingsViewTitle),
             ),
