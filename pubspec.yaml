@@ -47,6 +47,7 @@ dependencies:
   # UI Widgets
   cupertino_icons: ^0.1.3
   flare_flutter: ^2.0.3
+  auto_route: ^0.6.7
 
 dependency_overrides:
   dartx: ^0.4.1
@@ -59,6 +60,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.7.5
   built_value_generator: ^7.1.0
   hive_generator: ^0.7.0+2
+  auto_route_generator: ^0.6.7
   build_runner: ^1.10.0
   mockito: ^4.1.1
   logger: ^0.9.1
