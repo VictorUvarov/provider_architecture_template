@@ -18,7 +18,7 @@ class SettingsView extends StatelessWidget {
       builder: (context, model, child) => PlatformScaffold(
         appBar: PlatformAppBar(
           title: Text(local.settingsViewTitle),
-          ios: (_) => CupertinoNavigationBarData(
+          cupertino: (_, __) => CupertinoNavigationBarData(
             transitionBetweenRoutes: false,
           ),
         ),
@@ -43,16 +43,16 @@ class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => ListTile(
+      material: (_, __) => ListTile(
         title: Text(local.settingsViewAppSettings),
         subtitle: Text(local.settingsViewAppSettingsDesc),
         trailing: PlatformWidget(
-          android: (_) => Icon(Icons.launch),
-          ios: (_) => Icon(CupertinoIcons.share_up),
+          material: (_, __) => Icon(Icons.launch),
+          cupertino: (_, __) => Icon(CupertinoIcons.share_up),
         ),
         onTap: model.openAppSettings,
       ),
-      ios: (_) => CupertinoButton(
+      cupertino: (_, __) => CupertinoButton(
         onPressed: model.openAppSettings,
         child: Row(
           children: <Widget>[
@@ -62,8 +62,8 @@ class _AppSettingsListTile extends ViewModelWidget<SettingsViewModel> {
             ),
             Spacer(),
             PlatformWidget(
-              android: (_) => Icon(Icons.launch),
-              ios: (_) => Icon(CupertinoIcons.share_up),
+              material: (_, __) => Icon(Icons.launch),
+              cupertino: (_, __) => Icon(CupertinoIcons.share_up),
             ),
           ],
         ),
@@ -80,7 +80,7 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => ListTile(
+      material: (_, __) => ListTile(
         onTap: model.toggleNotificationsEnabled,
         title: Text(local.settingsViewNotifications),
         subtitle: Text(local.settingsViewNotificationsDesc),
@@ -89,7 +89,7 @@ class _NotificationsListTile extends ViewModelWidget<SettingsViewModel> {
           onChanged: (_) => model.toggleNotificationsEnabled(),
         ),
       ),
-      ios: (_) => Padding(
+      cupertino: (_, __) => Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
           children: <Widget>[
@@ -117,16 +117,16 @@ class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => ListTile(
+      material: (_, __) => ListTile(
         title: Text(local.settingsViewSignOut),
         subtitle: Text(local.settingsViewSignOutDesc),
         trailing: PlatformWidget(
-          android: (_) => Icon(Icons.exit_to_app),
-          ios: (_) => Icon(CupertinoIcons.right_chevron),
+          material: (_, __) => Icon(Icons.exit_to_app),
+          cupertino: (_, __) => Icon(CupertinoIcons.right_chevron),
         ),
         onTap: model.signOut,
       ),
-      ios: (_) => CupertinoButton(
+      cupertino: (_, __) => CupertinoButton(
         onPressed: model.signOut,
         child: Row(
           children: <Widget>[
@@ -136,8 +136,8 @@ class _SignOutListTile extends ViewModelWidget<SettingsViewModel> {
             ),
             Spacer(),
             PlatformWidget(
-              android: (_) => Icon(Icons.exit_to_app),
-              ios: (_) => Icon(CupertinoIcons.right_chevron),
+              material: (_, __) => Icon(Icons.exit_to_app),
+              cupertino: (_, __) => Icon(CupertinoIcons.right_chevron),
             ),
           ],
         ),
@@ -154,13 +154,13 @@ class _ShowSnackBarListTile extends ViewModelWidget<SettingsViewModel> {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => ListTile(
+      material: (_, __) => ListTile(
         title: Text(local.settingsViewSnackBar),
         subtitle: Text(local.settingsViewSnackBarDesc),
         trailing: Icon(Icons.announcement),
         onTap: model.showSnackbar,
       ),
-      ios: (_) => CupertinoButton(
+      cupertino: (_, __) => CupertinoButton(
         onPressed: model.showSnackbar,
         child: Row(
           children: <Widget>[

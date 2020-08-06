@@ -18,7 +18,7 @@ class PostTile extends StatelessWidget {
       viewModelBuilder: () => PostTileViewModel(),
       onModelReady: (model) => model.init(post),
       builder: (context, model, child) => PlatformWidget(
-        android: (_) => Card(
+        material: (_, __) => Card(
           child: ListTile(
             title: Text(model.post.title),
             subtitle: Text(
@@ -28,13 +28,13 @@ class PostTile extends StatelessWidget {
             ),
             isThreeLine: true,
             trailing: PlatformWidget(
-              android: (_) => Icon(Icons.arrow_forward),
-              ios: (_) => Icon(CupertinoIcons.forward),
+              material: (_, __) => Icon(Icons.arrow_forward),
+              cupertino: (_, __) => Icon(CupertinoIcons.forward),
             ),
             onTap: model.showPostDetails,
           ),
         ),
-        ios: (_) => Container(
+        cupertino: (_, __) => Container(
           margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: CupertinoTheme.of(context).scaffoldBackgroundColor,

@@ -52,7 +52,8 @@ class _LoginViewState extends State<LoginView> {
         child: PlatformScaffold(
           appBar: PlatformAppBar(
             title: Text(local.loginViewTitle),
-            ios: (_) => CupertinoNavigationBarData(previousPageTitle: ''),
+            cupertino: (_, __) =>
+                CupertinoNavigationBarData(previousPageTitle: ''),
           ),
           body: Form(
             key: formKey,
@@ -131,7 +132,7 @@ class _SignInButton extends StatelessWidget {
         : PlatformButton(
             child: Text(local.loginButton),
             onPressed: onPressed,
-            android: (context) => MaterialRaisedButtonData(
+            material: (context, __) => MaterialRaisedButtonData(
               textTheme: ButtonTextTheme.primary,
               color: theme.primaryColor,
             ),
@@ -156,7 +157,7 @@ class _EmailTextField extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => TextFormField(
+      material: (_, __) => TextFormField(
         controller: controller,
         validator: validator,
         onFieldSubmitted: onFieldSubmitted,
@@ -173,7 +174,7 @@ class _EmailTextField extends StatelessWidget {
           ),
         ),
       ),
-      ios: (_) => CupertinoTextFormField(
+      cupertino: (_, __) => CupertinoTextFormField(
         controller: controller,
         validator: validator,
         onFieldSubmitted: onFieldSubmitted,
@@ -212,7 +213,7 @@ class _PasswordTextField extends StatelessWidget {
     final local = AppLocalizations.of(context);
 
     return PlatformWidget(
-      android: (_) => TextFormField(
+      material: (_, __) => TextFormField(
         controller: controller,
         validator: validator,
         focusNode: focusNode,
@@ -230,7 +231,7 @@ class _PasswordTextField extends StatelessWidget {
           ),
         ),
       ),
-      ios: (_) => CupertinoTextFormField(
+      cupertino: (_, __) => CupertinoTextFormField(
         validator: validator,
         controller: controller,
         focusNode: focusNode,
