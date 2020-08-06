@@ -1,6 +1,5 @@
 import 'package:logging/logging.dart';
 import 'package:provider_start/core/constant/local_keys.dart';
-import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/models/alert_request/confirm_alert_request.dart';
 import 'package:provider_start/core/models/alert_response/confirm_alert_response.dart';
 import 'package:provider_start/core/services/app_settings/app_settings_service.dart';
@@ -11,6 +10,7 @@ import 'package:provider_start/core/models/snack_bar_request/confirm_snack_bar_r
 import 'package:provider_start/core/services/key_storage/key_storage_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/router.gr.dart';
 import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends BaseViewModel {
@@ -48,7 +48,7 @@ class SettingsViewModel extends BaseViewModel {
     if (dialogResult.confirmed) {
       _log.fine('User has signed out');
       await _authService.signOut();
-      await _navigationService.popAllAndPushNamed(ViewRoutes.login);
+      await _navigationService.popAllAndPushNamed(Routes.loginView);
     }
   }
 

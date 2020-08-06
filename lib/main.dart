@@ -10,7 +10,7 @@ import 'package:provider_start/core/services/navigation/navigation_service.dart'
 import 'package:provider_start/locator.dart';
 import 'package:provider_start/logger.dart';
 import 'package:provider_start/provider_setup.dart';
-import 'package:provider_start/ui/router.dart';
+import 'package:provider_start/ui/router.gr.dart';
 import 'package:provider_start/ui/shared/themes.dart' as themes;
 import 'package:provider_start/local_setup.dart';
 import 'package:provider_start/ui/views/startup/start_up_view.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           material: (_, __) => MaterialAppData(
             theme: themes.primaryMaterialTheme,
-            darkTheme: themes.darkMaterialTheme,
+            // darkTheme: themes.darkMaterialTheme,
           ),
           cupertino: (_, __) => CupertinoAppData(
             theme: themes.primaryCupertinoTheme,
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           localeResolutionCallback: loadSupportedLocals,
           onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
           navigatorKey: navigationService.navigatorKey,
-          onGenerateRoute: Router.generateRoute,
+          onGenerateRoute: Router().onGenerateRoute,
           home: StartUpView(),
         ),
       ),

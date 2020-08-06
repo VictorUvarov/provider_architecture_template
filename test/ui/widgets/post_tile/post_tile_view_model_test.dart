@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/router.gr.dart';
 import 'package:provider_start/ui/widgets/stateful/post_tile/post_tile_view_model.dart';
 
 import '../../../data/mocks.dart';
@@ -44,7 +44,7 @@ void main() {
         // arrange
         postTileViewModel.init(mockPost1);
         when(mockNavigationService.pushNamed(
-          ViewRoutes.post_details,
+          Routes.postDetailsView,
           arguments: mockPost1,
         )).thenAnswer((realInvocation) async => Null);
 
@@ -53,7 +53,7 @@ void main() {
 
         // assert
         verify(mockNavigationService.pushNamed(
-          ViewRoutes.post_details,
+          Routes.postDetailsView,
           arguments: mockPost1,
         )).called(1);
       },
