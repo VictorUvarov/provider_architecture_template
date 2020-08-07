@@ -4,12 +4,11 @@ import 'package:logger/logger.dart' as fancy;
 
 void setupLogger() {
   Logger.root.level = kReleaseMode ? Level.OFF : Level.ALL;
-  Logger.root.onRecord.listen((record) {
+  Logger.root.onRecord.listen((LogRecord record) {
     var m =
         '${record.loggerName} ${record.level.name}: ${record.time}: ${record.message}';
     var log = _getLogger();
 
-    // ignore: case_expression_type_implements_equals
     switch (record.level) {
       case Level.SEVERE:
         log.wtf(m);
