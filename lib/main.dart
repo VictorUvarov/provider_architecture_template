@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
       child: CoreManager(
         child: PlatformApp(
           debugShowCheckedModeBanner: false,
-          android: (_) => MaterialAppData(
+          material: (_, __) => MaterialAppData(
             theme: themes.primaryMaterialTheme,
             darkTheme: themes.darkMaterialTheme,
           ),
-          ios: (_) => CupertinoAppData(
+          cupertino: (_, __) => CupertinoAppData(
             theme: themes.primaryCupertinoTheme,
           ),
           localizationsDelegates: localizationsDelegates,

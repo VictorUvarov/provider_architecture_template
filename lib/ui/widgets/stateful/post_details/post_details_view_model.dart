@@ -13,8 +13,8 @@ class PostDetailsViewModel extends BaseViewModel {
   User _user;
   User get user => _user;
 
-  bool _error = false;
-  bool get error => _error;
+  bool _errorFetchingUser = false;
+  bool get errorFetchingUser => _errorFetchingUser;
 
   Future<void> init(Post post) async {
     setBusy(true);
@@ -22,9 +22,7 @@ class PostDetailsViewModel extends BaseViewModel {
       _user = await _usersRepository.fetchUser(post.userId);
     } on RepositoryException catch (e) {
       _log.shout(e.message);
-
-      _error = true;
-      notifyListeners();
+      _errorFetchingUser = true;
     }
     setBusy(false);
   }

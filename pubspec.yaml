@@ -23,34 +23,30 @@ dependencies:
     sdk: flutter
 
   # State management
-  stacked: ^1.5.8
+  stacked: ^1.7.6
 
   # Utilities
-  shared_preferences: ^0.5.7+2
-  connectivity: ^0.4.8+6
-  app_settings: ^4.0.0
+  shared_preferences: ^0.5.8
+  connectivity: ^0.4.9
+  app_settings: ^4.0.2
   device_info: ^0.4.2+4
-  path_provider: ^1.6.8
-  hive_flutter: ^0.3.0+2
+  path_provider: ^1.6.11
+  hive_flutter: ^0.3.1
   built_value: ^7.1.0
   pedantic: ^1.9.0
   logging: ^0.11.4
-  get_it: ^4.0.2
+  get_it: ^4.0.4
   mime: ^0.9.6+3
-  hive: ^1.4.1+1
-  get: ^2.5.6
-  dio: ^3.0.9
+  hive: ^1.4.2
+  get: ^3.4.3
+  dio: ^3.0.10
 
   # UI Utilities
-  flutter_platform_widgets: ^0.41.0
+  flutter_platform_widgets: ^0.60.1
 
   # UI Widgets
   cupertino_icons: ^0.1.3
-  flare_flutter: ^2.0.3
-
-dependency_overrides:
-  dartx: ^0.4.1
-  path: 1.7.0
+  flare_flutter: ^2.0.6
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +66,6 @@ flutter_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is

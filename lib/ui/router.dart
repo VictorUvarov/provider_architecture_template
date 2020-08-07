@@ -13,9 +13,9 @@ import 'package:provider_start/ui/widgets/stateful/post_details/post_details_vie
 ///   - Routes can also require parameters. e.g. `PostDetailView(post: post)`
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    return GetRouteBase(
+    return GetPageRoute(
       settings: RouteSettings(name: settings.name),
-      page: _generateView(settings),
+      page: () => _generateView(settings),
       fullscreenDialog: _fullScreenDialogs.contains(settings.name),
     );
   }

@@ -31,8 +31,8 @@ class PostDetailsView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             PlatformWidget(
-              android: (_) => Text(post.description),
-              ios: (_) => Text(
+              material: (_, __) => Text(post.description),
+              cupertino: (_, __) => Text(
                 post.description,
                 style: CupertinoTheme.of(context).textTheme.textStyle,
               ),
@@ -52,7 +52,7 @@ class _AdditionalInfo extends ViewModelWidget<PostDetailsViewModel> {
     if (model.isBusy) {
       return _LoadingAnimation();
     }
-    if (model.error) {
+    if (model.errorFetchingUser) {
       return _ErrorIcon();
     }
     return _UserDetails();
@@ -63,7 +63,7 @@ class _UserDetails extends ViewModelWidget<PostDetailsViewModel> {
   @override
   Widget build(BuildContext context, PostDetailsViewModel model) {
     return PlatformWidget(
-      android: (_) => Column(
+      material: (_, __) => Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(model.user.username),
@@ -73,7 +73,7 @@ class _UserDetails extends ViewModelWidget<PostDetailsViewModel> {
           Text(model.user.website),
         ],
       ),
-      ios: (_) {
+      cupertino: (_, __) {
         final style = CupertinoTheme.of(context).textTheme.textStyle;
 
         return Column(
