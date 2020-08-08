@@ -45,7 +45,7 @@ void main() {
         postTileViewModel.init(mockPost1);
         when(mockNavigationService.pushNamed(
           Routes.postDetailsView,
-          arguments: mockPost1,
+          arguments: PostDetailsViewArguments(post: mockPost1),
         )).thenAnswer((realInvocation) async => Null);
 
         // act
@@ -54,7 +54,7 @@ void main() {
         // assert
         verify(mockNavigationService.pushNamed(
           Routes.postDetailsView,
-          arguments: mockPost1,
+          arguments: isA<PostDetailsViewArguments>(),
         )).called(1);
       },
     );
