@@ -8,7 +8,6 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 import '../core/models/post/post.dart';
 import 'views/login/login_view.dart';
@@ -42,26 +41,26 @@ class Router extends RouterBase {
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
   final _pagesMap = <Type, AutoRouteFactory>{
     MainView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return buildAdaptivePageRoute<dynamic>(
         builder: (context) => MainView(),
         settings: data,
       );
     },
     LoginView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return buildAdaptivePageRoute<dynamic>(
         builder: (context) => LoginView(),
         settings: data,
       );
     },
     StartUpView: (data) {
-      return MaterialPageRoute<dynamic>(
+      return buildAdaptivePageRoute<dynamic>(
         builder: (context) => StartUpView(),
         settings: data,
       );
     },
     PostDetailsView: (data) {
       final args = data.getArgs<PostDetailsViewArguments>(nullOk: false);
-      return MaterialPageRoute<dynamic>(
+      return buildAdaptivePageRoute<dynamic>(
         builder: (context) => PostDetailsView(
           key: args.key,
           post: args.post,
