@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           material: (_, __) => MaterialAppData(
             theme: themes.primaryMaterialTheme,
-            // darkTheme: themes.darkMaterialTheme,
+            darkTheme: themes.darkMaterialTheme,
           ),
           cupertino: (_, __) => CupertinoAppData(
             theme: themes.primaryCupertinoTheme,
