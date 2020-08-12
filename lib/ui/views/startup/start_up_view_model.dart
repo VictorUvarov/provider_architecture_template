@@ -1,11 +1,11 @@
 import 'package:pedantic/pedantic.dart';
-import 'package:provider_start/core/constant/view_routes.dart';
 import 'package:provider_start/core/data_sources/posts/posts_local_data_source.dart';
 import 'package:provider_start/core/data_sources/users/users_local_data_source.dart';
 import 'package:provider_start/core/services/auth/auth_service.dart';
 import 'package:provider_start/core/services/hardware_info/hardware_info_service.dart';
 import 'package:provider_start/core/services/navigation/navigation_service.dart';
 import 'package:provider_start/locator.dart';
+import 'package:provider_start/ui/router.gr.dart';
 import 'package:stacked/stacked.dart';
 
 class StartUpViewModel extends BaseViewModel {
@@ -25,9 +25,9 @@ class StartUpViewModel extends BaseViewModel {
     ]);
 
     if (hasLoggedInUser) {
-      unawaited(_navigationService.pushReplacementNamed(ViewRoutes.main));
+      unawaited(_navigationService.pushReplacementNamed(Routes.mainView));
     } else {
-      unawaited(_navigationService.pushReplacementNamed(ViewRoutes.login));
+      unawaited(_navigationService.pushReplacementNamed(Routes.loginView));
     }
   }
 }
