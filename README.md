@@ -119,6 +119,7 @@ flutter pub get && pub run flutter_launcher_icons:main
 - run `chmod +x ./manual_format.sh` and run `./manual_format.sh` whenever you want to format the dart code
 - run `flutter packages pub run build_runner build --delete-conflicting-outputs` if you plan to add/change any serializers once
 - run `flutter packages pub run build_runner watch --delete-conflicting-outputs` if you plan to add/change any serializers multiple times
+- Setup [derry](https://pub.dev/packages/derry) (optional) to avoid typing the above commands manually
 
 ## Adding support for another language
 
