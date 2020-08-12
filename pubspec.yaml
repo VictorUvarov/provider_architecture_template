@@ -16,6 +16,13 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
+scripts:
+  build: flutter packages pub run build_runner build --delete-conflicting-outputs
+  watch: flutter packages pub run build_runner watch --delete-conflicting-outputs
+  test: flutter test
+  analyze: flutter analyze --no-pub
+  format: flutter format lib/**
+
 dependencies:
   flutter:
     sdk: flutter
