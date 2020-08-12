@@ -135,6 +135,16 @@ flutter pub get && pub run flutter_launcher_icons:main
 - If new icon has a different path update `flutter_icons:` in the `pubspec.yaml` file
 - Run `flutter pub get` and then `flutter pub run flutter_launcher_icons:main`
 
+## Adding another route
+
+- create your view and view model in `lib/ui/views/<view-folder>/`
+- add your view to the list of routes in `lib/ui/router.dart`
+- generate the new router with
+
+```sh
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
 ## Adding another model
 
 ### Simple model
@@ -152,7 +162,3 @@ flutter pub get && pub run flutter_launcher_icons:main
 - Add your own custom getter values.
 - Add `<YOUR_MODEL>` to the list in `@SerializersFor` class constructor found under `core/models/serializer.dart`
 - Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to build your new model
-
-### Testing
-
-- Currently Hive does not override the hashcode and == operator for a class. This causes mock tests to fail. To fix this issue simply override the two getters like in the post_h.g.dart file example.
