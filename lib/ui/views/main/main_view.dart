@@ -39,14 +39,14 @@ class MainView extends StatelessWidget {
                 material: (_, __) => Icon(Icons.home),
                 cupertino: (_, __) => Icon(CupertinoIcons.home),
               ),
-              title: Text(local.homeViewTitle),
+              label: local.homeViewTitle,
             ),
             BottomNavigationBarItem(
               icon: PlatformWidget(
                 material: (_, __) => Icon(Icons.settings),
                 cupertino: (_, __) => Icon(CupertinoIcons.settings),
               ),
-              title: Text(local.settingsViewTitle),
+              label: local.settingsViewTitle,
             ),
           ],
           itemChanged: model.changeTab,

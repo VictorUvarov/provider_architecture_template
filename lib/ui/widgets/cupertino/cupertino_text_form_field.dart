@@ -163,7 +163,6 @@ class CupertinoTextFormField extends FormField<String> {
               controller != null ? controller.text : (initialValue ?? ''),
           onSaved: onSaved,
           validator: validator,
-          autovalidate: autovalidate,
           enabled: enabled,
           builder: (FormFieldState<String> field) {
             final _CupertinoTextFormFieldState state = field;
