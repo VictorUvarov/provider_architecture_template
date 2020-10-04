@@ -8,13 +8,13 @@ part of 'user_h.dart';
 
 class UserHAdapter extends TypeAdapter<UserH> {
   @override
-  final typeId = 0;
+  final int typeId = 0;
 
   @override
   UserH read(BinaryReader reader) {
-    var numOfFields = reader.readByte();
-    var fields = <int, dynamic>{
-      for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserH(
       id: fields[0] as int,

@@ -10,4 +10,4 @@ import 'package:provider_start/ui/widgets/stateful/post_details/post_details_vie
   AdaptiveRoute(page: StartUpView, initial: true),
   AdaptiveRoute(page: PostDetailsView)
 ])
-class $Router {}
+class $RouteGenerator {}

@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           localeResolutionCallback: loadSupportedLocals,
           onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
           navigatorKey: navigationService.navigatorKey,
-          onGenerateRoute: Router().onGenerateRoute,
+          onGenerateRoute: RouteGenerator().onGenerateRoute,
           home: StartUpView(),
         ),
       ),
