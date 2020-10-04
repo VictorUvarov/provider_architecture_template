@@ -23,7 +23,9 @@ class HomeView extends StatelessWidget {
         ),
         body: model.isBusy
             ? _LoadingAnimation()
-            : model.posts.isNotEmpty ? _Posts() : _NoPosts(),
+            : model.posts.isNotEmpty
+                ? _Posts()
+                : _NoPosts(),
       ),
     );
   }
